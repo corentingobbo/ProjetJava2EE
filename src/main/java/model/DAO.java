@@ -5,10 +5,48 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author pedago
  */
 public class DAO {
+    
+    public List<CategorieEntity> montrerCategories(){
+        return null ;
+    }
+    
+    public List<ArticleEntity> articlesParCatégorie(String categorie){
+        List<ArticleEntity> articles = new ArrayList<>();
+        return  articles;
+    }
+    
+    // Le client peut modifier son profil
+    
+    public void modifierProfil(ClientEntity client,String nomPrenom,String fonction, String addresse, String ville, String codePostal, String pays, String telephone){
+        
+    }
+    
+    //Gestion du caddie
+    
+    public void ajoutCaddie(ArticleEntity a, int n){
+        
+    }
+    
+    public void modifierCaddie(){
+        
+    }
+    
+    public void supprimerArticleCaddie(ArticleEntity a){
+        
+    }
+    
+    public CommandeEntity nouvelleCommande(){
+        return null;
+    }
+    
+    
     
 }
