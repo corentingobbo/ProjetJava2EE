@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
 public class DAO {
     
     public List<CategorieEntity> montrerCategories(){
-        return new List<>();
+        return null ;
     }
     
     public List<ArticleEntity> articlesParCatégorie(String categorie){
@@ -43,7 +44,7 @@ public class DAO {
     }
     
     public CommandeEntity nouvelleCommande(){
-        
+        return null;
     }
     
     
