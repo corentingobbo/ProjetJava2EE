@@ -21,6 +21,11 @@ public class ClientEntity {
     private String pays;
     private String telephone;
     private String fax;
+    
+    public ClientEntity(String c, String s, String co, String f ,String a, String v,String r ,String cp, String p, String t ,String fax){
+        this.code = c;
+        this.societe = s;
+    }
 
     public String getCode() {
         return code;
