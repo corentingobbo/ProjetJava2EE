@@ -13,6 +13,14 @@ public class CategorieEntity {
     private int code;
     private String libelle;
     private String description;
+    
+    
+    public CategorieEntity(int code, String libelle, String description)
+    {
+        this.code=code;
+        this.description=description;
+        this.libelle=libelle;
+    }
 
     public int getCode() {
         return code;
