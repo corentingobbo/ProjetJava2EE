@@ -18,7 +18,7 @@ public class DAOCommande {
     }
     
     public CommandeEntity creerCommande (int num, String client, String saisie, String Envoye, int port, String desti, String adresse, String ville, String region, String codeP,String pays, float remise){
-        
+        return null;
         
     }
     public CommandeEntity newCommande (){
@@ -30,9 +30,11 @@ public class DAOCommande {
          * remise
          
          **/
-        new CommandeEntity();
+        return new CommandeEntity();
                 
     }
-    public void validerCommande;
+    public void validerCommande(){
+        
+    };
     
 }
