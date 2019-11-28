@@ -1,12 +1,10 @@
 
 var tooLittle ;
-if (window.innerWidth <1190){
-        $('.fullscreen-video-wrap').css("display","none");
-        $('.apple').css("display","block");
-}else{
-        $('.fullscreen-video-wrap').css("display","block");
-        $('.apple').css("display","none");
-}
+    if (window.innerWidth < 1260){
+       $('#fullscreen-video-wrap').css("display","none");
+    }else{
+        $('#fullscreen-video-wrap').css("display","block");
+   }
 
 $(".account").hover(function(){
     $("#btn").css("transition-delay",".5s");
@@ -41,11 +39,9 @@ $("#btn").click(function (){
 
 
 window.onresize = function (){
-    if (window.innerWidth < 1190){
-        $('.fullscreen-video-wrap').css("display","none");
-        $('.apple').css("display","block");
+    if (window.innerWidth < 1260){
+       $('#fullscreen-video-wrap').css("display","none");
     }else{
-        $('.fullscreen-video-wrap').css("display","block");
-        $('.apple').css("display","none");
-    }
+        $('#fullscreen-video-wrap').css("display","block");
+   }
 }

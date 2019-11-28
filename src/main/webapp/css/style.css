@@ -87,13 +87,13 @@ a.disabled {
     background-color: red;
 }
 
-.fullscreen-video-wrap{
+#fullscreen-video-wrap{
+    display: block;
     z-index: -1;
-    margin-top: -200px;
-  position:absolute;
+  position:relative;
+  margin-top: -10%;
   width:100%;
-  min-height: 500px;
-  height:600px;
+  height:700px;
   overflow:hidden;
 }
 
