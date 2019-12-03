@@ -26,7 +26,7 @@ public class CommandeEntity {
     
     public CommandeEntity(int n,String c,String s,String e, int p, String d,String al,String vl,String rl,String cpl,String pl,float r ){
         this.numero = n;
-        this.client=c
+        this.client=c;
         this.saisie_le=s;
         this.envoye_le=e;
         this.port=p;
