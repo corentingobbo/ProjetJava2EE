@@ -13,7 +13,13 @@ public class LigneEntity {
     private int commande;
     private int produit;
     private int quantite;
-
+    
+    public LigneEntity(int c, int p, int q){
+        this.commande=c;
+        this.produit=p;
+        this.quantite=q;
+    }
+    
     public int getCommande() {
         return commande;
     }

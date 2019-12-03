@@ -20,6 +20,20 @@ public class ProduitEntity {
     private int unite_commandees;
     private int niveau_de_reappro;
     private int indisponible;
+    
+    public ProduitEntity(int r, String n, int f, int c, String m, float pu, int us, int uc, int nr, int i){
+        this.reference=r;
+        this.nom=n;
+        this.fournisseur=f;
+        this.categorie=c;
+        this.marque=m;
+        this.prix_unitaire=pu;
+        this.unite_en_stock=us;
+        this.unite_commandees=uc;
+        this.niveau_de_reappro=nr;
+        this.indisponible=i;
+        
+    }
 
     public int getReference() {
         return reference;
