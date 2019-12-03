@@ -25,7 +25,7 @@ CREATE TABLE Produit (
 	Nom VARCHAR(40) NOT NULL UNIQUE,
 	Fournisseur INT default 0 NOT NULL ,
 	Categorie INT NOT NULL REFERENCES Categorie (Code) ON DELETE RESTRICT,
-	Quantite_par_unite VARCHAR(30) DEFAULT NULL,
+	Marque VARCHAR(30) DEFAULT NULL,
 	Prix_unitaire DECIMAL(18,2) DEFAULT 0.00 NOT NULL CHECK (Prix_unitaire >= 0),
 	Unites_en_stock SMALLINT DEFAULT 0 NOT NULL  CHECK (Unites_en_stock >= 0),
 	Unites_commandees SMALLINT DEFAULT 0 NOT NULL CHECK (Unites_commandees >= 0),

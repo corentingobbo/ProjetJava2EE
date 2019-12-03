@@ -1,63 +1,211 @@
 
+
 body{
-    background-color: #dcdde1;
+    background-color: #f1f3f6;
+    justify-content: center;
+    align-items: center;
+    
 }
-.activitys
-{
-  width: 100%;
-  padding-bottom: 200px;
-  padding-top: 200px;
-  background-color: #dcdde1;
+
+.svgs{
+    height: 24px;
+    display: block;
+}
+
+.blur{
+    transition-duration: 1s;
+}
+.test{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.second-nav{
+    z-index: 1;
+
+}
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+.connect{
+    position: absolute;
+    
+    transform: translateX(-40%);
+    width: 200px;
+    height: 0px;
+    border-radius: 50px; 
+    background-color: white;
+    transition-duration: 1s;
+    transition-property: all;
+    transition-timing-function: ease;
+}
+
+.account:hover .connect{
+    height: 150px;
+    border-radius: 5px;
+    cursor: default;
+    align-content: center;
+    box-shadow: 0px 0px 10px 10px rgba(255,0,0,0.2);
+}
+
+
+#btn{
+    display: none;
+    width: 70%;
+    height: 50px;
+    border-radius: 25px;
+    margin-top: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1rem;
+    outline: none;
+    border:none;
+    background-image: linear-gradient(to right, #eb3b5a, #eb1137,#eb3b5a);
+    cursor: pointer;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    background-size: 200%;
+    text-transform: uppercase;
+    opacity: 0;
+}
+
+.btnhover{
+    opacity: 1;
+}
+
+.btn:hover{
+    background-position: right;
+}
+
+.compte{
+    opacity: 0;
+    display: none;
+    margin-top: 1rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    color: #999;
+    font-size: 0.9rem;
+    transition: .3s;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+}
+.compte:hover{
+    color:#eb3b5a;
+}
+
+#pub{
+    height: 500px;
+    background-color: red;
+}
+
+#fullscreen-video-wrap{
+    display: block;
+    z-index: -1;
+  width:100%;
+  height:700px;
+
+ 
+}
+
+#suivant{
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23333' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3e%3c/svg%3e");
+}
+
+#precedent{
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23333' viewBox='0 0 8 8'%3e%3cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3e%3c/svg%3e");
+}
+
+.carousel-indicators li{
+    background-color: #333;
+}
+
+
+.separator-title{
+    text-align: center;
+    margin: 45px auto;
+    font-family: 'Poppins', sans-serif;
+
 }
 
 .card{
-  position: relative;
-  background-color: white;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-  text-align: center;
-  width: 200px;
-  height: 300px;
-  box-shadow: 15px 5px 5px black;
-  margin: 25px 0;
+    margin: 10px;
+    background-color: #f1f3f6;
+    border:none;
+    transition-duration: .5s;
+    border-radius: 15px;
 }
 
-.row{
-  -webkit-transition: 1s;
-  transition: 1s;
+.card:hover{
+    box-shadow: 0px 10px 10px 10px rgba(0,0,0,0.2);
+    
+}
+img{
+    transition-duration: .5s;
+}
+.card:hover img{
+    transition-duration: .5s;
+    transform: scale(1.1) translateY(4%);
+    
+    
 }
 
-.div-services{
-  width: 50%;
-  padding-right: 50px;
-  padding-left: 50px;
+.new-arrivals-prev{
+    transform: translateX(-50%);
+}
+.new-arrivals-next{
+    transform: translateX(50%);
 }
 
-.div-services h2{
-  text-align: center;
-  padding-bottom: 1vh;
-  color: #838567;
-  font-weight: 800;
+.marque{
+    margin: 2px;
+    font-weight: 600;
+    text-align: center;
+}
+.tel{
+    margin: 2px;
+    text-align: center;
+}
+.prix{
+    margin: 2px;
+    text-align: center;
+    font-weight: 700;
+}
+.new{
+        margin: 2px;
+    text-align: center;
 }
 
-.div-services p{
-  text-align: center;
-  color: white;
-  font-family: Helvetica,sans-serif;
-  letter-spacing: 1.2px;
+
+#band{
+    margin: 40px 0;
+    height: 200px; 
+    background-image: linear-gradient(to right, #eb3b5a, #eb1137,#eb3b5a);
 }
 
-.service{
-  padding-bottom: 100px;
-  text-align: center;
+.imphrase{
+    position: relative;
+    padding: 20px;
+justify-content: center;
+    color: white;
+
 }
-.service h1{
-  color: #838567;
-  font-weight: 800;
+
+.icon-band{
+    height: 80px;
+    text-align: right;
+    right: 0px;
+    top: 30px;
+    position: absolute;
+    justify-content: center;
 }
-.service p{
-  color: white;
-  font-family: Helvetica,sans-serif;
-  letter-spacing: 1.2px;
+
+.text-band{
+    position: relative;
+    top: 40px;
+    justify-content: center;
 }
