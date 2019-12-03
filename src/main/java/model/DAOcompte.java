@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sql.DataSource;
 
 /**
@@ -25,10 +27,38 @@ public class DAOcompte {
         this.ds = ds;
     }
     
-    public void modifierProfil(ClientEntity client,String nomPrenom,String fonction, String addresse, String ville, String codePostal, String pays, String telephone){
+    public void modifierProfil(ClientEntity client, String[] args){
         /*
         Si un champs est vide, il sera considéré comme null dans la bd
+        Les champs obligatoires seront filtrés avec le formulaire
         */
+        String sql = "UPDATE CLIENT SET"
+                + "      SOCIETE = ?,"
+                + "      CONTACT = ?,"
+                + "      FONCTION = ?, "
+                + "      ADRESSE = ?, "
+                + "      VILLE = ?,"
+                + "      REGION = ?, "
+                + "      CODE_POSTAL = ?, "
+                + "      PAYS = ?, "
+                + "      TELEPHONE = ?, "
+                + "      FAX = ?"
+                + " WHERE CODE = ?";
+        
+        try(Connection co = ds.getConnection();
+            PreparedStatement stm = co.prepareStatement(sql);){
+            for (int i = 0; i < 11; i++) {
+                if(args[i] == ""){
+                    stm.setString(i+1, null);
+            }
+                else{
+                    stm.setString(i+1, args[i]);
+                }
+            }
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOcompte.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
     
@@ -60,10 +90,29 @@ public class DAOcompte {
         return new ClientEntity(mdp, societe, nomDUtilisateur, fonction,adresse,ville,region,cp,pays,telephone,fax);
     }
     
-    public void creationCompte(String societe, String contact, String fonction, String adresse, String ville, String region, String codePostal,String pays, String telephone, String fax){
+    /*
+    *   @param args une liste des éléments du client [ Code (hash du nomprenom),societe,nomPrénom,fonction,adresse,ville,region,codePostal,pays,telephone,fax]
+    */
+    
+    public void creationCompte(String[] args){
         /*
         Si un champs non obligatoire est vide, il sera considéré comme null
         */
+        String sql = "INSERT INTO CLIENT VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        try(Connection co = ds.getConnection();
+            PreparedStatement stm = co.prepareStatement(sql);){
+            for (int i = 1; i < 11; i++) {
+                if(args[i] == ""){
+                    stm.setString(i, null);
+                }
+                else{
+                    stm.setString(i, args[i]);
+                } 
+            }
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOcompte.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
       
     
