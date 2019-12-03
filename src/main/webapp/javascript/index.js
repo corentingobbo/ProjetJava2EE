@@ -1,10 +1,4 @@
 
-var tooLittle ;
-    if (window.innerWidth < 1260){
-       $('#fullscreen-video-wrap').css("display","none");
-    }else{
-        $('#fullscreen-video-wrap').css("display","block");
-   }
 
 $(".account").hover(function(){
     $("#btn").css("transition-delay",".5s");
@@ -16,6 +10,8 @@ $(".account").hover(function(){
     $(".compte").css("transition-duration","0.5s");
     $(".compte").css("display","block");
     $(".compte").css("opacity","1");
+    $(".blur").css("filter","blur(4px)");
+    
     
 }, function (){
     $("#btn").css("transition-delay","0s");
@@ -25,6 +21,7 @@ $(".account").hover(function(){
     $(".compte").css("transition-delay","0s");
     $(".compte").css("transition-duration","0.1s");
     $(".compte").css("opacity","0");
+    $(".blur").css("filter","none");
 })
 
 
@@ -38,10 +35,3 @@ $("#btn").click(function (){
 
 
 
-window.onresize = function (){
-    if (window.innerWidth < 1260){
-       $('#fullscreen-video-wrap').css("display","none");
-    }else{
-        $('#fullscreen-video-wrap').css("display","block");
-   }
-}

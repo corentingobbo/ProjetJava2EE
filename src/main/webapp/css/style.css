@@ -1,13 +1,29 @@
 
 
+body{
+    background-color: #f1f3f6;
+    justify-content: center;
+    align-items: center;
+    
+}
+
 .svgs{
     height: 24px;
     display: block;
 }
 
-.navbar{
-    box-shadow: inset 0px 0px 20px 10px rgba(0,0,0,0.4);
+.blur{
+    transition-duration: 1s;
+}
+.test{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.second-nav{
     z-index: 1;
+
 }
 
 a.disabled {
@@ -33,7 +49,7 @@ a.disabled {
     border-radius: 5px;
     cursor: default;
     align-content: center;
-    box-shadow: 0px 0px 100000px 100px rgba(255,0,0,0.2);
+    box-shadow: 0px 0px 10px 10px rgba(255,0,0,0.2);
 }
 
 
@@ -90,10 +106,106 @@ a.disabled {
 #fullscreen-video-wrap{
     display: block;
     z-index: -1;
-  position:relative;
-  margin-top: -10%;
   width:100%;
   height:700px;
-  overflow:hidden;
+
+ 
 }
 
+#suivant{
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23333' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3e%3c/svg%3e");
+}
+
+#precedent{
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23333' viewBox='0 0 8 8'%3e%3cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3e%3c/svg%3e");
+}
+
+.carousel-indicators li{
+    background-color: #333;
+}
+
+
+.separator-title{
+    text-align: center;
+    margin: 45px auto;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+.card{
+    margin: 10px;
+    background-color: #f1f3f6;
+    border:none;
+    transition-duration: .5s;
+    border-radius: 15px;
+}
+
+.card:hover{
+    box-shadow: 0px 10px 10px 10px rgba(0,0,0,0.2);
+    
+}
+img{
+    transition-duration: .5s;
+}
+.card:hover img{
+    transition-duration: .5s;
+    transform: scale(1.1) translateY(4%);
+    
+    
+}
+
+.new-arrivals-prev{
+    transform: translateX(-50%);
+}
+.new-arrivals-next{
+    transform: translateX(50%);
+}
+
+.marque{
+    margin: 2px;
+    font-weight: 600;
+    text-align: center;
+}
+.tel{
+    margin: 2px;
+    text-align: center;
+}
+.prix{
+    margin: 2px;
+    text-align: center;
+    font-weight: 700;
+}
+.new{
+        margin: 2px;
+    text-align: center;
+}
+
+
+#band{
+    margin: 40px 0;
+    height: 200px; 
+    background-image: linear-gradient(to right, #eb3b5a, #eb1137,#eb3b5a);
+}
+
+.imphrase{
+    position: relative;
+    padding: 20px;
+justify-content: center;
+    color: white;
+
+}
+
+.icon-band{
+    height: 80px;
+    text-align: right;
+    right: 0px;
+    top: 30px;
+    position: absolute;
+    justify-content: center;
+}
+
+.text-band{
+    position: relative;
+    top: 40px;
+    justify-content: center;
+}
