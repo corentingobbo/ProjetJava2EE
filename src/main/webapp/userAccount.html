@@ -6,11 +6,153 @@ and open the template in the editor.
 -->
 <html>
     <head>
+
+        <link href="fontawesome/css/all.css" rel="stylesheet">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="shortcut icon" type="image/png" href="imgs/favicon.png"/>
+
+        <script defer src="fontawesome/js/all.js"></script> 
+        <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="javascript/jquery.js" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
+        <script>
+
+            showCodes();
+            
+            
+
+            function showCodes() {
+                // On fait un appel AJAX pour chercher les codes
+                console.log("etape 2");
+                $.ajax({
+                    url: "tousLesProduits",
+                    dataType: "json",
+                    error: console.log("erreur"),
+                    success: // La fonction qui traite les résultats
+                            function (result) {
+                                console.log("on arrive ici")
+                                console.log(result)
+                                // Le code source du template est dans la page
+                                var template = $('#codesTemplate').html();
+                                // On combine le template avec le résultat de la requête
+                                var processedTemplate = Mustache.to_html(template, result);
+                                // On affiche la liste des options dans le select
+                                $('#codes').html(processedTemplate);
+                                console.log("on arrive ici")
+                            }
+                });
+            }
+
+
+
+        </script>
+
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>TODO write content</div>
+        
+        
+        
+        
+
+        <!--<div class="container" style="padding-left: 100px;padding-right: 100px;">
+            <div class="row row-cols-1 row-cols-md-3">
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <img src="imgs/tel-test.webp" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <img src="imgs/tel-test.webp" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a short card.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <img src="imgs/tel-test.webp" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <img src="imgs/tel-test.webp" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row row-cols-1 row-cols-md-3">
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <img src="imgs/tel-test.webp" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <img src="imgs/tel-test.webp" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a short card.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <img src="imgs/tel-test.webp" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <img src="imgs/tel-test.webp" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>-->
+
+
+        <div id="codes"></div>
+
+        <!-- Le template qui sert à formatter la liste des codes -->
+        <script id="codesTemplate" type="text/template">
+            {{#codes}}
+          
+                        <h5 >{{nom}}</h5>
+                        <p >{{marque}}</p>
+                <p >{{prix_unitaire}}</p>
+
+            {{/codes}}
+
+        </script>
     </body>
 </html>

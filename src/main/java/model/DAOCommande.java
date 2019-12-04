@@ -51,8 +51,8 @@ public class DAOCommande {
          // destinataire,adresse,ville,region,code,pays: client
          //remise
          
-      
-        return new CommandeEntity(rs,this.client,rs2,rs2);
+         return null;
+        //return new CommandeEntity(rs,this.client,rs2,rs2);
                 
     }
     public void validerCommande(){

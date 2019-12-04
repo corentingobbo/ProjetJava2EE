@@ -24,21 +24,21 @@ public class DAOProduit {
         
     }
     
-    public List<ProduitEntity> rechercheProduitParMarque(String marque){
+    public List<ProduitEntity> rechercheProduitApple(){
         ArrayList<ProduitEntity> produits = new ArrayList<>();
-        String sql = "SELECT NOM,PRIX_UNITAIRE,UNITES_EN_STOCK FROM PRODUIT WHERE MARQUE = ?";
+        String sql = "SELECT NOM,PRIX_UNITAIRE,UNITES_EN_STOCK FROM PRODUIT WHERE MARQUE = 'Apple'";
         String nom;
         float prix;
         int stock;
+        ProduitEntity pe;
         try(Connection co = ds.getConnection();
-            PreparedStatement stm = co.prepareStatement(sql);){
-            stm.setString(0, marque);
+            PreparedStatement stm = co.prepareStatement(sql)){
             try(ResultSet rs = stm.executeQuery()){
                 while(rs.next()){
                    prix = rs.getFloat(2);
                    nom = rs.getString(1);
                    stock = rs.getInt(3);
-                   ProduitEntity pe = new ProduitEntity(-1,nom,-1,-1,marque,prix,stock,-1,-1,-1);
+                    pe = new ProduitEntity(-1,nom,-1,-1,"Apple",prix,stock,-1,-1,-1);
                    produits.add(pe);
                 }
             }
