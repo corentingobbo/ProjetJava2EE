@@ -35,10 +35,9 @@ public class DAOProduit {
             stm.setString(0, marque);
             try(ResultSet rs = stm.executeQuery()){
                 while(rs.next()){
-                   prix = rs.getFloat("PRIX_UNITAIRE");
-                   nom = rs.getString("NOM");
-                   marque = rs.getString("MARQUE");
-                   stock = rs.getInt("UNITES_EN_STOCK");
+                   prix = rs.getFloat(2);
+                   nom = rs.getString(1);
+                   stock = rs.getInt(3);
                    ProduitEntity pe = new ProduitEntity(-1,nom,-1,-1,marque,prix,stock,-1,-1,-1);
                    produits.add(pe);
                 }
