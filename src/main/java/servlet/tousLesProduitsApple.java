@@ -28,8 +28,8 @@ import model.DataSourceFactory;
  *
  * @author pedago
  */
-@WebServlet(name = "tousLesProduits", urlPatterns = {"/tousLesProduits"})
-public class tousLesProduits extends HttpServlet {
+@WebServlet(name = "tousLesProduitsApple", urlPatterns = {"/tousLesProduitsApple"})
+public class tousLesProduitsApple extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -84,7 +84,7 @@ public class tousLesProduits extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(tousLesProduits.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(tousLesProduitsApple.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -102,7 +102,7 @@ public class tousLesProduits extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(tousLesProduits.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(tousLesProduitsApple.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -14,24 +14,26 @@ public class ProduitEntity {
     private String nom;
     private int fournisseur;
     private int categorie;
-    private String marque;
+    private String accessoires;
     private float prix_unitaire;
     private int unite_en_stock;
     private int unite_commandees;
     private int niveau_de_reappro;
     private int indisponible;
+    private String marque;
     
-    public ProduitEntity(int r, String n, int f, int c, String m, float pu, int us, int uc, int nr, int i){
+    public ProduitEntity(int r, String n, int f, int c, String m, float pu, int us, int uc, int nr, int i,String ma){
         this.reference=r;
         this.nom=n;
         this.fournisseur=f;
         this.categorie=c;
-        this.marque=m;
+        this.accessoires=m;
         this.prix_unitaire=pu;
         this.unite_en_stock=us;
         this.unite_commandees=uc;
         this.niveau_de_reappro=nr;
         this.indisponible=i;
+        this.marque=ma;
         
     }
 
@@ -67,12 +69,19 @@ public class ProduitEntity {
         this.categorie = categorie;
     }
 
+    public String getAccessoire() {
+        return accessoires;
+    }
+
+    public void setAccessoire(String accessoire) {
+        this.accessoires = accessoire;
+    }
     public String getMarque() {
         return marque;
     }
 
-    public void setMarque(String quantite_par_unite) {
-        this.marque = quantite_par_unite;
+    public void setMarque(String mar) {
+        this.marque = mar;
     }
 
     public float getPrix_unitaire() {
