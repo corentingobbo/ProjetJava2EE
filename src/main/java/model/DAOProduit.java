@@ -27,7 +27,7 @@ public class DAOProduit {
 
     public List<ProduitEntity> rechercheProduitApple() {
         List<ProduitEntity> produits = new ArrayList<>();
-        String sql = "SELECT NOM,PRIX_UNITAIRE,UNITES_EN_STOCK FROM PRODUIT INNER JOIN CATEGORIE ON categorie.code = PRODUIT.categorie where categorie = 1 order by nom desc";
+        String sql = "SELECT NOM,PRIX_UNITAIRE,UNITES_EN_STOCK FROM PRODUIT INNER JOIN CATEGORIE ON categorie.code = PRODUIT.categorie where categorie = 1 order by prix_unitaire desc";
         String nom;
         float prix;
         int stock;
