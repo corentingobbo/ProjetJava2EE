@@ -13,6 +13,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -30,18 +32,20 @@ public class DAOCommande {
         return null;
         
     }
-    /**
+
     public void newCommande (ClientEntity client) throws SQLException{
         
           ///num derniere ligne 
           String sql="SELECT COUNT(*) FROM Commande";
           try(Connection co = ds.getConnection();
               java.sql.Statement stm = co.createStatement();
-              ResultSet rs = stm.executeQuery(sql);){              
+              ResultSet rs = stm.executeQuery(sql);){  
+              
           } catch (SQLException ex) {
             Logger.getLogger(DAOCommande.class.getName()).log(Level.SEVERE, null, ex);
         }
-          Date auj = new Date();
+          Date auj;
+        auj = new Date();
           
           
           String sql3 = "INSERT INTO commande VALUES(?,?,?,?,0,?,?,?,?,?,?,0)";
@@ -49,48 +53,83 @@ public class DAOCommande {
               PreparedStatement stm = co.prepareStatement(sql3);)
               { 
                   stm.setInt(1,rs.getInt(1)+1);
-                  stm.setClientEntity(2,client);
+                  stm.setString(2,client.getCode());
                   stm.setDate(3,auj);
                   stm.setDate(4,auj);
-                  stm.setClientEntity(5,client);
-                  stm.setString(6,client.getAdresse_livraison);
-                  stm.setString(7,client.getVille_livraison);
-                  stm.setString(8,client.getRegion_livraison);
-                  stm.setString(9,client.getCode_postal_livraison);
-                  stm.setString(10,client.getPays_livraison);
+                  stm.setString(5,client.getCode());
+                  stm.setString(6,client.getAdresse());
+                  stm.setString(7,client.getVille());
+                  stm.setString(8,client.getRegion());
+                  stm.setString(9,client.getCode_postal());
+                  stm.setString(10,client.getPays());
                   stm.executeUpdate();
               }             
-          } catch (SQLException ex) {
+           catch (SQLException ex) {
             Logger.getLogger(DAOCommande.class.getName()).log(Level.SEVERE, null, ex);
                  
-    }
-    public void validerCommande(){
-        
-    };
+    }}   
     
-    public void ajouterLigne(CommandeEntity commande,ProduitEntity produit, int quantite){
-        commande.getPort() += produit.getPrix_Unitaire * quantite;
+    public void ajouterLigne(CommandeEntity commande,ProduitEntity produit, int quantite) throws SQLException{
+        commande.setPort((int) (commande.getPort()+ produit.getPrix_unitaire() * quantite));
         String sqlp="UPDATE commande SET port = ?";
+        try(Connection co = ds.getConnection();
+              PreparedStatement stm = co.prepareStatement(sqlp);)
+              {
+                  stm.setInt(1, commande.getPort());
+                  stm.executeUpdate();
+              }
+             catch (SQLException ex) {
+                Logger.getLogger(DAOCommande.class.getName()).log(Level.SEVERE, null, ex);
         
         
         String sql = "INSERT INTO ligne VALUES(?,?,?)";
          try(Connection co = ds.getConnection();
               PreparedStatement stm = co.prepareStatement(sql);)
               { 
-                  stm.setInt(1,commande);
-                  stm.setClientEntity(2,produit);
-                  stm.setDate(3,quantite);
+                  stm.setInt(1,commande.getNumero());
+                  stm.setInt(2,produit.getReference());
+                  stm.setInt(3,quantite);
                   
                   stm.executeUpdate();
               }             
-          } catch (SQLException ex) {
+           catch (SQLException ex1) {
             Logger.getLogger(DAOCommande.class.getName()).log(Level.SEVERE, null, ex);            
     }
         
-        return new ligneEntity(commande,produit,quantite);
+    }}
+    public List<CommandeEntity> rechercheCommmandeParClient(ClientEntity client) {
+        ArrayList<CommandeEntity> commandeByClient = new ArrayList<>();
+        String sql="SELECT * FROM commande WHERE client = ?";
+        try(Connection co = ds.getConnection();
+              PreparedStatement stm = co.prepareStatement(sql);){
+              stm.setString(1, client.getCode());
+              try(ResultSet rs = stm.executeQuery()){
+                  while(rs.next()){
+                      int num=rs.getInt(1);
+                      String sl=rs.getString(3);
+                      String el=rs.getString(4);
+                      float port=rs.getFloat(5);
+                      String desti=rs.getString(6);
+                      String al=rs.getString(7);
+                      String vl=rs.getString(8);
+                      String rl=rs.getString(9);
+                      String cpl=rs.getString(10);
+                      String pl=rs.getString(11);
+                      float remise=rs.getFloat(12);
+                      CommandeEntity com=new CommandeEntity(num,client.getCode(),sl,el, (int) port,desti,al,vl,rl,cpl,pl,remise);
+                      commandeByClient.add(com);
+                  }
+                  return commandeByClient;
+              } 
+              
+                 
+              }catch (SQLException ex) {
+            Logger.getLogger(DAOCommande.class.getName()).log(Level.SEVERE, null, ex);            
     }
-    public CommandeEntity rechercheCommmandeParClient(){
         return null;
-    }**/
-    
+        
+        
+    }
+        
+
 }
