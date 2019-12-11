@@ -25,6 +25,10 @@ public class DAOProduit {
 
     }
     
+    public DataSource getDataSource(){
+        return this.ds;
+    }
+    
     // Affichage des produits d'une marque dans la page de cette marque
 
     public List<ProduitEntity> rechercheProduitApple() {
