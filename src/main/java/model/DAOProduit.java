@@ -24,11 +24,17 @@ public class DAOProduit {
         this.ds = ds;
 
     }
+    
+    public DataSource getDataSource(){
+        return this.ds;
+    }
+    
+    // Affichage des produits d'une marque dans la page de cette marque
 
     public List<ProduitEntity> rechercheProduitApple() {
         List<ProduitEntity> produits = new ArrayList<>();
-        String sql = "SELECT NOM,PRIX_UNITAIRE,UNITES_EN_STOCK FROM PRODUIT INNER JOIN CATEGORIE ON categorie.code = PRODUIT.categorie where categorie = 1 order by prix_unitaire desc";
-        String nom;
+        String sql = "SELECT NOM,PRIX_UNITAIRE,UNITES_EN_STOCK,ACCESSOIRES FROM PRODUIT INNER JOIN CATEGORIE ON categorie.code = PRODUIT.categorie where categorie = 1 order by prix_unitaire desc";
+        String nom,contenu;
         float prix;
         int stock;
         ProduitEntity pe;
@@ -39,6 +45,7 @@ public class DAOProduit {
                     prix = rs.getFloat(2);
                     nom = rs.getString(1);
                     stock = rs.getInt(3);
+                    contenu = rs.getString(4);
                     pe = new ProduitEntity(-1, nom, -1, -1, "Apple", prix, stock, -1, -1, -1,"Apple");
                     produits.add(pe);
                 }
@@ -51,8 +58,8 @@ public class DAOProduit {
 
     public List<ProduitEntity> rechercheProduitSamsung() {
         ArrayList<ProduitEntity> produits = new ArrayList<>();
-        String sql = "SELECT NOM,PRIX_UNITAIRE,UNITES_EN_STOCK FROM PRODUIT INNER JOIN CATEGORIE ON categorie.code = PRODUIT.categorie where categorie = 2";
-        String nom;
+        String sql = "SELECT NOM,PRIX_UNITAIRE,UNITES_EN_STOCK,ACCESSOIRES FROM PRODUIT INNER JOIN CATEGORIE ON categorie.code = PRODUIT.categorie where categorie = 2 order by prix_unitaire desc";
+        String nom,contenu;
         float prix;
         int stock;
         ProduitEntity pe;
@@ -63,6 +70,7 @@ public class DAOProduit {
                     prix = rs.getFloat(2);
                     nom = rs.getString(1);
                     stock = rs.getInt(3);
+                    contenu = rs.getString(4);
                     pe = new ProduitEntity(-1, nom, -1, -1, "Apple", prix, stock, -1, -1, -1,"Samsung");
                     produits.add(pe);
                 }
@@ -75,8 +83,8 @@ public class DAOProduit {
 
     public List<ProduitEntity> rechercheProduitHuawei() {
         ArrayList<ProduitEntity> produits = new ArrayList<>();
-        String sql = "SELECT NOM,PRIX_UNITAIRE,UNITES_EN_STOCK FROM PRODUIT INNER JOIN CATEGORIE ON categorie.code = PRODUIT.categorie where categorie = 3";
-        String nom;
+        String sql = "SELECT NOM,PRIX_UNITAIRE,UNITES_EN_STOCK,ACCESSOIRES FROM PRODUIT INNER JOIN CATEGORIE ON categorie.code = PRODUIT.categorie where categorie = 3 order by prix_unitaire desc";
+        String nom,contenu;
         float prix;
         int stock;
         ProduitEntity pe;
@@ -87,6 +95,7 @@ public class DAOProduit {
                     prix = rs.getFloat(2);
                     nom = rs.getString(1);
                     stock = rs.getInt(3);
+                    contenu = rs.getString(4);
                     pe = new ProduitEntity(-1, nom, -1, -1, "Apple", prix, stock, -1, -1, -1,"Huawei");
                     produits.add(pe);
                 }
@@ -99,8 +108,8 @@ public class DAOProduit {
 
     public List<ProduitEntity> rechercheProduitOnePlus() {
         ArrayList<ProduitEntity> produits = new ArrayList<>();
-        String sql = "SELECT NOM,PRIX_UNITAIRE,UNITES_EN_STOCK FROM PRODUIT INNER JOIN CATEGORIE ON categorie.code = PRODUIT.categorie where categorie = 4";
-        String nom;
+        String sql = "SELECT NOM,PRIX_UNITAIRE,UNITES_EN_STOCK, ACCESSOIRES FROM PRODUIT INNER JOIN CATEGORIE ON categorie.code = PRODUIT.categorie where categorie = 4 order by prix_unitaire desc";
+        String nom,contenu;
         float prix;
         int stock;
         ProduitEntity pe;
@@ -111,6 +120,7 @@ public class DAOProduit {
                     prix = rs.getFloat(2);
                     nom = rs.getString(1);
                     stock = rs.getInt(3);
+                    contenu = rs.getString(4);
                     pe = new ProduitEntity(-1, nom, -1, -1, "Apple", prix, stock, -1, -1, -1,"OnePlus");
                     produits.add(pe);
                 }
@@ -123,8 +133,8 @@ public class DAOProduit {
 
     public List<ProduitEntity> rechercheProduitXiaomi() {
         ArrayList<ProduitEntity> produits = new ArrayList<>();
-        String sql = "SELECT NOM,PRIX_UNITAIRE,UNITES_EN_STOCK FROM PRODUIT INNER JOIN CATEGORIE ON categorie.code = PRODUIT.categorie where categorie = 5";
-        String nom;
+        String sql = "SELECT NOM,PRIX_UNITAIRE,UNITES_EN_STOCK FROM PRODUIT INNER JOIN CATEGORIE ON categorie.code = PRODUIT.categorie where categorie = 5 order by prix_unitaire desc";
+        String nom, contenu;
         float prix;
         int stock;
         ProduitEntity pe;
@@ -135,6 +145,7 @@ public class DAOProduit {
                     prix = rs.getFloat(2);
                     nom = rs.getString(1);
                     stock = rs.getInt(3);
+                    contenu = rs.getString(4);
                     pe = new ProduitEntity(-1, nom, -1, -1, "Apple", prix, stock, -1, -1, -1,"Xiaomi");
                     produits.add(pe);
                 }
@@ -147,8 +158,8 @@ public class DAOProduit {
     
         public List<ProduitEntity> rechercheProduitAsus() {
         ArrayList<ProduitEntity> produits = new ArrayList<>();
-        String sql = "SELECT NOM,PRIX_UNITAIRE,UNITES_EN_STOCK FROM PRODUIT INNER JOIN CATEGORIE ON categorie.code = PRODUIT.categorie where categorie = 7";
-        String nom;
+        String sql = "SELECT NOM,PRIX_UNITAIRE,UNITES_EN_STOCK, ACCESSOIRES FROM PRODUIT INNER JOIN CATEGORIE ON categorie.code = PRODUIT.categorie where categorie = 6 order by prix_unitaire desc";
+        String nom, contenu;
         float prix;
         int stock;
         ProduitEntity pe;
@@ -159,6 +170,7 @@ public class DAOProduit {
                     prix = rs.getFloat(2);
                     nom = rs.getString(1);
                     stock = rs.getInt(3);
+                    contenu = rs.getString(4);
                     pe = new ProduitEntity(-1, nom, -1, -1, "Apple", prix, stock, -1, -1, -1,"Asus");
                     produits.add(pe);
                 }
@@ -171,8 +183,8 @@ public class DAOProduit {
 
     public List<ProduitEntity> rechercheProduitSony() {
         ArrayList<ProduitEntity> produits = new ArrayList<>();
-        String sql = "SELECT NOM,PRIX_UNITAIRE,UNITES_EN_STOCK FROM PRODUIT INNER JOIN CATEGORIE ON categorie.code = PRODUIT.categorie where categorie = 7";
-        String nom;
+        String sql = "SELECT NOM,PRIX_UNITAIRE,UNITES_EN_STOCK, ACCESSOIRES FROM PRODUIT INNER JOIN CATEGORIE ON categorie.code = PRODUIT.categorie where categorie = 7 order by prix_unitaire desc";
+        String nom, contenu;
         float prix;
         int stock;
         ProduitEntity pe;
@@ -183,7 +195,8 @@ public class DAOProduit {
                     prix = rs.getFloat(2);
                     nom = rs.getString(1);
                     stock = rs.getInt(3);
-                    pe = new ProduitEntity(-1, nom, -1, -1, "Apple", prix, stock, -1, -1, -1,"Sony");
+                    contenu = rs.getString(4);
+                    pe = new ProduitEntity(-1, nom, -1, -1, contenu, prix, stock, -1, -1, -1,"Sony");
                     produits.add(pe);
                 }
             }
@@ -195,8 +208,8 @@ public class DAOProduit {
 
     public List<ProduitEntity> rechercheProduitNokia() {
         ArrayList<ProduitEntity> produits = new ArrayList<>();
-        String sql = "SELECT NOM,PRIX_UNITAIRE,UNITES_EN_STOCK FROM PRODUIT INNER JOIN CATEGORIE ON categorie.code = PRODUIT.categorie where categorie = 8";
-        String nom;
+        String sql = "SELECT NOM,PRIX_UNITAIRE,UNITES_EN_STOCK, ACCESSOIRES FROM PRODUIT INNER JOIN CATEGORIE ON categorie.code = PRODUIT.categorie where categorie = 8 order by prix_unitaire desc";
+        String nom,contenu;
         float prix;
         int stock;
         ProduitEntity pe;
@@ -207,7 +220,8 @@ public class DAOProduit {
                     prix = rs.getFloat(2);
                     nom = rs.getString(1);
                     stock = rs.getInt(3);
-                    pe = new ProduitEntity(-1, nom, -1, -1, "Apple", prix, stock, -1, -1, -1,"Nokia");
+                    contenu = rs.getString(4);
+                    pe = new ProduitEntity(-1, nom, -1, -1, contenu, prix, stock, -1, -1, -1,"Nokia");
                     produits.add(pe);
                 }
             }
@@ -215,6 +229,86 @@ public class DAOProduit {
             Logger.getLogger(DAOProduit.class.getName()).log(Level.SEVERE, null, ex);
         }
         return produits;
+    }
+    
+    // Affichage des produits selon une marque via un formulaire de recherche
+    
+    public List<ProduitEntity> rechercheParMarque(int marque){
+        ArrayList<ProduitEntity> produit = new ArrayList<>();
+        String sql = "SELECT NOM,PRIX_UNITAIRE,ACCESSOIRES,UNITES_EN_STOCK FROM PRODUIT WHERE CATEGORIE = ?";
+        String nom, contenu;
+        float prix;
+        int stock;
+        ProduitEntity pe;
+        try(Connection co = ds.getConnection();
+            PreparedStatement stm = co.prepareStatement(sql);){
+            stm.setInt(0, marque);
+            try(ResultSet rs = stm.executeQuery()){
+                while(rs.next()){
+                    nom = rs.getString(1);
+                    prix = rs.getFloat(2);
+                    stock = rs.getInt(3);
+                    contenu = rs.getString(4);
+                    pe = new ProduitEntity(-1,nom,-1,-1,contenu,prix,stock,-1,-1,-1," ");
+                    produit.add(pe);
+                }
+                return produit;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOProduit.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public List<ProduitEntity> rechercheParMultipleMarque(int[] marques){
+        ArrayList<ProduitEntity> produits = new ArrayList<>();
+        for(int i = 0 ; i < marques.length ; i++){
+            List<ProduitEntity> pr = rechercheParMarque(marques[i]);
+            for(int j = 0 ; j < pr.size() ; j++){
+                produits.add(pr.get(j));
+            }
+        }
+        return produits;
+    }
+    
+    public List<ProduitEntity> rechercheParPlageDePrix(float min, float max){
+        ArrayList<ProduitEntity> produit = new ArrayList<>();
+        String sql = "SELECT NOM,PRIX_UNITAIRE,ACCESSOIRES,UNITES_EN_STOCK FROM PRODUIT WHERE PRIX_UNITAIRE BETWEEN ? AND ?";
+        String nom, contenu;
+        float prix;
+        int stock;
+        ProduitEntity pe;
+        try(Connection co = ds.getConnection();
+            PreparedStatement stm = co.prepareStatement(sql);){
+            stm.setFloat(0, min);
+            stm.setFloat(1, max);
+            try(ResultSet rs = stm.executeQuery()){
+                while(rs.next()){
+                    nom = rs.getString(1);
+                    prix = rs.getFloat(2);
+                    stock = rs.getInt(3);
+                    contenu = rs.getString(4);
+                    pe = new ProduitEntity(-1,nom,-1,-1,contenu,prix,stock,-1,-1,-1," ");
+                    produit.add(pe);
+                }
+                return produit;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOProduit.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public List<ProduitEntity> rechercheParPrixEtMarques(int[] produit, float min, float max){
+        List<ProduitEntity> produits = this.rechercheParMultipleMarque(produit);
+        ArrayList<ProduitEntity> ui = new ArrayList<>();
+        List<ProduitEntity> prix = this.rechercheParPlageDePrix(min, max);
+        for(int i = 0 ; i < produits.size() ; i++){
+            if(prix.contains(produits.get(i))){
+                ui.add(produits.get(i));
+            }
+        }
+        return ui;
     }
 
     public int isDisponible(ProduitEntity pe) {
