@@ -12,89 +12,52 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <!--
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> 
-        -->
 
-
-        <link href="fontawesome/css/all.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"  media="screen">
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="fontawesome/css/all.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet"> 
         <link rel="stylesheet" href="css/style.css">
         <link rel="shortcut icon" type="image/png" href="imgs/favicon.png"/>
 
-        <script defer src="fontawesome/js/all.js"></script> 
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
         <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <script src="javascript/jquery.js" ></script>
+        <script defer src="fontawesome/js/all.js"></script> 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
+
+
+
+
+
+        <!--Plugin JavaScript file-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.0/js/ion.rangeSlider.min.js"></script>
+
 
         <script>
             $(document).ready(// Exécuté à la fin du chargement de la page
                     function () {
-                        // On montre la liste des codes
-                        showCodes();
+
+                        $('#formCheck :checkbox').on('click', function () {
+                            var categories = $('#formCheck input:checked').map(function () {
+                                return this.value;
+                            }).get().join();
+                            $.post("filtrePhone",$('#formCheck').serialize()).done(function(data,text,jqxhr){
+                                console.log(data);
+                            }).fail(function(jqxhr){
+                                console.log("aiiiie");
+                                alert(jqxhr.responseText);
+                                console.log($('#formCheck').serialize());
+                            });
+
                     }
             );
 
-            function showCodes() {
-                // On fait un appel AJAX pour chercher les codes
-                $.ajax({
-                    url: "allCodes",
-                    dataType: "json",
-                    error: showError,
-                    success: // La fonction qui traite les résultats
-                            function (result) {
-                                // Le code source du template est dans la page
-                                var template = $('#codesTemplate').html();
-                                // On combine le template avec le résultat de la requête
-                                var processedTemplate = Mustache.to_html(template, result);
-                                // On affiche la liste des options dans le select
-                                $('#codes').html(processedTemplate);
-                            }
-                });
-            }
-
-            // Ajouter un code
-            function addCode() {
-
-                $.ajax({
-                    url: "addCode",
-                    // serialize() renvoie tous les paramètres saisis dans le formulaire
-                    data: $("#codeForm").serialize(),
-                    dataType: "json",
-                    success: // La fonction qui traite les résultats
-                            function (result) {
-                                showCodes();
-                                console.log(result);
-                            },
-                    error: showError
-                });
-                return false;
-            }
-
-            // Supprimer un code
-            function deleteCode(code) {
-                $.ajax({
-                    url: "deleteCode",
-                    data: {"code": code},
-                    dataType: "json",
-                    success:
-                            function (result) {
-                                showCodes();
-                                console.log(result);
-                            },
-                    error: showError
-                });
-                return false;
-            }
 
             // Fonction qui traite les erreurs de la requête
-            function showError(xhr, status, message) {
-                alert(JSON.parse(xhr.responseText).message);
+            function showError(jqxhr) {
+                alert(jqxhr.responseText);
             }
-
+            })
         </script>
 
 
@@ -198,79 +161,155 @@ and open the template in the editor.
             </a>
         </div>
 
+    <center>
+        <form action="/" id="ArticleIndexForm">
+            <table>
+                <tr>
+                    <td><input type="checkbox" name="chkSelect" value="ABC"/></td>
+                    <td>ABC</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="chkSelect" value="XYZ"/></td>
+                    <td>XYZ</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="chkSelect" value="PQR"/></td>
+                    <td>PQR</td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="OK"/></td>
+                </tr>
+            </table>
 
-        <div class="container">
-            <h1 class="separator-title">Soldes !</h1>
-        </div>
+        </form>
+    </center>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div id="inam" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-lg-3">
-                                            <div class="card" style="width: 200px;">
-                                                <img src="imgs/tel-test.webp" class="card-img-top">
-                                                <div class="card-body">
-                                                    <p class="new"><span class="badge badge-primary">Promotion</span></p>
-                                                    <br>
-                                                    <h5 class="marque"> Apple </h5>
-                                                    <p class="tel">iPhone X</p>
-                                                    <p class="prix">499 € </p>
-                                                    <button id="btn">Acheter</button>
 
-                                                </div>
+
+
+    <div class="container">
+
+        <form id="formCheck" onsubmit="event.preventDefault(); addCode();">
+            <fieldset><legend>Entrez les marques et le prix que vous désirez</legend>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="Apple" name="Apple" value="Apple">
+                    <label class="custom-control-label" for="Apple">Apple</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck2" name="Samsung" value="Samsung">
+                    <label class="custom-control-label" for="customCheck2">Samsung</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck3" name="Huawei" value="Huawei">
+                    <label class="custom-control-label" for="customCheck3">Huawei</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck4" name="Oneplus" value="Oneplus">
+                    <label class="custom-control-label" for="customCheck4">OnePlus</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck5" name="Xiaomi" value="Xiaomi">
+                    <label class="custom-control-label" for="customCheck5">Xiaomi</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck6" name="Asus" value="Asus">
+                    <label class="custom-control-label" for="customCheck6">Asus</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck7" name="Sony" value="Sony">
+                    <label class="custom-control-label" for="customCheck7">Sony</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck8" name="Nokia" value="Nokia">
+                    <label class="custom-control-label" for="customCheck8">Nokia</label>
+                </div>
+
+                PrixMin : <input id="prixMin" name="prixMin" type="number" step="10.00" min="0.0" max="1200.00" size="5"><br/>
+                PrixMax : <input id="prixMax" name="prixMax" type="number" step="10.00" min="0.0" max="1200.00" size="5"><br/>
+
+            </fieldset>
+        </form>
+        
+        <form>
+            
+        </form>
+    </div>
+
+
+
+
+
+
+    <!--<div class="container">
+        <h1 class="separator-title">Soldes !</h1>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div id="inam" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-12 col-lg-3">
+                                        <div class="card" style="width: 200px;">
+                                            <img src="imgs/tel-test.webp" class="card-img-top">
+                                            <div class="card-body">
+                                                <p class="new"><span class="badge badge-primary">Promotion</span></p>
+                                                <br>
+                                                <h5 class="marque"> Apple </h5>
+                                                <p class="tel">iPhone X</p>
+                                                <p class="prix">499 € </p>
+                                                <button id="btn">Acheter</button>
 
                                             </div>
 
                                         </div>
-                                        <div class="col-sm-12 col-lg-3">
-                                            <div class="card" style="width: 200px;">
-                                                <img src="imgs/tel-test.webp" class="card-img-top">
-                                                <div class="card-body">
-                                                    <p class="new"><span class="badge badge-primary">Promotion</span></p>
-                                                    <br>
-                                                    <h5 class="marque"> Apple </h5>
-                                                    <p class="tel">iPhone X</p>
-                                                    <p class="prix">499 € </p>
-                                                    <button id="btn">Acheter</button>
 
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                        <div class="col-sm-12 col-lg-3">
-                                            <div class="card" style="width: 200px;">
-                                                <img src="imgs/tel-test.webp" class="card-img-top">
-                                                <div class="card-body">
-                                                    <p class="new"><span class="badge badge-primary">Promotion</span></p>
-                                                    <br>
-                                                    <h5 class="marque"> Apple </h5>
-                                                    <p class="tel">iPhone X</p>
-                                                    <p class="prix"><del>499</del> € </p>
-                                                    <button id="btn">Acheter</button>
-
-                                                </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-3">
+                                        <div class="card" style="width: 200px;">
+                                            <img src="imgs/tel-test.webp" class="card-img-top">
+                                            <div class="card-body">
+                                                <p class="new"><span class="badge badge-primary">Promotion</span></p>
+                                                <br>
+                                                <h5 class="marque"> Apple </h5>
+                                                <p class="tel">iPhone X</p>
+                                                <p class="prix">499 € </p>
+                                                <button id="btn">Acheter</button>
 
                                             </div>
 
                                         </div>
-                                        <div class="col-sm-12 col-lg-3">
-                                            <div class="card" style="width: 200px;">
-                                                <img src="imgs/tel-test.webp" class="card-img-top">
-                                                <div class="card-body">
-                                                    <p class="new"><span class="badge badge-primary">Promotion</span></p>
-                                                    <br>
-                                                    <h5 class="marque"> Apple </h5>
-                                                    <p class="tel">iPhone X</p>
-                                                    <p class="prix">499 € </p>
-                                                    <button id="btn">Acheter</button>
 
-                                                </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-3">
+                                        <div class="card" style="width: 200px;">
+                                            <img src="imgs/tel-test.webp" class="card-img-top">
+                                            <div class="card-body">
+                                                <p class="new"><span class="badge badge-primary">Promotion</span></p>
+                                                <br>
+                                                <h5 class="marque"> Apple </h5>
+                                                <p class="tel">iPhone X</p>
+                                                <p class="prix"><del>499</del> € </p>
+                                                <button id="btn">Acheter</button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-12 col-lg-3">
+                                        <div class="card" style="width: 200px;">
+                                            <img src="imgs/tel-test.webp" class="card-img-top">
+                                            <div class="card-body">
+                                                <p class="new"><span class="badge badge-primary">Promotion</span></p>
+                                                <br>
+                                                <h5 class="marque"> Apple </h5>
+                                                <p class="tel">iPhone X</p>
+                                                <p class="prix">499 € </p>
+                                                <button id="btn">Acheter</button>
 
                                             </div>
 
@@ -280,92 +319,92 @@ and open the template in the editor.
 
                                 </div>
 
-
                             </div>
-                            <div class="carousel-item">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-lg-3">
-                                            <div class="card" style="width: 200px;">
-                                                <img src="imgs/tel-test.webp" class="card-img-top">
-                                                <div class="card-body">
-                                                    <p class="new"><span class="badge badge-primary">Promotion</span></p>
-                                                    <br>
-                                                    <h5 class="marque"> Apple </h5>
-                                                    <p class="tel">iPhone X</p>
-                                                    <p class="prix">499 € </p>
-                                                    <button id="btn">Acheter</button>
 
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                        <div class="col-sm-12 col-lg-3">
-                                            <div class="card" style="width: 200px;">
-                                                <img src="imgs/tel-test.webp" class="card-img-top">
-                                                <div class="card-body">
-                                                    <p class="new"><span class="badge badge-primary">Promotion</span></p>
-                                                    <br>
-                                                    <h5 class="marque"> Apple </h5>
-                                                    <p class="tel">iPhone X</p>
-                                                    <p class="prix">499 € </p>
-                                                    <button id="btn">Acheter</button>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                        <div class="col-sm-12 col-lg-3">
-                                            <div class="card" style="width: 200px;">
-                                                <img src="imgs/tel-test.webp" class="card-img-top">
-                                                <div class="card-body">
-                                                    <p class="new"><span class="badge badge-primary">Promotion</span></p>
-                                                    <br>
-                                                    <h5 class="marque"> Apple </h5>
-                                                    <p class="tel">iPhone X</p>
-                                                    <p class="prix">499 € </p>
-                                                    <button id="btn">Acheter</button>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                        <div class="col-sm-12 col-lg-3">
-                                            <div class="card" style="width: 200px;">
-                                                <img src="imgs/tel-test.webp" class="card-img-top">
-                                                <div class="card-body">
-                                                    <p class="new"><span class="badge badge-primary">Promotion</span></p>
-                                                    <br>
-                                                    <h5 class="marque"> Apple </h5>
-                                                    <p class="tel">iPhone X</p>
-                                                    <p class="prix">499 € </p>
-                                                    <button id="btn">Acheter</button>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-
-                            </div>
 
                         </div>
-                        <a href="#inam" class="carousel-control-prev new-arrivals-prev" data-slide="prev">
-                            <span class="carousel-control-prev-icon" id="precedent"></span>
-                        </a>
-                        <a href="#inam" class="carousel-control-next new-arrivals-next" data-slide="next">
-                            <span class="carousel-control-next-icon" id="suivant" ></span>
-                        </a>
+                        <div class="carousel-item">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-12 col-lg-3">
+                                        <div class="card" style="width: 200px;">
+                                            <img src="imgs/tel-test.webp" class="card-img-top">
+                                            <div class="card-body">
+                                                <p class="new"><span class="badge badge-primary">Promotion</span></p>
+                                                <br>
+                                                <h5 class="marque"> Apple </h5>
+                                                <p class="tel">iPhone X</p>
+                                                <p class="prix">499 € </p>
+                                                <button id="btn">Acheter</button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-12 col-lg-3">
+                                        <div class="card" style="width: 200px;">
+                                            <img src="imgs/tel-test.webp" class="card-img-top">
+                                            <div class="card-body">
+                                                <p class="new"><span class="badge badge-primary">Promotion</span></p>
+                                                <br>
+                                                <h5 class="marque"> Apple </h5>
+                                                <p class="tel">iPhone X</p>
+                                                <p class="prix">499 € </p>
+                                                <button id="btn">Acheter</button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-12 col-lg-3">
+                                        <div class="card" style="width: 200px;">
+                                            <img src="imgs/tel-test.webp" class="card-img-top">
+                                            <div class="card-body">
+                                                <p class="new"><span class="badge badge-primary">Promotion</span></p>
+                                                <br>
+                                                <h5 class="marque"> Apple </h5>
+                                                <p class="tel">iPhone X</p>
+                                                <p class="prix">499 € </p>
+                                                <button id="btn">Acheter</button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-12 col-lg-3">
+                                        <div class="card" style="width: 200px;">
+                                            <img src="imgs/tel-test.webp" class="card-img-top">
+                                            <div class="card-body">
+                                                <p class="new"><span class="badge badge-primary">Promotion</span></p>
+                                                <br>
+                                                <h5 class="marque"> Apple </h5>
+                                                <p class="tel">iPhone X</p>
+                                                <p class="prix">499 € </p>
+                                                <button id="btn">Acheter</button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
 
                     </div>
+                    <a href="#inam" class="carousel-control-prev new-arrivals-prev" data-slide="prev">
+                        <span class="carousel-control-prev-icon" id="precedent"></span>
+                    </a>
+                    <a href="#inam" class="carousel-control-next new-arrivals-next" data-slide="next">
+                        <span class="carousel-control-next-icon" id="suivant" ></span>
+                    </a>
 
                 </div>
 
@@ -373,78 +412,78 @@ and open the template in the editor.
 
         </div>
 
-        <div class="container">
-            <h1 class="separator-title">Nouveaux arrivés !</h1>
-        </div>
+    </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div id="inam2" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-lg-3">
-                                            <div class="card" style="width: 200px;">
-                                                <img src="imgs/tel-test.webp" class="card-img-top">
-                                                <div class="card-body">
-                                                    <p class="new"><span class="badge badge-danger">New</span></p>
-                                                    <br>
-                                                    <h5 class="marque"> Apple </h5>
-                                                    <p class="tel">iPhone X</p>
-                                                    <p class="prix">499 € </p>
-                                                    <button id="btn">Acheter</button>
+    <div class="container">
+        <h1 class="separator-title">Nouveaux arrivés !</h1>
+    </div>
 
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                        <div class="col-sm-12 col-lg-3">
-                                            <div class="card" style="width: 200px;">
-                                                <img src="imgs/tel-test.webp" class="card-img-top">
-                                                <div class="card-body">
-                                                    <p class="new"><span class="badge badge-danger">New</span></p>
-                                                    <br>
-                                                    <h5 class="marque"> Apple </h5>
-                                                    <p class="tel">iPhone X</p>
-                                                    <p class="prix">499 € </p>
-                                                    <button id="btn">Acheter</button>
-
-                                                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div id="inam2" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-12 col-lg-3">
+                                        <div class="card" style="width: 200px;">
+                                            <img src="imgs/tel-test.webp" class="card-img-top">
+                                            <div class="card-body">
+                                                <p class="new"><span class="badge badge-danger">New</span></p>
+                                                <br>
+                                                <h5 class="marque"> Apple </h5>
+                                                <p class="tel">iPhone X</p>
+                                                <p class="prix">499 € </p>
+                                                <button id="btn">Acheter</button>
 
                                             </div>
 
                                         </div>
-                                        <div class="col-sm-12 col-lg-3">
-                                            <div class="card" style="width: 200px;">
-                                                <img src="imgs/tel-test.webp" class="card-img-top">
-                                                <div class="card-body">
-                                                    <p class="new"><span class="badge badge-danger">New</span></p>
-                                                    <br>
-                                                    <h5 class="marque"> Apple </h5>
-                                                    <p class="tel">iPhone X</p>
-                                                    <p class="prix">499 € </p>
-                                                    <button id="btn">Acheter</button>
 
-                                                </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-3">
+                                        <div class="card" style="width: 200px;">
+                                            <img src="imgs/tel-test.webp" class="card-img-top">
+                                            <div class="card-body">
+                                                <p class="new"><span class="badge badge-danger">New</span></p>
+                                                <br>
+                                                <h5 class="marque"> Apple </h5>
+                                                <p class="tel">iPhone X</p>
+                                                <p class="prix">499 € </p>
+                                                <button id="btn">Acheter</button>
 
                                             </div>
 
                                         </div>
-                                        <div class="col-sm-12 col-lg-3">
-                                            <div class="card" style="width: 200px;">
-                                                <img src="imgs/tel-test.webp" class="card-img-top">
-                                                <div class="card-body">
-                                                    <p class="new"><span class="badge badge-danger">New</span></p>
-                                                    <br>
-                                                    <h5 class="marque"> Apple </h5>
-                                                    <p class="tel">iPhone X</p>
-                                                    <p class="prix">499 € </p>
-                                                    <button id="btn">Acheter</button>
 
-                                                </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-3">
+                                        <div class="card" style="width: 200px;">
+                                            <img src="imgs/tel-test.webp" class="card-img-top">
+                                            <div class="card-body">
+                                                <p class="new"><span class="badge badge-danger">New</span></p>
+                                                <br>
+                                                <h5 class="marque"> Apple </h5>
+                                                <p class="tel">iPhone X</p>
+                                                <p class="prix">499 € </p>
+                                                <button id="btn">Acheter</button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-12 col-lg-3">
+                                        <div class="card" style="width: 200px;">
+                                            <img src="imgs/tel-test.webp" class="card-img-top">
+                                            <div class="card-body">
+                                                <p class="new"><span class="badge badge-danger">New</span></p>
+                                                <br>
+                                                <h5 class="marque"> Apple </h5>
+                                                <p class="tel">iPhone X</p>
+                                                <p class="prix">499 € </p>
+                                                <button id="btn">Acheter</button>
 
                                             </div>
 
@@ -454,71 +493,71 @@ and open the template in the editor.
 
                                 </div>
 
-
                             </div>
-                            <div class="carousel-item">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-lg-3">
-                                            <div class="card" style="width: 200px;">
-                                                <img src="imgs/tel-test.webp" class="card-img-top">
-                                                <div class="card-body">
-                                                    <p class="new"><span class="badge badge-danger">New</span></p>
-                                                    <br>
-                                                    <h5 class="marque"> Apple </h5>
-                                                    <p class="tel">iPhone X</p>
-                                                    <p class="prix">499 € </p>
-                                                    <button id="btn">Acheter</button>
 
-                                                </div>
 
-                                            </div>
-
-                                        </div>
-                                        <div class="col-sm-12 col-lg-3">
-                                            <div class="card" style="width: 200px;">
-                                                <img src="imgs/tel-test.webp" class="card-img-top">
-                                                <div class="card-body">
-                                                    <p class="new"><span class="badge badge-danger">New</span></p>
-                                                    <br>
-                                                    <h5 class="marque"> Apple </h5>
-                                                    <p class="tel">iPhone X</p>
-                                                    <p class="prix">499 € </p>
-                                                    <button id="btn">Acheter</button>
-
-                                                </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-12 col-lg-3">
+                                        <div class="card" style="width: 200px;">
+                                            <img src="imgs/tel-test.webp" class="card-img-top">
+                                            <div class="card-body">
+                                                <p class="new"><span class="badge badge-danger">New</span></p>
+                                                <br>
+                                                <h5 class="marque"> Apple </h5>
+                                                <p class="tel">iPhone X</p>
+                                                <p class="prix">499 € </p>
+                                                <button id="btn">Acheter</button>
 
                                             </div>
 
                                         </div>
-                                        <div class="col-sm-12 col-lg-3">
-                                            <div class="card" style="width: 200px;">
-                                                <img src="imgs/tel-test.webp" class="card-img-top">
-                                                <div class="card-body">
-                                                    <p class="new"><span class="badge badge-danger">New</span></p>
-                                                    <br>
-                                                    <h5 class="marque"> Apple </h5>
-                                                    <p class="tel">iPhone X</p>
-                                                    <p class="prix">499 € </p>
-                                                    <button id="btn">Acheter</button>
 
-                                                </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-3">
+                                        <div class="card" style="width: 200px;">
+                                            <img src="imgs/tel-test.webp" class="card-img-top">
+                                            <div class="card-body">
+                                                <p class="new"><span class="badge badge-danger">New</span></p>
+                                                <br>
+                                                <h5 class="marque"> Apple </h5>
+                                                <p class="tel">iPhone X</p>
+                                                <p class="prix">499 € </p>
+                                                <button id="btn">Acheter</button>
 
                                             </div>
 
                                         </div>
-                                        <div class="col-sm-12 col-lg-3">
-                                            <div class="card" style="width: 200px;">
-                                                <img src="imgs/tel-test.webp" class="card-img-top">
-                                                <div class="card-body">
-                                                    <p class="new"><span class="badge badge-danger">New</span></p>
-                                                    <br>
-                                                    <h5 class="marque"> Apple </h5>
-                                                    <p class="tel">iPhone X</p>
-                                                    <p class="prix">499 € </p>
-                                                    <button id="btn">Acheter</button>
 
-                                                </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-3">
+                                        <div class="card" style="width: 200px;">
+                                            <img src="imgs/tel-test.webp" class="card-img-top">
+                                            <div class="card-body">
+                                                <p class="new"><span class="badge badge-danger">New</span></p>
+                                                <br>
+                                                <h5 class="marque"> Apple </h5>
+                                                <p class="tel">iPhone X</p>
+                                                <p class="prix">499 € </p>
+                                                <button id="btn">Acheter</button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-12 col-lg-3">
+                                        <div class="card" style="width: 200px;">
+                                            <img src="imgs/tel-test.webp" class="card-img-top">
+                                            <div class="card-body">
+                                                <p class="new"><span class="badge badge-danger">New</span></p>
+                                                <br>
+                                                <h5 class="marque"> Apple </h5>
+                                                <p class="tel">iPhone X</p>
+                                                <p class="prix">499 € </p>
+                                                <button id="btn">Acheter</button>
 
                                             </div>
 
@@ -528,18 +567,18 @@ and open the template in the editor.
 
                                 </div>
 
-
                             </div>
 
+
                         </div>
-                        <a href="#inam2" class="carousel-control-prev new-arrivals-prev" data-slide="prev">
-                            <span class="carousel-control-prev-icon" id="precedent"></span>
-                        </a>
-                        <a href="#inam2" class="carousel-control-next new-arrivals-next" data-slide="next">
-                            <span class="carousel-control-next-icon" id="suivant" ></span>
-                        </a>
 
                     </div>
+                    <a href="#inam2" class="carousel-control-prev new-arrivals-prev" data-slide="prev">
+                        <span class="carousel-control-prev-icon" id="precedent"></span>
+                    </a>
+                    <a href="#inam2" class="carousel-control-next new-arrivals-next" data-slide="next">
+                        <span class="carousel-control-next-icon" id="suivant" ></span>
+                    </a>
 
                 </div>
 
@@ -547,89 +586,91 @@ and open the template in the editor.
 
         </div>
 
+    </div>
 
 
 
-        <div class="container-fluid"  style="height: 200px; background-image: linear-gradient(to right, #eb3b5a, #eb1137,#eb3b5a);margin: 40px 0;">
-            <div class="row">
-                <div class="col-sm-12 col-lg-3 imphrase">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-sm-6 col-lg-6">
-                                <img src="imgs/discount.png" class="icon-band">
-                            </div>
-                            <div class="col-sm-6 col-lg-6">
-                                <h5 class="text-band">Des offres coup de poing !</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-lg-3 imphrase">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-sm-6 col-lg-6">
-                                <img src="imgs/security.png" class="icon-band">
-                            </div>
-                            <div class="col-sm-6 col-lg-6">
-                                <h5 class="text-band">Des transactions sécrurisées !</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-lg-3 imphrase">
-                    <div class="container-fluid">
-                        <div class="row text-center">
-                            <div class="col-sm-6 col-lg-6">
-                                <img src="imgs/telephone-auricular-with-cable.png" class="icon-band">
-                            </div>
-                            <div class="col-sm-6 col-lg-6">
-                                <h5 class="text-band">Disponible 7j/7j</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-lg-3 imphrase text-center">
-                    <div class="container-fluid">
-                        <div class="row text-center justify-content-center">
-                            <div class="col-sm-6 col-lg-6 text-center">
-                                <img src="imgs/shipped.png" class="icon-band">
-                            </div>
-                            <div class="col-sm-6 col-lg-6 text-center">
-                                <h5 class="text-band ">Livraison en 2 jours ouvrés</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
+    <div class="container-fluid"  style="height: 200px; background-image: linear-gradient(to right, #eb3b5a, #eb1137,#eb3b5a);margin: 40px 0;">
+        <div class="row">
+            <div class="col-sm-12 col-lg-3 imphrase">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <img src="imgs/discount.png" class="icon-band">
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <h5 class="text-band">Des offres coup de poing !</h5>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div class="col-sm-12 col-lg-3 imphrase">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <img src="imgs/security.png" class="icon-band">
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <h5 class="text-band">Des transactions sécrurisées !</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-3 imphrase">
+                <div class="container-fluid">
+                    <div class="row text-center">
+                        <div class="col-sm-6 col-lg-6">
+                            <img src="imgs/telephone-auricular-with-cable.png" class="icon-band">
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <h5 class="text-band">Disponible 7j/7j</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-3 imphrase text-center">
+                <div class="container-fluid">
+                    <div class="row text-center justify-content-center">
+                        <div class="col-sm-6 col-lg-6 text-center">
+                            <img src="imgs/shipped.png" class="icon-band">
+                        </div>
+                        <div class="col-sm-6 col-lg-6 text-center">
+                            <h5 class="text-band ">Livraison en 2 jours ouvrés</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+    </div>-->
 
 
 
-        <footer class="page-footer unique-color-dark">
-            <div class="primary-color">
-                <div class="container">
-                    <div class="row py-4 d-flex align-items-center">
-                        <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
-                            <h6 class="mb-0 white-text">Restez connecté avec Mohammed AliExpress!</h6>
-                        </div>
-                        <div class="col-md-6 col-lg-7 text-center text-md-right">
-                            <a class="fb-ic ml-0">
-                                <i class="fab fa-facebook-f white-text mr-4"> </i>
-                            </a>
-                            <a class="tw-ic">
-                                <i class="fab fa-twitter white-text mr-4"> </i>
-                            </a>
-                            <a class="gplus-ic">
-                                <i class="fab fa-google-plus-g white-text mr-4"> </i>
-                            </a>
-                            <a class="li-ic">
-                                <i class="fab fa-linkedin-in white-text mr-4"> </i>
-                            </a>
-                            <a class="ins-ic">
-                                <i class="fab fa-instagram white-text mr-lg-4"> </i>
-                            </a>
-                        </div>
+    <footer class="page-footer unique-color-dark">
+        <div class="primary-color">
+            <div class="container">
+                <div class="row py-4 d-flex align-items-center">
+                    <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+                        <h6 class="mb-0 white-text">Restez connecté avec Mohammed AliExpress!</h6>
+                    </div>
+                    <div class="col-md-6 col-lg-7 text-center text-md-right">
+                        <a class="fb-ic ml-0">
+                            <i class="fab fa-facebook-f white-text mr-4"> </i>
+                        </a>
+                        <a class="tw-ic">
+                            <i class="fab fa-twitter white-text mr-4"> </i>
+                        </a>
+                        <a class="gplus-ic">
+                            <i class="fab fa-google-plus-g white-text mr-4"> </i>
+                        </a>
+                        <a class="li-ic">
+                            <i class="fab fa-linkedin-in white-text mr-4"> </i>
+                        </a>
+                        <a class="ins-ic">
+                            <i class="fab fa-instagram white-text mr-lg-4"> </i>
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="container mt-5 mb-4 text-center text-md-left">
@@ -699,79 +740,83 @@ and open the template in the editor.
                 <a href="https://mdbootstrap.com/education/bootstrap/"> MohammedAliExpress.com</a>
             </div>
 
-        </footer>
+    </footer>
 
-        <!--<div class="card-columns">
-            <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title that wraps to a new line</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
+    <!--<div class="card-columns">
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title that wraps to a new line</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
             </div>
-            <div class="card p-3">
-                <blockquote class="blockquote mb-0 card-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                    <footer class="blockquote-footer">
-                        <small class="text-muted">
-                            Someone famous in <cite title="Source Title">Source Title</cite>
-                        </small>
-                    </footer>
-                </blockquote>
+        </div>
+        <div class="card p-3">
+            <blockquote class="blockquote mb-0 card-body">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                <footer class="blockquote-footer">
+                    <small class="text-muted">
+                        Someone famous in <cite title="Source Title">Source Title</cite>
+                    </small>
+                </footer>
+            </blockquote>
+        </div>
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
             </div>
-            <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
+        </div>
+        <div class="card bg-primary text-white text-center p-3">
+            <blockquote class="blockquote mb-0">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
+                <footer class="blockquote-footer text-white">
+                    <small>
+                        Someone famous in <cite title="Source Title">Source Title</cite>
+                    </small>
+                </footer>
+            </blockquote>
+        </div>
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This card has a regular title and short paragraphy of text below it.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
             </div>
-            <div class="card bg-primary text-white text-center p-3">
-                <blockquote class="blockquote mb-0">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
-                    <footer class="blockquote-footer text-white">
-                        <small>
-                            Someone famous in <cite title="Source Title">Source Title</cite>
-                        </small>
-                    </footer>
-                </blockquote>
+        </div>
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+        </div>
+        <div class="card p-3 text-right">
+            <blockquote class="blockquote mb-0">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                <footer class="blockquote-footer">
+                    <small class="text-muted">
+                        Someone famous in <cite title="Source Title">Source Title</cite>
+                    </small>
+                </footer>
+            </blockquote>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is another card with title and supporting text below. This card has some additional content to make it slightly taller overall.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
             </div>
-            <div class="card text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This card has a regular title and short paragraphy of text below it.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-            </div>
-            <div class="card p-3 text-right">
-                <blockquote class="blockquote mb-0">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                    <footer class="blockquote-footer">
-                        <small class="text-muted">
-                            Someone famous in <cite title="Source Title">Source Title</cite>
-                        </small>
-                    </footer>
-                </blockquote>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is another card with title and supporting text below. This card has some additional content to make it slightly taller overall.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
-        </div>-->
-
-
+        </div>
+    </div>-->
 
 
 
-        <script type="text/javascript" src="javascript/index.js"></script>
 
-    </body>
+
+    <script type="text/javascript" src="javascript/index.js"></script>
+    <script type="text/javascript">
+
+            $(".js-range-slider").ionRangeSlider();
+    </script>
+
+</body>
 </html>
 
