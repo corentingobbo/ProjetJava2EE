@@ -4,42 +4,70 @@
  * and open the template in the editor.
  */
 
-//import org.junit.After;
-//import org.junit.AfterClass;
-//import org.junit.Before;
-//import org.junit.BeforeClass;
-//import org.junit.Test;
-//import static org.junit.Assert.*;
+import java.sql.SQLException;
+import model.ClientEntity;
+import model.DAOCommande;
+import model.DAOcompte;
+import model.DataSourceFactory;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
-/**
- *
- * @author pedago
- */
 public class TestCommande {
+    
+    private DAOCommande dao;
+    private DAOcompte daoclient;
+    private ClientEntity client1;
     
     public TestCommande() {
     }
     
-    //@BeforeClass
-    //public static void setUpClass() {
-    //}
+    @BeforeClass
+    public static void setUpClass() {
+    }
     
-    //@AfterClass
-    //public static void tearDownClass() {
-    //}
+    @AfterClass
+    public static void tearDownClass() {
+    }
     
-    //@Before
-    //public void setUp() {
-    //}
+    @Before
+    public void setUp() throws SQLException {
+        dao = new DAOCommande(DataSourceFactory.getDataSource());
+        daoclient = new DAOcompte(DataSourceFactory.getDataSource());
+        client1 = daoclient.rechercheCompte("Maria Anders", "ALFKI");
+        
+    }
+    @Test
+    //Creation d'une commande
+    public void testnumLigne(){
+        
+        assertEquals("numero de ligne incorrecte",830,dao.numLigne());
+    }
     
-    //@After
-    //public void tearDown() {
-    //}
+    @Test
+    public void testnewCommande() throws SQLException{
+        int num = dao.numLigne();
+        
+        dao.newCommande(client1);
+        assertEquals(num+1, dao.numLigne());
+    }
+    
+    
+    
+    
+    
+    
+    @After
+    public void tearDown() {
+    }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+     //TODO add test methods here.
+     //The methods must be annotated with annotation @Test. For example:
+    
+     @Test
+     public void hello() {}
 
 }
