@@ -27,7 +27,7 @@ public class DAOcompte {
         this.ds = ds;
     }
     
-    public void modifierProfil(ClientEntity client, String[] args){
+    public void modifierProfil(ClientEntity client, ArrayList<String> args){
         /*
         Si un champs est vide, il sera considéré comme null dans la bd
         Les champs obligatoires seront filtrés avec le formulaire
@@ -48,14 +48,15 @@ public class DAOcompte {
         try(Connection co = ds.getConnection();
             PreparedStatement stm = co.prepareStatement(sql);){
             for (int i = 0; i < 11; i++) {
-                if(args[i] == ""){
+                if(args.get(i).length() < 1){
                     stm.setString(i+1, null);
             }
                 else{
-                    stm.setString(i+1, args[i]);
+                    stm.setString(i+1, args.get(i));
                 }
             }
-            stm.executeUpdate();
+            int ui = stm.executeUpdate();
+            System.out.println(ui);
         } catch (SQLException ex) {
             Logger.getLogger(DAOcompte.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -69,25 +70,28 @@ public class DAOcompte {
     */
     
     public ClientEntity rechercheCompte(String nomDUtilisateur, String mdp) throws SQLException{
-        String sql = "SELECT * FROM CLIENT WHERE CONTACT = ? AND CODE = ?";
-        String societe,fonction,adresse,ville,region,cp,pays,telephone,fax;
+        String sql = "SELECT * FROM CLIENT WHERE CLIENT.CONTACT = ? AND CLIENT.CODE = ?";
+        String societe = null,fonction = null,adresse = null,ville = null,region = null,cp = null,pays = null,telephone = null,fax = null;
         try(Connection co = ds.getConnection();
             PreparedStatement pst = co.prepareStatement(sql)){
             pst.setString(1, nomDUtilisateur);
             pst.setString(2 , mdp);
             try(ResultSet rs = pst.executeQuery()){
-                societe = rs.getString("societe");
-                fonction = rs.getString("fonction");
-                adresse = rs.getString("adresse");
-                ville = rs.getString("ville");
-                region = rs.getString("region");
-                cp = rs.getString("code_postal");
-                pays = rs.getString("pays");
-                telephone = rs.getString("telephone");
-                fax = rs.getString("fax");
+                if(rs.next()){
+                    societe = rs.getString(2);
+                    fonction = rs.getString(4);
+                    adresse = rs.getString(5);
+                    ville = rs.getString(6);
+                    region = rs.getString(7);
+                    cp = rs.getString(8);
+                    pays = rs.getString(9);
+                    telephone = rs.getString(10);
+                    fax = rs.getString(11);                    
+                }
+                return new ClientEntity(mdp, societe, nomDUtilisateur, fonction,adresse,ville,region,cp,pays,telephone,fax);
             }
         }
-        return new ClientEntity(mdp, societe, nomDUtilisateur, fonction,adresse,ville,region,cp,pays,telephone,fax);
+        
     }
     
     /*

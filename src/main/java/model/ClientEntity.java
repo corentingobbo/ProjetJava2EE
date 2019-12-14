@@ -36,6 +36,24 @@ public class ClientEntity {
         this.fax=fax;
         
     }
+    
+    @Override
+    public String toString(){
+        String res = "Code : " + this.code + " | ";
+        res += "Société : " + this.societe + " | ";
+        res += "Contact : " + this.contact + " | ";
+        res += "Fonction : " + this.fonction + " | ";
+        res += "Adresse : " + this.adresse + " | ";
+        res += "Ville : " + this.ville + " | ";
+        if(this.region != null){
+            res += "Région : " + this.region + " | ";
+        }
+        res += "CP: " + this.code_postal + " | ";
+        res += "Pays : " + this.pays + " | ";
+        res += "Tel : " + this.telephone + " | ";
+        res += "Fax : " + this.fax + " | ";
+        return res;
+    }
 
     public String getCode() {
         return code;
