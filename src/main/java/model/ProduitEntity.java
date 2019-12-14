@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.util.Objects;
+
 /**
  *
  * @author pedago
@@ -14,16 +16,68 @@ public class ProduitEntity {
     private String nom;
     private int fournisseur;
     private int categorie;
-    private String marque;
+    private String accessoires;
     private float prix_unitaire;
     private int unite_en_stock;
     private int unite_commandees;
     private int niveau_de_reappro;
     private int indisponible;
+    private String marque;
+    
+    public ProduitEntity(int r, String n, int f, int c, String m, float pu, int us, int uc, int nr, int i,String ma){
+        this.reference=r;
+        this.nom=n;
+        this.fournisseur=f;
+        this.categorie=c;
+        this.accessoires=m;
+        this.prix_unitaire=pu;
+        this.unite_en_stock=us;
+        this.unite_commandees=uc;
+        this.niveau_de_reappro=nr;
+        this.indisponible=i;
+        this.marque=ma;
+        
+    }
 
     public int getReference() {
         return reference;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 47 * hash + this.reference;
+        hash = 47 * hash + Objects.hashCode(this.nom);
+        hash = 47 * hash + this.fournisseur;
+        hash = 47 * hash + this.categorie;
+        hash = 47 * hash + Objects.hashCode(this.accessoires);
+        hash = 47 * hash + Float.floatToIntBits(this.prix_unitaire);
+        hash = 47 * hash + this.unite_en_stock;
+        hash = 47 * hash + this.unite_commandees;
+        hash = 47 * hash + this.niveau_de_reappro;
+        hash = 47 * hash + this.indisponible;
+        hash = 47 * hash + Objects.hashCode(this.marque);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ProduitEntity other = (ProduitEntity) obj;
+        if (!Objects.equals(this.nom, other.nom)) {
+            return false;
+        }
+        return true;
+    }
+    
 
     public void setReference(int reference) {
         this.reference = reference;
@@ -53,12 +107,19 @@ public class ProduitEntity {
         this.categorie = categorie;
     }
 
+    public String getAccessoire() {
+        return accessoires;
+    }
+
+    public void setAccessoire(String accessoire) {
+        this.accessoires = accessoire;
+    }
     public String getMarque() {
         return marque;
     }
 
-    public void setMarque(String quantite_par_unite) {
-        this.marque = quantite_par_unite;
+    public void setMarque(String mar) {
+        this.marque = mar;
     }
 
     public float getPrix_unitaire() {

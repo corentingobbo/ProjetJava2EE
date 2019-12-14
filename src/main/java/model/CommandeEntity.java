@@ -23,7 +23,22 @@ public class CommandeEntity {
     private String code_postal_livraison;
     private String pays_livraison;
     private float remise;
-
+    
+    public CommandeEntity(int n,String c,String s,String e, int p, String d,String al,String vl,String rl,String cpl,String pl,float r ){
+        this.numero = n;
+        this.client=c;
+        this.saisie_le=s;
+        this.envoye_le=e;
+        this.port=p;
+        this.destinataire=d;
+        this.adresse_livraison=al;
+        this.ville_livraison=vl;
+        this.region_livraison = rl;
+        this.code_postal_livraison = cpl;
+        this.pays_livraison=pl;
+        this.remise=r;
+        
+    }
     public int getNumero() {
         return numero;
     }

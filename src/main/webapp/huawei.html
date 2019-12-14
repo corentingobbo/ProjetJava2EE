@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+
+        <link href="fontawesome/css/all.css" rel="stylesheet">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="shortcut icon" type="image/png" href="imgs/favicon.png"/>
+
+        <script defer src="fontawesome/js/all.js"></script> 
+        <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="javascript/jquery.js" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
+        <script>
+
+            showCodes();
+            function showCodes() {
+                // On fait un appel AJAX pour chercher les codes
+                console.log("etape 2");
+                $.ajax({
+                    url: "tousLesProduitsHuawei",
+                    dataType: "json",
+                    error: console.log("erreur"),
+                    success: // La fonction qui traite les résultats
+                            function (result) {
+                                // Le code source du template est dans la page
+                                console.log(result);
+                                var template = $('#codesTemplate').html();
+                                // On combine le template avec le résultat de la requête
+                                var processedTemplate = Mustache.to_html(template, result);
+                                // On affiche la liste des options dans le select
+                                
+                                var s = " <div class='container'><div class='row'>";
+                                result.produits.forEach(item =>
+                                        s += "<div class='col-lg-3 col-md-4 col-sm-6'><div class='card' style='width: 200px;'><img src = 'imgs/tel-test.webp' class='card-img-top'><div class='card-body'><p class='new'> <span class='badge badge-primary' > Promotion </span></p><br><h5 class='marque'>" + item.marque + " </h5><p class='tel'>" + item.nom + "</p><p class='prix'> " + item.prix_unitaire + " € </p><button id = 'btn' > Acheter </button> </div></div></div>"
+                                        );
+                                s+= "</div></div>";
+                                $('#codes').html(s);
+
+                            }
+                });
+            }
+
+
+
+        </script>
+
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        <nav class="navbar  navbar-expand-lg navbar-light bg-light blur">
+            <div class="container ">
+                <div class="navbar-collapse  collapse w-100 order-2 dual-collapse2">
+                    <ul class="navbar-nav test">
+                        <li class="nav-item ">
+                            <a class="nav-link" href="#"><img src="imgs/momo_1.png"  height="50px" alt=""></span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </nav>
+
+        <nav class="navbar second-nav  navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active blur">
+                            <a class="nav-link" href="index.html">Acceuil <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item blur">
+                            <a class="nav-link" href="apple.html">Apple</a>
+                        </li>
+                        <li class="nav-item blur">
+                            <a class="nav-link" href="samsung.html">Samsung</a>
+                        </li>
+                        <li class="nav-item blur">
+                            <a class="nav-link " href="huawei.html">Huawei</a>
+                        </li>
+                        <li class="nav-item blur">
+                            <a class="nav-link " href="oneplus.html">OnePlus</a>
+                        </li>
+                        <li class="nav-item blur">
+                            <a class="nav-link " href="xiaomi.html">Xiaomi</a>
+                        </li>
+                        <li class="nav-item blur">
+                            <a class="nav-link " href="asus.html">Asus</a>
+                        </li>
+                        <li class="nav-item blur">
+                            <a class="nav-link " href="sony.html">Sony</a>
+                        </li>
+                        <li class="nav-item blur">
+                            <a class="nav-link " href="nokia.html">Nokia</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link disabled" style="opacity: 0;" href="#"><svg class="svgs" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 8a6 6 0 0 0-6 6h1a5 5 0 0 1 10 0h1a6 6 0 0 0-6-6zm0-1a3 3 0 1 0-3-3 3 3 0 0 0 3 3zm0-5a2 2 0 1 1-2 2 2 2 0 0 1 2-2z" data-name="Layer 1"></path></svg>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link account " href="#"><svg class="svgs" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 8a6 6 0 0 0-6 6h1a5 5 0 0 1 10 0h1a6 6 0 0 0-6-6zm0-1a3 3 0 1 0-3-3 3 3 0 0 0 3 3zm0-5a2 2 0 1 1-2 2 2 2 0 0 1 2-2z" data-name="Layer 1"></path></svg>
+                                <div class="connect">
+                                    <div>
+                                        <button id="btn">Se connecter</button>
+                                        <p class="compte" >Créer un compte</p>
+                                    </div>
+                                </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link blur" href="#"><svg class="svgs" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M12.984 5H11V3.87A2.94 2.94 0 0 0 8 1a2.94 2.94 0 0 0-3 2.87V5H2.984l-1 9h12zM6 3.87A1.94 1.94 0 0 1 8 2a1.94 1.94 0 0 1 2 1.87V5H6zM3.102 13l.777-7H5v1h1V6h4v1h1V6h1.09l.777 7z" data-name="Layer 1"></path></svg>
+                        </li>
+                    </ul> </a></a></a>
+                </div>
+            </div>
+
+
+        </nav>
+
+
+        <div id="carouselExampleIndicators" class="carousel slide blur" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="imgs/apple.png" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <a class="carousel-control-prev btn-slide" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" id="precedent" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next btn-slide" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" id="suivant" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        
+        <div id="codes"></div>
+        
+                <footer class="page-footer unique-color-dark">
+            <div class="primary-color">
+                <div class="container">
+                    <div class="row py-4 d-flex align-items-center">
+                        <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+                            <h6 class="mb-0 white-text">Restez connecté avec Mohammed AliExpress!</h6>
+                        </div>
+                        <div class="col-md-6 col-lg-7 text-center text-md-right">
+                            <a class="fb-ic ml-0">
+                                <i class="fab fa-facebook-f white-text mr-4"> </i>
+                            </a>
+                            <a class="tw-ic">
+                                <i class="fab fa-twitter white-text mr-4"> </i>
+                            </a>
+                            <a class="gplus-ic">
+                                <i class="fab fa-google-plus-g white-text mr-4"> </i>
+                            </a>
+                            <a class="li-ic">
+                                <i class="fab fa-linkedin-in white-text mr-4"> </i>
+                            </a>
+                            <a class="ins-ic">
+                                <i class="fab fa-instagram white-text mr-lg-4"> </i>
+                            </a>
+                        </div>
+                </div>
+            </div>
+            <div class="container mt-5 mb-4 text-center text-md-left">
+                <div class="row mt-3">
+                    <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
+                        <h6 class="text-uppercase font-weight-bold">
+                            <strong>Mohammed AliExpress</strong>
+                        </h6>
+                        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                        <p>Mohammed AliExpress s'engage à vous fournir le meilleur au meilleur prix et ce, tout les jours !</p>
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <h6 class="text-uppercase font-weight-bold">
+                            <strong>Marques</strong>
+                        </h6>
+                        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                        <p>
+                            <a href="#!">Apple</a>
+                        </p>
+                        <p>
+                            <a href="#!">Samsung</a>
+                        </p>
+                        <p>
+                            <a href="#!">Huawei</a>
+                        </p>
+                        <p>
+                            <a href="#!">OnePlus</a>
+                        </p>
+                        <p>
+                            <a href="#!">Autres</a>
+                        </p>
+                    </div>
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <h6 class="text-uppercase font-weight-bold">
+                            <strong>Liens utiles</strong>
+                        </h6>
+                        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                        <p>
+                            <a href="#!">Votre compte</a>
+                        </p>
+                        <p>
+                            <a href="#!">Nos promotions</a>
+                        </p>
+                        <p>
+                            <a href="#!">Contactez nous</a>
+                        </p>
+                        <p>
+                            <a href="#!">Des avis ?</a>
+                        </p>
+                    </div>
+                    <div class="col-md-4 col-lg-3 col-xl-3">
+                        <h6 class="text-uppercase font-weight-bold">
+                            <strong>Contact</strong>
+                        </h6>
+                        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                        <p>
+                            <i class="fas fa-home  mr-3"></i> Albi, 81000 France</p>
+                        <p>
+                            <i class="fas fa-envelope mr-3"></i> mohAliExpress@contact.fr</p>
+                        <p>
+                            <i class="fas fa-phone mr-3"></i> + 0563 50 20 10</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="footer-copyright text-center py-3">© 2018 Copyright:
+                <a href="https://mdbootstrap.com/education/bootstrap/"> MohammedAliExpress.com</a>
+            </div>
+
+        </footer>
+
+    </body>
+</html>
