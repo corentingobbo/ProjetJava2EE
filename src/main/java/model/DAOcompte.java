@@ -73,8 +73,8 @@ public class DAOcompte {
         String societe,fonction,adresse,ville,region,cp,pays,telephone,fax;
         try(Connection co = ds.getConnection();
             PreparedStatement pst = co.prepareStatement(sql)){
-            pst.setString(0, nomDUtilisateur);
-            pst.setString(1, mdp);
+            pst.setString(1, nomDUtilisateur);
+            pst.setString(2 , mdp);
             try(ResultSet rs = pst.executeQuery()){
                 societe = rs.getString("societe");
                 fonction = rs.getString("fonction");

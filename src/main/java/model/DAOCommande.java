@@ -24,38 +24,41 @@ public class DAOCommande {
     
     DataSource ds;
     
-    public DAOCommande(){
+    public DAOCommande(DataSource ds){
+        this.ds=ds;
         
     }
     
-    public CommandeEntity creerCommande (int num, String client, String saisie, String Envoye, int port, String desti, String adresse, String ville, String region, String codeP,String pays, float remise){
-        return null;
-        
-    }
-
-    public void newCommande (ClientEntity client) throws SQLException{
-        
-          ///num derniere ligne 
-          String sql="SELECT COUNT(*) FROM Commande";
+    public int numLigne(){
+        String sql="SELECT COUNT(*) FROM Commande";
           try(Connection co = ds.getConnection();
               java.sql.Statement stm = co.createStatement();
-              ResultSet rs = stm.executeQuery(sql);){  
+              ResultSet rs = stm.executeQuery(sql);){ 
+              return rs.getInt(1);
               
           } catch (SQLException ex) {
             Logger.getLogger(DAOCommande.class.getName()).log(Level.SEVERE, null, ex);
         }
+          return 0;
+          
+    }
+
+    public void newCommande (ClientEntity client) throws SQLException{
+        
+          int num= numLigne(); 
+          
           Date auj;
-        //auj = new Date();
+        auj = (Date) new java.util.Date();
           
           
           String sql3 = "INSERT INTO commande VALUES(?,?,?,?,0,?,?,?,?,?,?,0)";
            try(Connection co = ds.getConnection();
               PreparedStatement stm = co.prepareStatement(sql3);)
               { 
-                 // stm.setInt(1,rs.getInt(1)+1);
+                  stm.setInt(1,num+1);
                   stm.setString(2,client.getCode());
-                 // stm.setDate(3,auj);
-                  //stm.setDate(4,auj);
+                  stm.setString(3,auj.toString());
+                  stm.setString(4,auj.toString());
                   stm.setString(5,client.getCode());
                   stm.setString(6,client.getAdresse());
                   stm.setString(7,client.getVille());
