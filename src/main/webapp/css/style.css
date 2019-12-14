@@ -4,7 +4,7 @@ body{
     background-color: #f1f3f6;
     justify-content: center;
     align-items: center;
-    
+
 }
 
 .svgs{
@@ -27,13 +27,13 @@ body{
 }
 
 a.disabled {
-  pointer-events: none;
-  cursor: default;
+    pointer-events: none;
+    cursor: default;
 }
 
 .connect{
     position: absolute;
-    
+
     transform: translateX(-40%);
     width: 200px;
     height: 0px;
@@ -106,10 +106,10 @@ a.disabled {
 #fullscreen-video-wrap{
     display: block;
     z-index: -1;
-  width:100%;
-  height:700px;
+    width:100%;
+    height:700px;
 
- 
+
 }
 
 #suivant{
@@ -142,7 +142,7 @@ a.disabled {
 
 .card:hover{
     box-shadow: 0px 10px 10px 10px rgba(0,0,0,0.2);
-    
+
 }
 img{
     transition-duration: .5s;
@@ -150,8 +150,8 @@ img{
 .card:hover img{
     transition-duration: .5s;
     transform: scale(1.1) translateY(4%);
-    
-    
+
+
 }
 
 .new-arrivals-prev{
@@ -176,7 +176,7 @@ img{
     font-weight: 700;
 }
 .new{
-        margin: 2px;
+    margin: 2px;
     text-align: center;
 }
 
@@ -190,7 +190,7 @@ img{
 .imphrase{
     position: relative;
     padding: 20px;
-justify-content: center;
+    justify-content: center;
     color: white;
 
 }
@@ -208,4 +208,23 @@ justify-content: center;
     position: relative;
     top: 40px;
     justify-content: center;
+}
+
+.filtre{
+    margin-top: 50px;
+    
+    align-content: center;
+    align-items: center;
+    border-right: solid 2px #999;
+    width: 300px;
+}
+
+#codes{
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+.select-prix{
+    margin: 20px 0;
+    
 }

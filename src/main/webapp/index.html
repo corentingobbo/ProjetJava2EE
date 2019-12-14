@@ -37,27 +37,50 @@ and open the template in the editor.
             $(document).ready(// Exécuté à la fin du chargement de la page
                     function () {
 
-                        $('#formCheck :checkbox').on('click', function () {
+                        $.post("filtrePhone", $('#formCheck').serialize())
+                                .done(function (data, text, jqxhr) {
+                                    console.log(data.test);
+
+
+                                    var s = " <div class='container'><div class='row'>";
+                                            data.test.forEach(item =>
+                                                    s += "<div class='col-lg-3 col-md-4 col-sm-6'><div class='card' style='width: 200px;'><img src = 'imgs/tel-test.webp' class='card-img-top'><div class='card-body'><p class='new'> <span class='badge badge-primary' > Promotion </span></p><br><h5 class='marque'>" + item.marque + " </h5><p class='tel'>" + item.nom + "</p><p class='prix'> " + item.prix_unitaire + " € </p><button id = 'btn' > Acheter </button> </div></div></div>"
+                                                    );
+                                            s += "</div></div>";
+                                    $('#codes').html(s);
+                                    $('.nbRes').html(data.test.length);
+
+                                }).fail(function (jqxhr) {
+                            console.log("aiiiie");
+                            alert(jqxhr.responseText);
+                            console.log($('#formCheck').serialize());
+                        });
+
+                        $('#formCheck').on('change', function () {
                             var categories = $('#formCheck input:checked').map(function () {
                                 return this.value;
                             }).get().join();
-                            $.post("filtrePhone",$('#formCheck').serialize()).done(function(data,text,jqxhr){
-                                console.log(data);
-                            }).fail(function(jqxhr){
+                            $.post("filtrePhone", $('#formCheck').serialize())
+                                    .done(function (data, text, jqxhr) {
+                                        console.log(data.test);
+
+
+                                        var s = " <div class='container'><div class='row'>";
+                                                data.test.forEach(item =>
+                                                        s += "<div class='col-lg-3 col-md-4 col-sm-6'><div class='card' style='width: 200px;'><img src = 'imgs/tel-test.webp' class='card-img-top'><div class='card-body'><p class='new'> <span class='badge badge-primary' > Promotion </span></p><br><h5 class='marque'>" + item.marque + " </h5><p class='tel'>" + item.nom + "</p><p class='prix'> " + item.prix_unitaire + " € </p><button id = 'btn' > Acheter </button> </div></div></div>"
+                                                        );
+                                                s += "</div></div>";
+                                        $('#codes').html(s);
+                                        $('.nbRes').html(data.test.length);
+
+                                    }).fail(function (jqxhr) {
                                 console.log("aiiiie");
                                 alert(jqxhr.responseText);
                                 console.log($('#formCheck').serialize());
                             });
-
-                    }
-            );
-
-
-            // Fonction qui traite les erreurs de la requête
-            function showError(jqxhr) {
-                alert(jqxhr.responseText);
-            }
-            })
+                        }
+                        );
+                    })
         </script>
 
 
@@ -89,16 +112,28 @@ and open the template in the editor.
                             <a class="nav-link" href="#">Acceuil <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item blur">
-                            <a class="nav-link" href="#">Apple</a>
+                            <a class="nav-link" href="apple.html">Apple</a>
                         </li>
                         <li class="nav-item blur">
-                            <a class="nav-link" href="#">Samsung</a>
+                            <a class="nav-link" href="samsung.html">Samsung</a>
                         </li>
                         <li class="nav-item blur">
-                            <a class="nav-link " href="#">Huawei</a>
+                            <a class="nav-link " href="huawei.html">Huawei</a>
                         </li>
                         <li class="nav-item blur">
-                            <a class="nav-link " href="#">OnePlus</a>
+                            <a class="nav-link " href="oneplus.html">OnePlus</a>
+                        </li>
+                        <li class="nav-item blur">
+                            <a class="nav-link " href="xiaomi.html">Xiaomi</a>
+                        </li>
+                        <li class="nav-item blur">
+                            <a class="nav-link " href="asus.html">Asus</a>
+                        </li>
+                        <li class="nav-item blur">
+                            <a class="nav-link " href="sony.html">Sony</a>
+                        </li>
+                        <li class="nav-item blur">
+                            <a class="nav-link " href="Nokia.html">Nokia</a>
                         </li>
                     </ul>
                 </div>
@@ -161,7 +196,7 @@ and open the template in the editor.
             </a>
         </div>
 
-    <center>
+    <center style="display: none;">
         <form action="/" id="ArticleIndexForm">
             <table>
                 <tr>
@@ -187,53 +222,62 @@ and open the template in the editor.
 
 
 
-    <div class="container">
 
-        <form id="formCheck" onsubmit="event.preventDefault(); addCode();">
-            <fieldset><legend>Entrez les marques et le prix que vous désirez</legend>
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="Apple" name="Apple" value="Apple">
-                    <label class="custom-control-label" for="Apple">Apple</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck2" name="Samsung" value="Samsung">
-                    <label class="custom-control-label" for="customCheck2">Samsung</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck3" name="Huawei" value="Huawei">
-                    <label class="custom-control-label" for="customCheck3">Huawei</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck4" name="Oneplus" value="Oneplus">
-                    <label class="custom-control-label" for="customCheck4">OnePlus</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck5" name="Xiaomi" value="Xiaomi">
-                    <label class="custom-control-label" for="customCheck5">Xiaomi</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck6" name="Asus" value="Asus">
-                    <label class="custom-control-label" for="customCheck6">Asus</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck7" name="Sony" value="Sony">
-                    <label class="custom-control-label" for="customCheck7">Sony</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck8" name="Nokia" value="Nokia">
-                    <label class="custom-control-label" for="customCheck8">Nokia</label>
-                </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="filtre col-lg-2 col-sm-12">
 
-                PrixMin : <input id="prixMin" name="prixMin" type="number" step="10.00" min="0.0" max="1200.00" size="5"><br/>
-                PrixMax : <input id="prixMax" name="prixMax" type="number" step="10.00" min="0.0" max="1200.00" size="5"><br/>
+                <form id="formCheck" onsubmit="event.preventDefault();">
+                    <fieldset><legend>Filtrez selon vos envie</legend>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="Apple" name="Apple" value="Apple" checked="true">
+                            <label class="custom-control-label" for="Apple">Apple</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2" name="Samsung" value="Samsung" checked="true">
+                            <label class="custom-control-label" for="customCheck2">Samsung</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck3" name="Huawei" value="Huawei" checked="true">
+                            <label class="custom-control-label" for="customCheck3">Huawei</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck4" name="OnePlus" value="OnePlus" checked="true">
+                            <label class="custom-control-label" for="customCheck4">OnePlus</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck5" name="Xiaomi" value="Xiaomi" checked="true">
+                            <label class="custom-control-label" for="customCheck5">Xiaomi</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck6" name="Asus" value="Asus" checked="true" >
+                            <label class="custom-control-label" for="customCheck6">Asus</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck7" name="Sony" value="Sony" checked="true">
+                            <label class="custom-control-label" for="customCheck7">Sony</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck8" name="Nokia" value="Nokia" checked="true">
+                            <label class="custom-control-label" for="customCheck8">Nokia</label>
+                        </div>
 
-            </fieldset>
-        </form>
-        
-        <form>
-            
-        </form>
-    </div>
+                        <div class="select-prix">
+                            PrixMin : <input id="prixMin" name="prixMin" type="number" step="10.00" min="0.0" max="1200.00" size="5" value="0"><br/>
+                            PrixMax : <input id="prixMax" name="prixMax" type="number" step="10.00" min="0.0" max="1200.00" size="5" value="1200"><br/>
+                        </div>
+
+                    </fieldset>
+                </form>
+                <p>Nombre de résultats : <span class="nbRes"></span></p>
+            </div>
+
+            <div id="codes" class="col-lg-10 col-sm-12">
+                <br><br><br><br><br>
+                <h1>Choissez ce qu'il vous plait !</h1>
+                <br><br><br><br><br>
+            </div>
+        </div></div>
 
 
 
@@ -814,7 +858,7 @@ and open the template in the editor.
     <script type="text/javascript" src="javascript/index.js"></script>
     <script type="text/javascript">
 
-            $(".js-range-slider").ionRangeSlider();
+                    $(".js-range-slider").ionRangeSlider();
     </script>
 
 </body>

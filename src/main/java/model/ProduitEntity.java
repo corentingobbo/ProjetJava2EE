@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.util.Objects;
+
 /**
  *
  * @author pedago
@@ -40,6 +42,42 @@ public class ProduitEntity {
     public int getReference() {
         return reference;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 47 * hash + this.reference;
+        hash = 47 * hash + Objects.hashCode(this.nom);
+        hash = 47 * hash + this.fournisseur;
+        hash = 47 * hash + this.categorie;
+        hash = 47 * hash + Objects.hashCode(this.accessoires);
+        hash = 47 * hash + Float.floatToIntBits(this.prix_unitaire);
+        hash = 47 * hash + this.unite_en_stock;
+        hash = 47 * hash + this.unite_commandees;
+        hash = 47 * hash + this.niveau_de_reappro;
+        hash = 47 * hash + this.indisponible;
+        hash = 47 * hash + Objects.hashCode(this.marque);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ProduitEntity other = (ProduitEntity) obj;
+        if (!Objects.equals(this.nom, other.nom)) {
+            return false;
+        }
+        return true;
+    }
+    
 
     public void setReference(int reference) {
         this.reference = reference;

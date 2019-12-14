@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+/**
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,18 +12,16 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.DAOProduit;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+//import org.junit.After;
+//import org.junit.AfterClass;
+//import org.junit.Before;
+//import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import model.DataSourceFactory;
 
-/**
- *
- * @author pedago
- */
+
+
 public class TestProduit {
     
     DAOProduit dao;
@@ -89,3 +88,4 @@ public class TestProduit {
      
      
 }
+*/

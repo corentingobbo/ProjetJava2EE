@@ -9,9 +9,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,9 +38,10 @@ public class filtrePhone extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         DAOProduit dao = new DAOProduit(DataSourceFactory.getDataSource());
         // Properties est une Map<clé, valeur> pratique pour générer du JSON
         Properties resultat = new Properties();
@@ -53,8 +57,8 @@ public class filtrePhone extends HttpServlet {
         if (request.getParameter("Huawei") != null) {
             phones.add(request.getParameter("Huawei"));
         }
-        if (request.getParameter("Oneplus") != null) {
-            phones.add(request.getParameter("Oneplus"));
+        if (request.getParameter("OnePlus") != null) {
+            phones.add(request.getParameter("OnePlus"));
         }
         if (request.getParameter("Xiaomi") != null) {
             phones.add(request.getParameter("Xiaomi"));
@@ -76,10 +80,17 @@ public class filtrePhone extends HttpServlet {
         if (request.getParameter("prixMax") != null) {
             prixMax = request.getParameter("prixMax");
         }
-
+        
+        float prixmin = Float.parseFloat(prixMin);
+        float prixmax = Float.parseFloat(prixMax);
+        
+        
         resultat.put("phones", phones);
-        resultat.put("prixMin", prixMin);
-        resultat.put("prixMax", prixMax);
+        resultat.put("prixMin", prixmin);
+        resultat.put("prixMax", prixmax);
+        resultat.put("test", dao.rechercheParMultipleMarqueEtPrix(phones,prixmin,prixmax));
+        
+        
 
         try (PrintWriter out = response.getWriter()) {
             // On spécifie que la servlet va générer du JSON
@@ -105,7 +116,11 @@ public class filtrePhone extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(filtrePhone.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -119,7 +134,11 @@ public class filtrePhone extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(filtrePhone.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

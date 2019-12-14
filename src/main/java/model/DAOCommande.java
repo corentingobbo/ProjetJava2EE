@@ -45,17 +45,17 @@ public class DAOCommande {
             Logger.getLogger(DAOCommande.class.getName()).log(Level.SEVERE, null, ex);
         }
           Date auj;
-        auj = new Date();
+        //auj = new Date();
           
           
           String sql3 = "INSERT INTO commande VALUES(?,?,?,?,0,?,?,?,?,?,?,0)";
            try(Connection co = ds.getConnection();
               PreparedStatement stm = co.prepareStatement(sql3);)
               { 
-                  stm.setInt(1,rs.getInt(1)+1);
+                 // stm.setInt(1,rs.getInt(1)+1);
                   stm.setString(2,client.getCode());
-                  stm.setDate(3,auj);
-                  stm.setDate(4,auj);
+                 // stm.setDate(3,auj);
+                  //stm.setDate(4,auj);
                   stm.setString(5,client.getCode());
                   stm.setString(6,client.getAdresse());
                   stm.setString(7,client.getVille());
