@@ -98,19 +98,19 @@ public class DAOcompte {
     *   @param args une liste des éléments du client [ Code (hash du nomprenom),societe,nomPrénom,fonction,adresse,ville,region,codePostal,pays,telephone,fax]
     */
     
-    public void creationCompte(String[] args){
+    public void creationCompte(ArrayList<String> args){
         /*
         Si un champs non obligatoire est vide, il sera considéré comme null
         */
         String sql = "INSERT INTO CLIENT VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         try(Connection co = ds.getConnection();
             PreparedStatement stm = co.prepareStatement(sql);){
-            for (int i = 1; i < 11; i++) {
-                if(args[i] == ""){
-                    stm.setString(i, null);
+            for (int i = 0; i < 11; i++) {
+                if(args.get(i) == ""){
+                    stm.setString(i+1, null);
                 }
                 else{
-                    stm.setString(i, args[i]);
+                    stm.setString(i+1, args.get(i));
                 } 
             }
             stm.executeUpdate();
