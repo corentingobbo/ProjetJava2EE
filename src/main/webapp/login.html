@@ -9,31 +9,61 @@ and open the template in the editor.
         <title>Login Page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+
         <!--
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> 
-       -->
-                
+        -->
+
         <link rel="stylesheet" href="css/login.css">
         <link href="fontawesome/css/all.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet"> 
-        
+         <link rel="shortcut icon" type="image/png" href="imgs/favicon.png"/>
+
         <script defer src="fontawesome/js/all.js"></script> 
         <script src="javascript/jquery.js" ></script>
-    
-    
+
+        <script>
+            $(document).ready(// Exécuté à la fin du chargement de la page
+                    function () {
+                        
+                        $('#codeForm').submit(function(e){
+                            e.preventDefault(); 
+                            console.log("jarrive ici");
+                            connexion();
+                        });
+
+                        function connexion() {
+                            console.log("jarrive dans connexion");
+                            $.ajax({
+                                url: "Connexion",
+                                // serialize() renvoie tous les paramètres saisis dans le formulaire
+                                data: $("#codeForm").serialize(),
+                                dataType: "json",
+                                success: // La fonction qui traite les résultats
+                                        function (result) {
+                                            console.log(result);
+                                        },
+                                error: console.log("il y a une erreur")
+                            });
+                        }
+
+
+                    });
+        </script>
+
+
     </head>
     <body>
-        
+
         <img class="wave" src="imgs/wave.png">
         <div class="container">
             <div class="img">
                 <img src="imgs/phone.svg">
             </div>
             <div class="login-container">
-                <form action="index.html">
+                <form id="codeForm">
                     <img class="avatar" src="imgs/avatar.svg">
                     <h2>Bienvenue</h2>
                     <div class="input-div username">
@@ -42,17 +72,17 @@ and open the template in the editor.
                         </div>
                         <div>
                             <h5>Nom utilisateur</h5>
-                            <input class="input" id="username" type="text">
+                            <input class="input" id="username" name="username" type="text">
                         </div>
                     </div>
-                    
+
                     <div class="input-div password">
                         <div class="i">
                             <i class="fas fa-lock"></i>
                         </div>
                         <div>
                             <h5 class="test">Mot de passe</h5>
-                            <input class="input" id="password" type="password">
+                            <input class="input" id="password" name="password" type="password">
                         </div>
                     </div>
                     <a class="forget" href="#">Mot de passe oublié ?</a>
@@ -62,25 +92,24 @@ and open the template in the editor.
             </div>
         </div>
 
-        <script type="text/javascript" src="js/login.js"></script>
         <script type="text/javascript">
-            
-            
-            if($("#username").val() != ""){
+
+
+            if ($("#username").val() != "") {
                 $(".username").addClass("focus");
             }
-            $("input").focus(function (e){
+            $("input").focus(function (e) {
                 $(this).parent().parent().addClass("focus");
             })
-            $("input").focusout(function (){
-                if($(this).val() == ""){
+            $("input").focusout(function () {
+                if ($(this).val() == "") {
                     $(this).parent().parent().removeClass("focus");
                 }
-                
-            })
-            
 
-            
+            })
+
+
+
         </script>
 
     </body>

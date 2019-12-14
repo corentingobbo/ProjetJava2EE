@@ -8,7 +8,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Login Page</title>
+        <title>Acceuil</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -41,19 +41,19 @@ and open the template in the editor.
                                 .done(function (data, text, jqxhr) {
                                     console.log(data.test);
 
-
+                                    console.log($('#formCheck').serialize());
                                     var s = " <div class='container'><div class='row'>";
                                             data.test.forEach(item =>
-                                                    s += "<div class='col-lg-3 col-md-4 col-sm-6'><div class='card' style='width: 200px;'><img src = 'imgs/tel-test.webp' class='card-img-top'><div class='card-body'><p class='new'> <span class='badge badge-primary' > Promotion </span></p><br><h5 class='marque'>" + item.marque + " </h5><p class='tel'>" + item.nom + "</p><p class='prix'> " + item.prix_unitaire + " € </p><button id = 'btn' > Acheter </button> </div></div></div>"
+                                                    s += "<div class='col-lg-3 col-md-4 col-sm-6'><div class='card' style='width: 200px;'><img src = 'imgs/phones/" + item.nom + ".png' class='card-img-top'><div class='card-body'><p class='new'> <span class='badge badge-primary' > Promotion </span></p><br><h5 class='marque'>" + item.marque + " </h5><p class='tel'>" + item.nom + "</p><p class='prix'> " + item.prix_unitaire + " € </p><button id = 'btn' > Acheter </button> </div></div></div>"
                                                     );
                                             s += "</div></div>";
-                                    $('#codes').html(s);
-                                    $('.nbRes').html(data.test.length);
+                                            $('#codes').html(s);
+                                            $('.nbRes').html(data.test.length);
 
                                 }).fail(function (jqxhr) {
-                            console.log("aiiiie");
-                            alert(jqxhr.responseText);
-                            console.log($('#formCheck').serialize());
+                                        console.log("aiiiie");
+                                        alert(jqxhr.responseText);
+                                        console.log($('#formCheck').serialize());
                         });
 
                         $('#formCheck').on('change', function () {
@@ -67,7 +67,7 @@ and open the template in the editor.
 
                                         var s = " <div class='container'><div class='row'>";
                                                 data.test.forEach(item =>
-                                                        s += "<div class='col-lg-3 col-md-4 col-sm-6'><div class='card' style='width: 200px;'><img src = 'imgs/tel-test.webp' class='card-img-top'><div class='card-body'><p class='new'> <span class='badge badge-primary' > Promotion </span></p><br><h5 class='marque'>" + item.marque + " </h5><p class='tel'>" + item.nom + "</p><p class='prix'> " + item.prix_unitaire + " € </p><button id = 'btn' > Acheter </button> </div></div></div>"
+                                                        s += "<div class='col-lg-3 col-md-4 col-sm-6'><div class='card' style='width: 200px;'><img src = 'imgs/phones/" + item.nom + ".png' class='card-img-top'><div class='card-body'><p class='new'> <span class='badge badge-primary' > Promotion </span></p><br><h5 class='marque'>" + item.marque + " </h5><p class='tel'>" + item.nom + "</p><p class='prix'> " + item.prix_unitaire + " € </p><button id = 'btn' > Acheter </button> </div></div></div>"
                                                         );
                                                 s += "</div></div>";
                                         $('#codes').html(s);
@@ -133,7 +133,10 @@ and open the template in the editor.
                             <a class="nav-link " href="sony.html">Sony</a>
                         </li>
                         <li class="nav-item blur">
-                            <a class="nav-link " href="Nokia.html">Nokia</a>
+                            <a class="nav-link " href="nokia.html">Nokia</a>
+                        </li>
+                        <li class="nav-item blur">
+                            <a class="nav-link " href="oppo.html">Oppo</a>
                         </li>
                     </ul>
                 </div>
@@ -260,6 +263,10 @@ and open the template in the editor.
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="customCheck8" name="Nokia" value="Nokia" checked="true">
                             <label class="custom-control-label" for="customCheck8">Nokia</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck9" name="Oppo" value="Oppo" checked="true">
+                            <label class="custom-control-label" for="customCheck9">Oppo</label>
                         </div>
 
                         <div class="select-prix">

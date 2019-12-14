@@ -72,6 +72,9 @@ public class filtrePhone extends HttpServlet {
         if (request.getParameter("Nokia") != null) {
             phones.add(request.getParameter("Nokia"));
         }
+        if (request.getParameter("Oppo") != null) {
+            phones.add(request.getParameter("Oppo"));
+        }
         String prixMin = "";
         if (request.getParameter("prixMin") != null) {
             prixMin = request.getParameter("prixMin");

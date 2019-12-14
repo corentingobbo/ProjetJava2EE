@@ -6,6 +6,7 @@ INSERT INTO Categorie VALUES ( 5, 'Xiaomi', 'Innovation for everyone');
 INSERT INTO Categorie VALUES ( 6, 'Asus', 'Be zen');
 INSERT INTO Categorie VALUES ( 7, 'Sony', 'Make. Believe');
 INSERT INTO Categorie VALUES ( 8, 'Nokia', 'We create the technology to connect the world');
+INSERT INTO Categorie VALUES ( 9, 'Oppo', 'Zoomez sur votre imagination');
 
 INSERT INTO Client VALUES ( 'ALFKI', 'Alfreds Futterkiste', 'Maria Anders', 'Représentant(e)', 'Obere Str. 57', 'Berlin', NULL, '12209', 'Allemagne', '030-0074321', '030-0076545');
 INSERT INTO Client VALUES ( 'ANATR', 'Ana Trujillo Emparedados y helados', 'Ana Trujillo', 'Propriétaire', 'Avda. de la Constitución 2222', 'México D.F.', NULL, '05021', 'Mexique', '(5) 555-4729', '(5) 555-3745');
@@ -997,13 +998,13 @@ INSERT INTO Produit VALUES ( 62, 'ZenFone 4', 29, 6, 'Vendu avec chargeur, adapt
 INSERT INTO Produit VALUES ( 63, 'Xperia XZ1', 7, 7, 'Vendu avec chargeur, adaptateur', 219.00, 24, 0, 5, 0);
 INSERT INTO Produit VALUES ( 64, 'Xperia XZ2', 12, 7, 'Vendu avec chargeur, adaptateur', 349.00, 22, 80, 30, 0);
 INSERT INTO Produit VALUES ( 65, 'Xperia 3', 2, 7, 'Vendu avec chargeur, ecouteur, micro SD', 105.00, 76, 0, 0, 0);
-INSERT INTO Produit VALUES ( 66, 'Xperia 4', 2, 7, 'Vendu avec chargeur, ecouteur, micro SD', 149.00, 4, 100, 20, 0);
-INSERT INTO Produit VALUES ( 67, 'Xperia 5', 16, 7, 'Vendu avec chargeur, ecouteur, micro SD', 159.00, 52, 0, 10, 0);
-INSERT INTO Produit VALUES ( 68, 'Xperia 6', 8, 7, 'Vendu avec chargeur, ecouteur, micro SD', 179.00, 6, 10, 15, 0);
-INSERT INTO Produit VALUES ( 69, 'Xperia 7', 15, 7, 'Vendu avec chargeur, ecouteur, micro SD', 180.00, 26, 0, 15, 0);
-INSERT INTO Produit VALUES ( 70, 'Xperia 8', 7, 7, 'Vendu avec chargeur, ecouteur, micro SD', 249.00, 15, 10, 30, 0);
-INSERT INTO Produit VALUES ( 71, 'Xperia 9', 15, 7, 'Vendu avec chargeur, ecouteur, micro SD', 299.00, 26, 0, 0, 0);
-INSERT INTO Produit VALUES ( 72, 'Xperia 10', 14, 7, 'Vendu avec chargeur, ecouteur, micro SD', 489.00, 14, 0, 0, 0);
+INSERT INTO Produit VALUES ( 66, 'Xperia 4', 2, 7, 'Vendu avec chargeur, ecouteur, micro SD', 340.00, 4, 100, 20, 0);
+INSERT INTO Produit VALUES ( 67, 'Xperia 5', 16, 7, 'Vendu avec chargeur, ecouteur, micro SD', 790.00, 52, 0, 10, 0);
+INSERT INTO Produit VALUES ( 68, 'Reno2 Z', 8, 9, 'Vendu avec chargeur, ecouteur, micro SD', 560.00, 6, 10, 15, 0);
+INSERT INTO Produit VALUES ( 69, 'Reno2', 15, 9, 'Vendu avec chargeur, ecouteur, micro SD', 540.00, 26, 0, 15, 0);
+INSERT INTO Produit VALUES ( 70, 'A9 2020', 7, 9, 'Vendu avec chargeur, ecouteur, micro SD', 410.00, 15, 10, 30, 0);
+INSERT INTO Produit VALUES ( 71, 'Reno Z', 15, 9, 'Vendu avec chargeur, ecouteur, micro SD', .00, 26, 0, 0, 0);
+INSERT INTO Produit VALUES ( 72, 'Find X', 14, 9, 'Vendu avec chargeur, ecouteur, micro SD', 489.00, 14, 0, 0, 0);
 INSERT INTO Produit VALUES ( 73, '9 PureView', 17, 8, 'Vendu avec chargeur, adaptateur', 320.00, 101, 0, 5, 0);
 INSERT INTO Produit VALUES ( 74, '8 Sirocco', 4, 8, 'Vendu avec chargeur, adaptateur', 200.00, 4, 20, 5, 0);
 INSERT INTO Produit VALUES ( 75, '7 Plus', 12, 8, 'Vendu avec chargeur, adaptateur', 169.00, 125, 0, 25, 0);

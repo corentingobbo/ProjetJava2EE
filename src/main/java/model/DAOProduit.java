@@ -130,6 +130,31 @@ public class DAOProduit {
         return produits;
     }
 
+    public List<ProduitEntity> rechercheProduitOppo() {
+        ArrayList<ProduitEntity> produits = new ArrayList<>();
+        String sql = "SELECT NOM,PRIX_UNITAIRE,UNITES_EN_STOCK, ACCESSOIRES FROM PRODUIT INNER JOIN CATEGORIE ON categorie.code = PRODUIT.categorie where categorie = 9 order by prix_unitaire desc";
+        String nom, contenu;
+        float prix;
+        int stock;
+        ProduitEntity pe;
+        try (Connection co = ds.getConnection();
+                PreparedStatement stm = co.prepareStatement(sql)) {
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    prix = rs.getFloat(2);
+                    nom = rs.getString(1);
+                    stock = rs.getInt(3);
+                    contenu = rs.getString(4);
+                    pe = new ProduitEntity(-1, nom, -1, -1, "Apple", prix, stock, -1, -1, -1, "Oppo");
+                    produits.add(pe);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOProduit.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return produits;
+    }
+
     public List<ProduitEntity> rechercheProduitXiaomi() {
         ArrayList<ProduitEntity> produits = new ArrayList<>();
         String sql = "SELECT NOM,PRIX_UNITAIRE,UNITES_EN_STOCK FROM PRODUIT INNER JOIN CATEGORIE ON categorie.code = PRODUIT.categorie where categorie = 5 order by prix_unitaire desc";
@@ -257,8 +282,8 @@ public class DAOProduit {
         }
         return produit;
     }
-    
-        public List<ProduitEntity> rechercheParMarqueEtPrix(String marque,float min,float max) {
+
+    public List<ProduitEntity> rechercheParMarqueEtPrix(String marque, float min, float max) {
         ArrayList<ProduitEntity> produit = new ArrayList<>();
         String sql = "SELECT NOM,PRIX_UNITAIRE,UNITES_EN_STOCK,ACCESSOIRES FROM PRODUIT INNER JOIN CATEGORIE ON categorie.code = PRODUIT.categorie where libelle = ? and PRIX_UNITAIRE BETWEEN ? AND ?  order by prix_unitaire desc";
         String nom, contenu;
@@ -286,11 +311,11 @@ public class DAOProduit {
         }
         return produit;
     }
-        
-    public List<ProduitEntity> rechercheParMultipleMarqueEtPrix(ArrayList<String> marques,float min,float max) {
+
+    public List<ProduitEntity> rechercheParMultipleMarqueEtPrix(ArrayList<String> marques, float min, float max) {
         ArrayList<ProduitEntity> produits = new ArrayList<>();
         for (int i = 0; i < marques.size(); i++) {
-            List<ProduitEntity> pr = rechercheParMarqueEtPrix(marques.get(i),min,max);
+            List<ProduitEntity> pr = rechercheParMarqueEtPrix(marques.get(i), min, max);
             for (int j = 0; j < pr.size(); j++) {
                 produits.add(pr.get(j));
             }
@@ -338,7 +363,6 @@ public class DAOProduit {
         }
         return produit;
     }
-
 
     public int isDisponible(ProduitEntity pe) {
         return pe.getIndisponible();
