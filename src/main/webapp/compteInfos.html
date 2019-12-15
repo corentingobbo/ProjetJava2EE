@@ -31,6 +31,41 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <script type="text/javascript">
+            $(document).ready(// Exécuté à la fin du chargement de la page
+                    function () {
+
+                        $.ajax({
+                            url: "Session",
+                            dataType: "json",
+                            error: function () {
+                                console.log("error");
+                            },
+                            success: // La fonction qui traite les résultats
+                                    function (result) {
+                                        console.log(result.account);
+                                        var account = result.account;
+                                        $('.name').html(account.name);
+                                        $('#nom').val(account.name);
+                                        $('#societe').val(account.societe);
+                                        $('#adresse').val(account.adresse);
+                                        $('#ville').val(account.ville);
+                                        $('#cp').val(account.cp);
+                                        $('#region').val(account.region);
+                                        $('#pays').val(account.pays);
+                                        $('#tel').val(account.telephone);
+                                        $('#fax').val(account.fax);
+                                        
+
+                                    }
+                        });
+
+
+
+
+                    })
+        </script>
+
     </head>
     <body>
 
@@ -54,7 +89,7 @@ and open the template in the editor.
                     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
-                                <h5 style="margin-right: 20px;margin-top: 15px;font-family: 'Poppins', sans-serif;">Hervé Lavigne</h5>
+                                <h5 class="name" style="margin-right: 20px;margin-top: 15px;font-family: 'Poppins', sans-serif;">Hervé Lavigne</h5>
                             </li>
                             <li class="nav-item">
                                 <img class="avatar" style="height: 50px;" src="imgs/avatar.svg">
@@ -114,7 +149,7 @@ and open the template in the editor.
                                                 <div class="col-md-6">
                                                     <div class="md-form mb-0">
                                                         <input type="text" id="nom"  name="nom" class="form-control">
-                                                        <label for="nom" class="">Votre nom</label>
+                                                        <label for="nom" class="active">Votre nom</label>
                                                     </div>
                                                 </div>
                                                 <!--Grid column-->
@@ -123,7 +158,7 @@ and open the template in the editor.
                                                 <div class="col-md-6">
                                                     <div class="md-form mb-0">
                                                         <input type="text" id="societe"  name="societe" class="form-control">
-                                                        <label for="societe" class="">Votre societe</label>
+                                                        <label for="societe" class="active">Votre societe</label>
                                                     </div>
                                                 </div>
                                                 <!--Grid column-->
@@ -142,7 +177,8 @@ and open the template in the editor.
                                                 <div class="col-md-6">
                                                     <div class="md-form mb-0">
                                                         <input type="password" id="password2" name="password2" class="form-control">
-                                                        <label for="password2" class="">Retapez votre mot de passe</label>
+                                                        <label for="password2" class="" >Retapez votre mot de passe</label>
+                                                        <p id="verif-mdp" style="display: none;color: red;font-size: 1em;">Les mots de passes de correspondent pas </p>
                                                     </div>
                                                 </div>
                                                 <!--Grid column-->
@@ -155,7 +191,7 @@ and open the template in the editor.
                                                 <div class="col-md-12">
                                                     <div class="md-form mb-0">
                                                         <input type="text" id="adresse" name="adresse" class="form-control">
-                                                        <label for="adresse" class="">Votre adresse</label>
+                                                        <label for="adresse" class="active" >Votre adresse</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -168,7 +204,7 @@ and open the template in the editor.
                                                 <div class="col-md-6">
                                                     <div class="md-form mb-0">
                                                         <input type="text" id="ville" name="ville" class="form-control">
-                                                        <label for="ville" class="">Ville</label>
+                                                        <label for="ville" class="active">Ville</label>
                                                     </div>
                                                 </div>
                                                 <!--Grid column-->
@@ -177,7 +213,7 @@ and open the template in the editor.
                                                 <div class="col-md-6">
                                                     <div class="md-form mb-0">
                                                         <input type="text" id="cp" name="cp" class="form-control">
-                                                        <label for="cp" class="">Code Postal</label>
+                                                        <label for="cp" class="active">Code Postal</label>
                                                     </div>
                                                 </div>
                                                 <!--Grid column-->
@@ -188,7 +224,7 @@ and open the template in the editor.
                                                 <div class="col-md-6">
                                                     <div class="md-form mb-0">
                                                         <input type="text" id="region" name="region" class="form-control">
-                                                        <label for="region" class="">Votre region</label>
+                                                        <label for="region" class="active">Votre region</label>
                                                     </div>
                                                 </div>
                                                 <!--Grid column-->
@@ -197,7 +233,7 @@ and open the template in the editor.
                                                 <div class="col-md-6">
                                                     <div class="md-form mb-0">
                                                         <input type="text" id="pays" name="pays" class="form-control">
-                                                        <label for="pays" class="">Votre pays</label>
+                                                        <label for="pays" class="active">Votre pays</label>
                                                     </div>
                                                 </div>
                                                 <!--Grid column-->
@@ -208,7 +244,7 @@ and open the template in the editor.
                                                 <div class="col-md-6">
                                                     <div class="md-form mb-0">
                                                         <input type="tel" id="tel" name="tel" class="form-control">
-                                                        <label for="tel" class="">Votre numéro de téléphone</label>
+                                                        <label for="tel" class="active">Votre numéro de téléphone</label>
                                                     </div>
                                                 </div>
                                                 <!--Grid column-->
@@ -217,7 +253,7 @@ and open the template in the editor.
                                                 <div class="col-md-6">
                                                     <div class="md-form mb-0">
                                                         <input type="tel" id="fax" name="fax" class="form-control">
-                                                        <label for="fax" class="">Votre numéro de fax</label>
+                                                        <label for="fax" class="active">Votre numéro de fax</label>
                                                     </div>
                                                 </div>
                                                 <!--Grid column-->
@@ -228,7 +264,7 @@ and open the template in the editor.
                                         </form>
 
                                         <div class="text-center text-md-left">
-                                            <btn class="btn btn-danger" type="submit" onclick="">Modifiez vos informations</btn>
+                                            <btn class="btn btn-danger"  type="submit" onclick="valider()">Modifiez vos informations</btn>
                                         </div>
 
                                     </div>
@@ -249,6 +285,27 @@ and open the template in the editor.
         </div>
 
     </div>  
+
+    <script type="text/javascript">
+        function valider() {
+
+            if ($('#password').val() !== $('#password2').val()) {
+                $("#verif-mdp").css("display", "block");
+            } else {
+                console.log($('#contact-form').serialize());
+                $.ajax({
+                    url: "changeInfos",
+                    data: $('#contact-form').serialize(),
+                    success: function (result){
+                        console.log(result);
+                    },
+                    error: function (jqxhr){
+                        console.log(jqxhr);
+                    }
+                });
+            }
+        }
+    </script>
 
 </body>
 </html>
