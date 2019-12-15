@@ -37,6 +37,7 @@ public class Connexion extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -57,7 +58,7 @@ public class Connexion extends HttpServlet {
                 try {
                     resultat.put("username", username);
                     resultat.put("password", password);
-                    resultat.put("test", dao.rechercheCompte3(username, password));
+                    resultat.put("test", dao.rechercheCompte(username, password));
                 }catch (Exception ex) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			resultat.put("records", Collections.EMPTY_LIST);
