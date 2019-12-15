@@ -27,8 +27,8 @@ import model.DataSourceFactory;
  *
  * @author Corentin
  */
-@WebServlet(name = "Connexion", urlPatterns = {"/Connexion"})
-public class Connexion extends HttpServlet {
+@WebServlet(name = "Deconnexion", urlPatterns = {"/Deconnexion"})
+public class Deconnexion extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,49 +42,11 @@ public class Connexion extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        DAOcompte dao = new DAOcompte(DataSourceFactory.getDataSource());
-        // Properties est une Map<clé, valeur> pratique pour générer du JSON
-        Properties resultat = new Properties();
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
 
         HttpSession session = request.getSession();
-        session.setAttribute("username", username);
+        session.invalidate();
 
-        /*
-                Maria Anders
-                ALFKI
-         */
 
-        try {
-
-            if (dao.rechercheCompte(username, password).size() != 10) {
-                resultat.put("error", "Account not found");
-            } else {
-                session.setAttribute("account", dao.rechercheCompte(username, password));
-            }
-
-            //if (dao.rechercheCompte(username, password) != null) {
-            //    resultat.put("test", dao.rechercheCompte(username, password));
-            //}else{
-            //  resultat.put("test", "oupsi");
-            //}
-        } catch (Exception ex) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resultat.put("records", Collections.EMPTY_LIST);
-            resultat.put("message", ex.getMessage());
-        }
-
-        try (PrintWriter out = response.getWriter()) {
-            // On spécifie que la servlet va générer du JSON
-            response.setContentType("application/json;charset=UTF-8");
-            // Générer du JSON
-            // Gson gson = new Gson();
-            // setPrettyPrinting pour que le JSON généré soit plus lisible
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String gsonData = gson.toJson(resultat);
-            out.println(gsonData);
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

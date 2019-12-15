@@ -45,7 +45,7 @@ a.disabled {
 }
 
 .account:hover .connect{
-    height: 150px;
+    height: 170px;
     border-radius: 5px;
     cursor: default;
     align-content: center;
@@ -81,7 +81,7 @@ a.disabled {
     background-position: right;
 }
 
-.compte{
+.compte,.connected{
     opacity: 0;
     display: none;
     margin-top: 1rem;

@@ -1,11 +1,4 @@
-
-
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>Acceuil</title>
@@ -36,6 +29,56 @@ and open the template in the editor.
         <script>
             $(document).ready(// Exécuté à la fin du chargement de la page
                     function () {
+                        
+                        function deconnexion(){
+                                                                        console.log('je suis la');
+                                            window.refresh();
+                                            window.location.href = "apple.html";
+                            $.ajax({
+                                url: "Deconnexion",
+                                dataType: "json"
+                        });
+
+                        }
+
+                        Object.size = function (arr)
+                        {
+                            var size = 0;
+                            for (var key in arr)
+                            {
+                                if (arr.hasOwnProperty(key))
+                                    size++;
+                            }
+                            return size;
+                        };
+
+                        $.ajax({
+                            url: "Session",
+                            dataType: "json",
+                            error: function(){
+                                            var connect = "<div><button id='btn' onclick='console.log('test');'>Se connecter</button><p class='compte' >Créer un compte</p></div>";
+                                            $('.connect').append(connect);
+                                            $('#btn').click(function (){
+                                                window.location.href = "login.html";
+                                            });
+                            },
+                            success: // La fonction qui traite les résultats
+                                    function (result) {
+                                            var s = "<nav class='navbar second-nav  navbar-expand-lg navbar-light bg-light'><div class='container'><button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation'><span class='navbar-toggler-icon'></span></button><div class='navbar-collapse collapse w-100 order-3 dual-collapse2'><ul class='navbar-nav ml-auto'><li class='nav-item'><h5 style='margin-right: 20px;margin-top: 15px;font-family: 'Poppins', sans-serif;'>" + result.account.name + "</h5></li><li class='nav-item'><img class='avatar' style='height: 50px;' src='imgs/boss.svg'></li></ul></div></div></nav>";
+                                            $('.navmoha').append(s);
+
+                                            //var connect = "<div><button id='btn'>Se connecter</button><p class='compte' >Créer un compte</p></div>";
+                                            var connect = "<div><a href='compteInfos.html' class='connected info'  >Mon compte</a><a href='compteInfos.html' class='connected info' >Mes informations</a><a href='compteCommandes.html' class='connected commandes' >Mes commandes</a><a id='deco' class='connected deconnexion' >Deconnexion</a></div>";
+                                            $('.connect').append(connect);
+
+                                            $('#deco').click(function (e) {
+                                                deconnexion();
+                                            });
+
+
+
+                                    }
+                        });
 
                         $.post("filtrePhone", $('#formCheck').serialize())
                                 .done(function (data, text, jqxhr) {
@@ -47,13 +90,13 @@ and open the template in the editor.
                                                     s += "<div class='col-lg-3 col-md-4 col-sm-6'><div class='card' style='width: 200px;'><img src = 'imgs/phones/" + item.nom + ".png' class='card-img-top'><div class='card-body'><p class='new'> <span class='badge badge-primary' > Promotion </span></p><br><h5 class='marque'>" + item.marque + " </h5><p class='tel'>" + item.nom + "</p><p class='prix'> " + item.prix_unitaire + " € </p><button id = 'btn' > Acheter </button> </div></div></div>"
                                                     );
                                             s += "</div></div>";
-                                            $('#codes').html(s);
-                                            $('.nbRes').html(data.test.length);
+                                    $('#codes').html(s);
+                                    $('.nbRes').html(data.test.length);
 
                                 }).fail(function (jqxhr) {
-                                        console.log("aiiiie");
-                                        alert(jqxhr.responseText);
-                                        console.log($('#formCheck').serialize());
+                            console.log("aiiiie");
+                            alert(jqxhr.responseText);
+                            console.log($('#formCheck').serialize());
                         });
 
                         $('#formCheck').on('change', function () {
@@ -87,7 +130,7 @@ and open the template in the editor.
     </head>
     <body >
 
-        <nav class="navbar  navbar-expand-lg navbar-light bg-light blur">
+        <nav class="navbar navmoha navbar-expand-lg navbar-light bg-light blur">
             <div class="container ">
                 <div class="navbar-collapse  collapse w-100 order-2 dual-collapse2">
                     <ul class="navbar-nav test">
@@ -100,6 +143,7 @@ and open the template in the editor.
 
 
         </nav>
+
 
         <nav class="navbar second-nav  navbar-expand-lg navbar-light bg-light">
             <div class="container">
@@ -146,12 +190,13 @@ and open the template in the editor.
                             <a class="nav-link disabled" style="opacity: 0;" href="#"><svg class="svgs" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 8a6 6 0 0 0-6 6h1a5 5 0 0 1 10 0h1a6 6 0 0 0-6-6zm0-1a3 3 0 1 0-3-3 3 3 0 0 0 3 3zm0-5a2 2 0 1 1-2 2 2 2 0 0 1 2-2z" data-name="Layer 1"></path></svg>
                         </li>
                         <li class="nav-item">
+                            <p>Henri lebrave</p>
+                        </li>
+                        <li class="nav-item">
+
                             <a class="nav-link account " href="#"><svg class="svgs" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 8a6 6 0 0 0-6 6h1a5 5 0 0 1 10 0h1a6 6 0 0 0-6-6zm0-1a3 3 0 1 0-3-3 3 3 0 0 0 3 3zm0-5a2 2 0 1 1-2 2 2 2 0 0 1 2-2z" data-name="Layer 1"></path></svg>
                                 <div class="connect">
-                                    <div>
-                                        <button id="btn">Se connecter</button>
-                                        <p class="compte" >Créer un compte</p>
-                                    </div>
+
                                 </div>
                         </li>
                         <li class="nav-item">

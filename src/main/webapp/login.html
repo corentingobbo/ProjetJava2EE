@@ -50,8 +50,8 @@ and open the template in the editor.
                                 success: // La fonction qui traite les résultats
                                         function (result) {
                                             console.log(result);
+                                            window.location.replace("index.html");
                                         },
-                                error: console.log("il y a une erreur")
                             });
                         }
 
@@ -69,7 +69,7 @@ and open the template in the editor.
                 <img src="imgs/phone.svg">
             </div>
             <div class="login-container">
-                <form id="codeForm">
+                <form action="index.html" id="codeForm">
                     <img class="avatar" src="imgs/avatar.svg">
                     <h2>Bienvenue</h2>
                     <div class="input-div username">

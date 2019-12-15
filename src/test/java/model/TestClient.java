@@ -20,6 +20,7 @@ import static org.junit.Assert.*;
  */
 public class TestClient {
     
+    /*
     DAOcompte dao;
     ArrayList<String> args;
     
@@ -74,4 +75,5 @@ public class TestClient {
         System.out.println(c2.toString());
         assertEquals(c2.toString(), c3.toString() );
     }
+*/
 }
