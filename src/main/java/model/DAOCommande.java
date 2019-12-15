@@ -34,12 +34,14 @@ public class DAOCommande {
           try(Connection co = ds.getConnection();
               java.sql.Statement stm = co.createStatement();
               ResultSet rs = stm.executeQuery(sql);){ 
+              if(rs.next()){
               return rs.getInt(1);
+              }
               
           } catch (SQLException ex) {
             Logger.getLogger(DAOCommande.class.getName()).log(Level.SEVERE, null, ex);
         }
-          return 0;
+          return 10;
           
     }
 
@@ -47,8 +49,7 @@ public class DAOCommande {
         
           int num= numLigne(); 
           
-          Date auj;
-        auj = (Date) new java.util.Date();
+        
           
           
           String sql3 = "INSERT INTO commande VALUES(?,?,?,?,0,?,?,?,?,?,?,0)";
@@ -57,8 +58,8 @@ public class DAOCommande {
               { 
                   stm.setInt(1,num+1);
                   stm.setString(2,client.getCode());
-                  stm.setString(3,auj.toString());
-                  stm.setString(4,auj.toString());
+                  stm.setString(3,"17-12-2019");
+                  stm.setString(4,"17-12-2019");
                   stm.setString(5,client.getCode());
                   stm.setString(6,client.getAdresse());
                   stm.setString(7,client.getVille());

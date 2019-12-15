@@ -27,7 +27,13 @@ and open the template in the editor.
         <script>
             $(document).ready(// Exécuté à la fin du chargement de la page
                     function () {
-                        
+                        $.ajax({
+                        url: 'http://domaine.com',
+                        xhrFields: {
+                            withCredentials: true
+                        }
+                        });
+
                         $('#codeForm').submit(function(e){
                             e.preventDefault(); 
                             console.log("jarrive ici");

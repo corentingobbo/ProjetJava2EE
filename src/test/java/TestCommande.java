@@ -37,7 +37,8 @@ public class TestCommande {
     public void setUp() throws SQLException {
         dao = new DAOCommande(DataSourceFactory.getDataSource());
         daoclient = new DAOcompte(DataSourceFactory.getDataSource());
-        client1 = daoclient.rechercheCompte("Maria Anders", "ALFKI");
+        //client1 = daoclient.rechercheCompte("Maria Anders", "ALFKI");
+        
         
     }
     @Test
