@@ -4,18 +4,19 @@
  * and open the template in the editor.
  */
 
-/**
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.DAOProduit;
-//import org.junit.After;
-//import org.junit.AfterClass;
-//import org.junit.Before;
-//import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import model.DataSourceFactory;
@@ -71,7 +72,7 @@ public class TestProduit {
                 System.out.println(rs.next());
                 int nb = rs.getInt(1);
                 System.out.println(nb);
-                assertEquals(nb, dao.rechercheParMarque(1).size());
+                assertEquals(nb, dao.rechercheParMarque("Apple").size());
             }
          }
      }
@@ -79,13 +80,21 @@ public class TestProduit {
      @Test
      public void multipleMarque(){
          //On sait que la recherche par marque fonctionne
-         int nb = dao.rechercheParMarque(1).size();
-         int[] marques = {1};
+         int nb = dao.rechercheParMarque("Apple").size() + dao.rechercheParMarque("Samsung").size();
+         ArrayList<String> marques = new ArrayList<>();
+         marques.add("Apple");
+         marques.add("Samsung");
          int nb2 = dao.rechercheParMultipleMarque(marques).size();
          assertEquals(nb,nb2);
      }
      
+     @Test
+     public  void testPrix(){
+         assertEquals(51,dao.rechercheParPlageDePrix(0, 400).size());
+     }
+            
+     
      
      
 }
-*/
+
