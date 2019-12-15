@@ -47,16 +47,16 @@ public class DAOcompte {
         
         try(Connection co = ds.getConnection();
             PreparedStatement stm = co.prepareStatement(sql);){
-            for (int i = 0; i < 11; i++) {
+            for (int i = 0; i < args.size(); i++) {
                 if(args.get(i).length() < 1){
                     stm.setString(i+1, null);
             }
                 else{
                     stm.setString(i+1, args.get(i));
+                   
                 }
             }
-            int ui = stm.executeUpdate();
-            System.out.println(ui);
+            stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOcompte.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -69,7 +69,7 @@ public class DAOcompte {
      *
     */
     
-    public ClientEntity rechercheCompte(String nomDUtilisateur, String mdp) throws SQLException{
+    public ClientEntity rechercheCompte(String nomDUtilisateur, String mdp){
         String sql = "SELECT * FROM CLIENT WHERE CLIENT.CONTACT = ? AND CLIENT.CODE = ?";
         String societe = null,fonction = null,adresse = null,ville = null,region = null,cp = null,pays = null,telephone = null,fax = null;
         try(Connection co = ds.getConnection();
@@ -90,6 +90,8 @@ public class DAOcompte {
                 }
                 return new ClientEntity(mdp, societe, nomDUtilisateur, fonction,adresse,ville,region,cp,pays,telephone,fax);
             }
+        } catch (SQLException ex) {
+            return null;
         }
         
     }
