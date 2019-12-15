@@ -20,6 +20,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import model.DataSourceFactory;
+import model.ProduitEntity;
 
 
 
@@ -92,7 +93,14 @@ public class TestProduit {
      public  void testPrix(){
          assertEquals(51,dao.rechercheParPlageDePrix(0, 400).size());
      }
-            
+     
+     @Test
+     public void testRechercheUnProduit(){
+        ProduitEntity pe;
+        pe = new ProduitEntity(1, "iPhone 5", -1, -1, "Vendu avec chargeur", (float) 90.00, 39, -1, -1, -1, " ");
+        ProduitEntity tst = dao.rechercheProduitParticulier("iPhone 5");
+        assertEquals(pe,tst);
+     }
      
      
      

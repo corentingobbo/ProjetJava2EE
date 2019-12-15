@@ -48,10 +48,7 @@ public class DAOCommande {
     public void newCommande (ClientEntity client) throws SQLException{
         
           int num= numLigne(); 
-          
-        
-          
-          
+         
           String sql3 = "INSERT INTO commande VALUES(?,?,?,?,0,?,?,?,?,?,?,0)";
            try(Connection co = ds.getConnection();
               PreparedStatement stm = co.prepareStatement(sql3);)
@@ -96,7 +93,7 @@ public class DAOCommande {
                   
                   stm.executeUpdate();
               }             
-           catch (SQLException ex1) {
+           catch (SQLException exx) {
             Logger.getLogger(DAOCommande.class.getName()).log(Level.SEVERE, null, ex);            
     }
         
@@ -133,6 +130,46 @@ public class DAOCommande {
         return null;
         
         
+    }
+    public CommandeEntity recupereCommandeParNum(int num) throws SQLException{
+        String sql="SELECT * FROM commande WHERE numero = ?";
+        try(Connection co = ds.getConnection();
+              PreparedStatement stm = co.prepareStatement(sql);){
+            stm.setInt(1,num);
+            try(ResultSet rs = stm.executeQuery()){
+                      String cli=rs.getString(2);
+                      String sl=rs.getString(3);
+                      String el=rs.getString(4);
+                      float port=rs.getFloat(5);
+                      String desti=rs.getString(6);
+                      String al=rs.getString(7);
+                      String vl=rs.getString(8);
+                      String rl=rs.getString(9);
+                      String cpl=rs.getString(10);
+                      String pl=rs.getString(11);
+                      float remise=rs.getFloat(12);
+                      CommandeEntity com=new CommandeEntity(num,cli,sl,el, (int) port,desti,al,vl,rl,cpl,pl,remise);
+                      return com;
+                      
+            }
+        }
+           
+    }
+    
+    public int  numLigneParCommande(CommandeEntity com) throws SQLException{
+        String sql="SELECT COUNT(*) FROM ligne WHERE commande = ?";
+         try(Connection co = ds.getConnection();
+              PreparedStatement stm = co.prepareStatement(sql);){
+                stm.setInt(1,com.getNumero());
+                try(ResultSet rs = stm.executeQuery()){
+              if(rs.next()){
+              return rs.getInt(1);
+              }
+              
+          } catch (SQLException ex) {
+            Logger.getLogger(DAOCommande.class.getName()).log(Level.SEVERE, null, ex);
+        }}
+          return 10;
     }
         
 

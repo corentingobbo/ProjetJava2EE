@@ -363,6 +363,36 @@ public class DAOProduit {
         }
         return produit;
     }
+    
+    public ProduitEntity rechercheProduitParticulier(String nom){
+        String sql = "SELECT REFERENCE,PRIX_UNITAIRE,ACCESSOIRES,UNITES_EN_STOCK,ACCESSOIRES FROM PRODUIT WHERE PRODUIT.NOM = ?";
+        String contenu;
+        float prix;
+        int stock,ref;
+        ProduitEntity pe;
+        try(Connection co = ds.getConnection();
+            PreparedStatement stm = co.prepareStatement(sql);){
+            stm.setString(1,nom);
+            try(ResultSet rs =stm.executeQuery()){
+                if(rs.next()){
+                    ref = rs.getInt("REFERENCE");
+                    System.out.println("ref : "+ref);
+                    prix = rs.getFloat("PRIX_UNITAIRE");
+                    System.out.println("prix : "+prix);
+                    stock = rs.getInt("UNITES_EN_STOCK");
+                    System.out.println("stock : "+stock);
+                    contenu = rs.getString("ACCESSOIRES");
+                    System.out.println("contenu : "+contenu);
+                    pe = new ProduitEntity(ref, nom, -1, -1, contenu, prix, stock, -1, -1, -1, " ");
+                    return pe;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOProduit.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        return null;
+    }
 
     public int isDisponible(ProduitEntity pe) {
         return pe.getIndisponible();

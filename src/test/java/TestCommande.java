@@ -6,9 +6,12 @@
 
 import java.sql.SQLException;
 import model.ClientEntity;
+import model.CommandeEntity;
 import model.DAOCommande;
+import model.DAOProduit;
 import model.DAOcompte;
 import model.DataSourceFactory;
+import model.ProduitEntity;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,6 +24,8 @@ public class TestCommande {
     private DAOCommande dao;
     private DAOcompte daoclient;
     private ClientEntity client1;
+    private DAOProduit daoprod;
+
     
     public TestCommande() {
     }
@@ -37,7 +42,8 @@ public class TestCommande {
     public void setUp() throws SQLException {
         dao = new DAOCommande(DataSourceFactory.getDataSource());
         daoclient = new DAOcompte(DataSourceFactory.getDataSource());
-        //client1 = daoclient.rechercheCompte("Maria Anders", "ALFKI");
+        client1 = daoclient.rechercheCompte("Maria Anders", "ALFKI");
+        
         
         
     }
@@ -56,19 +62,27 @@ public class TestCommande {
         assertEquals(num+1, dao.numLigne());
     }
     
+    @Test
+    public void testAjouterLigne() throws SQLException{
+        ProduitEntity produit=daoprod.rechercheProduitParticulier("iPhone 5");
+        dao.newCommande(client1);
+        CommandeEntity com= dao.recupereCommandeParNum(dao.numLigne());
+        dao.ajouterLigne(com, produit, 10);
+        assertEquals(com.getPort(), produit.getPrix_unitaire()*10);
+        assertEquals(dao.numLigneParCommande(com), 1);
+        
+    }
     
-    
-    
+    @Test
+    public void testRechercheCommandeParClient(){
+        
+    }
     
     
     @After
     public void tearDown() {
     }
 
-     //TODO add test methods here.
-     //The methods must be annotated with annotation @Test. For example:
-    
-     @Test
-     public void hello() {}
+   
 
 }
