@@ -107,7 +107,7 @@ public class DAOcompte {
         String sql = "INSERT INTO CLIENT VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         try(Connection co = ds.getConnection();
             PreparedStatement stm = co.prepareStatement(sql);){
-            for (int i = 0; i < 11; i++) {
+            for (int i = 0; i < args.size(); i++) {
                 if(args.get(i) == ""){
                     stm.setString(i+1, null);
                 }
