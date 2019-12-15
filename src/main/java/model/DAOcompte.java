@@ -27,7 +27,7 @@ public class DAOcompte {
         this.ds = ds;
     }
     
-    public void modifierProfil(ClientEntity client, ArrayList<String> args){
+    public void modifierProfil(ArrayList<String> args){
         /*
         Si un champs est vide, il sera considéré comme null dans la bd
         Les champs obligatoires seront filtrés avec le formulaire

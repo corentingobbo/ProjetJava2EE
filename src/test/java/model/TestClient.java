@@ -84,7 +84,7 @@ public class TestClient {
     @Test
     public void testModification() throws SQLException{
         ClientEntity c = dao.rechercheCompte("Thomas Hardy", "AROUT");
-        dao.modifierProfil(c, args);
+        dao.modifierProfil(args);
         ClientEntity c2 = new ClientEntity("AROUT","Pomme","Thomas Hardy","Représentant(e)","120 Hanover Sq.","London","Johto","WA1 1DP","Royaume-Uni","(71) 555-7788","(71) 555-6750");
         ClientEntity c3 = dao.rechercheCompte("Thomas Hardy", "AROUT");
         assertEquals(c2.toString(), c3.toString() );

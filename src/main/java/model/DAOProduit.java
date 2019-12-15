@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -393,6 +390,46 @@ public class DAOProduit {
         }
         return null;
     }
+    
+    public void ajoutProduit(ArrayList<Object> args) throws SQLException{
+        String sql = "INSERT INTO PRODUIT(REFERENCE,NOM,FOURNISSEUR,CATEGORIE,ACCESSOIRES,PRIX_UNITAIRE,UNITES_EN_STOCK,UNITES_COMMANDEES,NIVEAU_DE_REAPPRO,INDISPONIBLE) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        try(Connection co = ds.getConnection();
+            PreparedStatement stm = co.prepareStatement(sql);){
+            stm.setInt(1, (int) args.get(0));
+            stm.setString(2, (String) args.get(1));
+            stm.setInt(3, (int) args.get(2));
+            stm.setInt(4, (int) args.get(3));
+            stm.setString(5, (String) args.get(4));
+            stm.setFloat(6,(float) args.get(5));
+            stm.setInt(7, (int) args.get(6));
+            stm.setInt(8, (int) args.get(7));
+            stm.setInt(9, (int) args.get(8));
+            stm.setInt(10, (int) args.get(9));
+            stm.executeUpdate();
+        }
+    }
+    
+    public ArrayList<ProduitEntity> rechercheTousProduits(){
+        ArrayList<ProduitEntity> produit = new ArrayList<>();
+        String sql = "SELECT * FROM PRODUIT";
+        try(Connection co = ds.getConnection();
+            PreparedStatement stm = co.prepareStatement(sql);){
+            try(ResultSet rs = stm.executeQuery()){
+                while(rs.next()){
+                    ProduitEntity pe = new ProduitEntity(rs.getInt("REFERENCE"),rs.getString("NOM"),rs.getInt("FOURNISSEUR"),rs.getInt("CATEGORIE"),
+                            rs.getString("ACCESSOIRES"),rs.getFloat("PRIX_UNITAIRE"),rs.getInt("UNITES_EN_STOCK"),rs.getInt("UNITES_COMMANDEES"),rs.getInt("NIVEAU_DE_REAPPRO"),rs.getInt("INDISPONIBLE"),"");
+                    produit.add(pe);
+                }
+                return produit;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOProduit.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+
+
 
     public int isDisponible(ProduitEntity pe) {
         return pe.getIndisponible();
