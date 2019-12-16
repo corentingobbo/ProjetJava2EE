@@ -27,6 +27,7 @@ import model.ProduitEntity;
 public class TestProduit {
     /*
     DAOProduit dao;
+    ArrayList<Object> args;
     
     public TestProduit() {
     }
@@ -42,7 +43,17 @@ public class TestProduit {
     @Before
     public void setUp() {
         dao = new DAOProduit(DataSourceFactory.getDataSource());
-
+        args = new ArrayList<>();
+        args.add(77);
+        args.add("Pot");
+        args.add(1);
+        args.add(1);
+        args.add("Un câble");
+        args.add(654.0f);
+        args.add(12);
+        args.add(1);
+        args.add(10);
+        args.add(0);
     }
     
     @After
@@ -97,9 +108,15 @@ public class TestProduit {
      @Test
      public void testRechercheUnProduit(){
         ProduitEntity pe;
-        pe = new ProduitEntity(1, "iPhone 5", -1, -1, "Vendu avec chargeur", (float) 90.00, 39, -1, -1, -1, " ");
+        pe = new ProduitEntity(1, "iPhone 5", -1, -1, "Vendu avec chargeur", 90.00f, 39, -1, -1, -1, " ");
         ProduitEntity tst = dao.rechercheProduitParticulier("iPhone 5");
         assertEquals(pe,tst);
+     }
+     
+     @Test
+     public void testAjoutProduit() throws SQLException{
+         dao.ajoutProduit(args);
+         assertEquals(72,dao.rechercheTousProduits().size());
      }
      
      

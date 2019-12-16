@@ -54,6 +54,7 @@ public class ClientEntity {
         res += "Fax : " + this.fax + " | ";
         return res;
     }
+    
 
     public String getCode() {
         return code;

@@ -100,6 +100,26 @@ public class DAOcompte {
         return map;
     }
     
+        public ClientEntity rechercheCompte2(String nomDUtilisateur, String mdp){
+        String sql = "SELECT * FROM CLIENT WHERE CLIENT.CONTACT = ? AND CLIENT.CODE = ?";
+        ClientEntity pe = null;
+        
+        try(Connection co = ds.getConnection();
+            PreparedStatement pst = co.prepareStatement(sql)){
+            pst.setString(1, nomDUtilisateur);
+            pst.setString(2 , mdp);
+            try(ResultSet rs = pst.executeQuery()){
+                if(rs.next()){
+                    pe  = new ClientEntity(mdp, rs.getString(2),nomDUtilisateur, rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11));
+                
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erreur");
+        }
+        return pe;
+    }
+    
     /*
     *   @param args une liste des éléments du client [ Code (hash du nomprenom),societe,nomPrénom,fonction,adresse,ville,region,codePostal,pays,telephone,fax]
     */
@@ -111,7 +131,7 @@ public class DAOcompte {
         String sql = "INSERT INTO CLIENT VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         try(Connection co = ds.getConnection();
             PreparedStatement stm = co.prepareStatement(sql);){
-            for (int i = 0; i < 11; i++) {
+            for (int i = 0; i < args.size(); i++) {
                 if(args.get(i) == ""){
                     stm.setString(i+1, null);
                 }
