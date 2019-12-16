@@ -20,7 +20,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class TestCommande {
- /*
+ 
     private DAOCommande dao;
     private DAOcompte daoclient;
     private ClientEntity client1;
@@ -86,6 +86,6 @@ public class TestCommande {
     public void tearDown() {
     }
 
-   */
+   
 
 }
