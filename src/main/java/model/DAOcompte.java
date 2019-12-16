@@ -102,22 +102,31 @@ public class DAOcompte {
     
         public ClientEntity rechercheCompte2(String nomDUtilisateur, String mdp){
         String sql = "SELECT * FROM CLIENT WHERE CLIENT.CONTACT = ? AND CLIENT.CODE = ?";
-        ClientEntity pe = null;
-        
+        ClientEntity pe=null;
+        String soc,fonc,adr,ville,region,cp,pays,tel,fax;
         try(Connection co = ds.getConnection();
             PreparedStatement pst = co.prepareStatement(sql)){
             pst.setString(1, nomDUtilisateur);
             pst.setString(2 , mdp);
             try(ResultSet rs = pst.executeQuery()){
                 if(rs.next()){
-                    pe  = new ClientEntity(mdp, rs.getString(2),nomDUtilisateur, rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11));
-                
+                    soc=rs.getString(2);
+                    fonc=rs.getString(4);
+                    adr=rs.getString(5);
+                    ville=rs.getString(6);
+                    region=rs.getString(7);
+                    cp=rs.getString(8);
+                    pays=rs.getString(9);
+                    tel=rs.getString(10);
+                    fax=rs.getString(11);
+                    pe  = new ClientEntity(mdp, soc,nomDUtilisateur, fonc, adr, ville, region, cp, pays, tel,fax );  
                 }
+                return pe;
             }
         } catch (SQLException ex) {
             System.out.println("Erreur");
         }
-        return pe;
+        return null;
     }
     
     /*
