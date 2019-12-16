@@ -22,13 +22,14 @@ import model.ClientEntity;
 import model.DAOProduit;
 import model.DAOcompte;
 import model.DataSourceFactory;
+import model.ProduitEntity;
 
 /**
  *
  * @author Corentin
  */
-@WebServlet(name = "Connexion", urlPatterns = {"/Connexion"})
-public class Connexion extends HttpServlet {
+@WebServlet(name = "initPanier", urlPatterns = {"/initPanier"})
+public class initPanier extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,31 +46,14 @@ public class Connexion extends HttpServlet {
         DAOcompte dao = new DAOcompte(DataSourceFactory.getDataSource());
         // Properties est une Map<clé, valeur> pratique pour générer du JSON
         Properties resultat = new Properties();
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-
-        HttpSession session = request.getSession();
-        session.setAttribute("username", username);
-
-        /*
-                Maria Anders
-                ALFKI
-         */
 
         try {
 
-            if (dao.rechercheCompte(username, password).size() != 10) {
-                resultat.put("error", "Account not found");
-            } else {
-                session.setAttribute("account", dao.rechercheCompte(username, password));
-                session.setAttribute("password", password);
-            }
+            HttpSession session = request.getSession();
+            ArrayList<ProduitEntity> l = new ArrayList<>();
+            session.setAttribute("panier", l);
+            resultat.put("panier", l);
 
-            //if (dao.rechercheCompte(username, password) != null) {
-            //    resultat.put("test", dao.rechercheCompte(username, password));
-            //}else{
-            //  resultat.put("test", "oupsi");
-            //}
         } catch (Exception ex) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             resultat.put("records", Collections.EMPTY_LIST);

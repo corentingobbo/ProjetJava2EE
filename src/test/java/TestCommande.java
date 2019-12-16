@@ -20,7 +20,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class TestCommande {
-    
+ /*
     private DAOCommande dao;
     private DAOcompte daoclient;
     private ClientEntity client1;
@@ -42,6 +42,7 @@ public class TestCommande {
     public void setUp() throws SQLException {
         dao = new DAOCommande(DataSourceFactory.getDataSource());
         daoclient = new DAOcompte(DataSourceFactory.getDataSource());
+        daoprod = new DAOProduit(DataSourceFactory.getDataSource());
         client1 = daoclient.rechercheCompte("Maria Anders", "ALFKI");
         
         
@@ -51,7 +52,7 @@ public class TestCommande {
     //Creation d'une commande
     public void testnumLigne(){
         
-        assertEquals("numero de ligne incorrecte",830,dao.numLigne());
+        assertEquals("numero de ligne incorrecte",831,dao.numLigne());
     }
     
     @Test
@@ -67,14 +68,16 @@ public class TestCommande {
         ProduitEntity produit=daoprod.rechercheProduitParticulier("iPhone 5");
         dao.newCommande(client1);
         CommandeEntity com= dao.recupereCommandeParNum(dao.numLigne());
-        dao.ajouterLigne(com, produit, 10);
-        assertEquals(com.getPort(), produit.getPrix_unitaire()*10);
+        dao.ajouterLigne(com, produit, 1);
+        assertTrue(com.getPort()== produit.getPrix_unitaire());
         assertEquals(dao.numLigneParCommande(com), 1);
         
     }
     
     @Test
     public void testRechercheCommandeParClient(){
+        
+        assertEquals(dao.rechercheCommmandeParClient(client1).size(), 4);
         
     }
     
@@ -83,6 +86,6 @@ public class TestCommande {
     public void tearDown() {
     }
 
-   
+   */
 
 }

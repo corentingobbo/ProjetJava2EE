@@ -25,7 +25,7 @@ import model.ProduitEntity;
 
 
 public class TestProduit {
-    
+    /*
     DAOProduit dao;
     ArrayList<Object> args;
     
@@ -120,6 +120,6 @@ public class TestProduit {
      }
      
      
-     
+     */
 }
 

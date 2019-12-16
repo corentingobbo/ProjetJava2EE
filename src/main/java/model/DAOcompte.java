@@ -10,7 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
@@ -69,31 +71,53 @@ public class DAOcompte {
      *
     */
     
-    public ClientEntity rechercheCompte(String nomDUtilisateur, String mdp){
+    public HashMap<String,String> rechercheCompte(String nomDUtilisateur, String mdp){
         String sql = "SELECT * FROM CLIENT WHERE CLIENT.CONTACT = ? AND CLIENT.CODE = ?";
-        String societe = null,fonction = null,adresse = null,ville = null,region = null,cp = null,pays = null,telephone = null,fax = null;
+        HashMap<String,String> map = new HashMap<>() ;
+        
         try(Connection co = ds.getConnection();
             PreparedStatement pst = co.prepareStatement(sql)){
             pst.setString(1, nomDUtilisateur);
             pst.setString(2 , mdp);
             try(ResultSet rs = pst.executeQuery()){
                 if(rs.next()){
-                    societe = rs.getString(2);
-                    fonction = rs.getString(4);
-                    adresse = rs.getString(5);
-                    ville = rs.getString(6);
-                    region = rs.getString(7);
-                    cp = rs.getString(8);
-                    pays = rs.getString(9);
-                    telephone = rs.getString(10);
-                    fax = rs.getString(11);                    
+                    map.put("name", nomDUtilisateur);
+                    map.put("societe", rs.getString(2)) ;
+                    map.put("fonction",rs.getString(4));
+                    map.put("adresse", rs.getString(5));
+                    map.put("ville", rs.getString(6));
+                    map.put("region", rs.getString(7));
+                    map.put("cp", rs.getString(8));
+                    map.put("pays", rs.getString(9));
+                    map.put("telephone", rs.getString(10));
+                    map.put("fax", rs.getString(11));
+                
                 }
-                return new ClientEntity(mdp, societe, nomDUtilisateur, fonction,adresse,ville,region,cp,pays,telephone,fax);
             }
         } catch (SQLException ex) {
-            return null;
+            map.put("error", ex.getMessage());
         }
+        return map;
+    }
+    
+        public ClientEntity rechercheCompte2(String nomDUtilisateur, String mdp){
+        String sql = "SELECT * FROM CLIENT WHERE CLIENT.CONTACT = ? AND CLIENT.CODE = ?";
+        ClientEntity pe = null;
         
+        try(Connection co = ds.getConnection();
+            PreparedStatement pst = co.prepareStatement(sql)){
+            pst.setString(1, nomDUtilisateur);
+            pst.setString(2 , mdp);
+            try(ResultSet rs = pst.executeQuery()){
+                if(rs.next()){
+                    pe  = new ClientEntity(mdp, rs.getString(2),nomDUtilisateur, rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11));
+                
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erreur");
+        }
+        return pe;
     }
     
     /*

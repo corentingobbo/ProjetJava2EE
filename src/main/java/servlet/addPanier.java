@@ -22,13 +22,15 @@ import model.ClientEntity;
 import model.DAOProduit;
 import model.DAOcompte;
 import model.DataSourceFactory;
+import model.ProduitEntity;
+import org.apache.derby.iapi.store.raw.data.DataFactory;
 
 /**
  *
  * @author Corentin
  */
-@WebServlet(name = "Connexion", urlPatterns = {"/Connexion"})
-public class Connexion extends HttpServlet {
+@WebServlet(name = "addPanier", urlPatterns = {"/addPanier"})
+public class addPanier extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,34 +44,23 @@ public class Connexion extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        DAOcompte dao = new DAOcompte(DataSourceFactory.getDataSource());
         // Properties est une Map<clé, valeur> pratique pour générer du JSON
         Properties resultat = new Properties();
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-
-        HttpSession session = request.getSession();
-        session.setAttribute("username", username);
-
-        /*
-                Maria Anders
-                ALFKI
-         */
+        DAOProduit dao = new DAOProduit(DataSourceFactory.getDataSource());
 
         try {
 
-            if (dao.rechercheCompte(username, password).size() != 10) {
-                resultat.put("error", "Account not found");
-            } else {
-                session.setAttribute("account", dao.rechercheCompte(username, password));
-                session.setAttribute("password", password);
-            }
+            HttpSession session = request.getSession();
+            
+            ArrayList<ProduitEntity> l = (ArrayList<ProduitEntity>) session.getAttribute("panier");
+            String phone = request.getParameter("phone");
+            ProduitEntity pe = dao.rechercheProduitParticulier(phone);
+            l.add(pe);
+            session.setAttribute("panier", l);
+            String nom = pe.getNom();
+            resultat.put("panier",session.getAttribute("panier"));
+            
 
-            //if (dao.rechercheCompte(username, password) != null) {
-            //    resultat.put("test", dao.rechercheCompte(username, password));
-            //}else{
-            //  resultat.put("test", "oupsi");
-            //}
         } catch (Exception ex) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             resultat.put("records", Collections.EMPTY_LIST);

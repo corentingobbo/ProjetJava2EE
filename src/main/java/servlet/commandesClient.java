@@ -18,8 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.ClientEntity;
-import model.DAOProduit;
+import model.DAOCommande;
 import model.DAOcompte;
 import model.DataSourceFactory;
 
@@ -27,8 +26,8 @@ import model.DataSourceFactory;
  *
  * @author Corentin
  */
-@WebServlet(name = "Connexion", urlPatterns = {"/Connexion"})
-public class Connexion extends HttpServlet {
+@WebServlet(name = "commandesClient", urlPatterns = {"/commandesClient"})
+public class commandesClient extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,38 +41,27 @@ public class Connexion extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        DAOcompte dao = new DAOcompte(DataSourceFactory.getDataSource());
-        // Properties est une Map<clé, valeur> pratique pour générer du JSON
-        Properties resultat = new Properties();
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        DAOCommande dao = new DAOCommande(DataSourceFactory.getDataSource());
+
+
 
         HttpSession session = request.getSession();
-        session.setAttribute("username", username);
 
-        /*
-                Maria Anders
-                ALFKI
-         */
+        String mdp = (String) session.getAttribute("password");
+        
+        Properties result = new Properties();
 
         try {
 
-            if (dao.rechercheCompte(username, password).size() != 10) {
-                resultat.put("error", "Account not found");
-            } else {
-                session.setAttribute("account", dao.rechercheCompte(username, password));
-                session.setAttribute("password", password);
-            }
+            result.put("test",session.getAttribute("account"));
+            result.put("commande", dao.rechercheCommmandeParClient(mdp));
+            result.put("mdp",mdp);
 
-            //if (dao.rechercheCompte(username, password) != null) {
-            //    resultat.put("test", dao.rechercheCompte(username, password));
-            //}else{
-            //  resultat.put("test", "oupsi");
-            //}
+
         } catch (Exception ex) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resultat.put("records", Collections.EMPTY_LIST);
-            resultat.put("message", ex.getMessage());
+            result.put("records", Collections.EMPTY_LIST);
+            result.put("message", ex.getMessage());
         }
 
         try (PrintWriter out = response.getWriter()) {
@@ -83,9 +71,10 @@ public class Connexion extends HttpServlet {
             // Gson gson = new Gson();
             // setPrettyPrinting pour que le JSON généré soit plus lisible
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String gsonData = gson.toJson(resultat);
+            String gsonData = gson.toJson(result);
             out.println(gsonData);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

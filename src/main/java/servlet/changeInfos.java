@@ -18,8 +18,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.ClientEntity;
-import model.DAOProduit;
 import model.DAOcompte;
 import model.DataSourceFactory;
 
@@ -27,8 +25,8 @@ import model.DataSourceFactory;
  *
  * @author Corentin
  */
-@WebServlet(name = "Connexion", urlPatterns = {"/Connexion"})
-public class Connexion extends HttpServlet {
+@WebServlet(name = "changeInfos", urlPatterns = {"/changeInfos"})
+public class changeInfos extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,37 +41,50 @@ public class Connexion extends HttpServlet {
             throws ServletException, IOException {
 
         DAOcompte dao = new DAOcompte(DataSourceFactory.getDataSource());
-        // Properties est une Map<clé, valeur> pratique pour générer du JSON
-        Properties resultat = new Properties();
-        String username = request.getParameter("username");
+
+        String nom = request.getParameter("nom");
+        String societe = request.getParameter("societe");
         String password = request.getParameter("password");
+        String adresse = request.getParameter("adresse");
+        String ville = request.getParameter("ville");
+        String region = request.getParameter("region");
+        String cp = request.getParameter("cp");
+        String pays = request.getParameter("pays");
+        String tel = request.getParameter("tel");
+        String fax = request.getParameter("fax");
+
+        ArrayList<String> args = new ArrayList<>();
+        args.add(societe);
+        args.add(nom);
+        args.add("fonction");
+        args.add(adresse);
+        args.add(ville);
+        args.add(region);
+        args.add(cp);
+        args.add(pays);
+        args.add(tel);
+        args.add(fax);
+        args.add(fax);
+
 
         HttpSession session = request.getSession();
-        session.setAttribute("username", username);
 
-        /*
-                Maria Anders
-                ALFKI
-         */
+        args.add(password);
+        
+        Properties result = new Properties();
 
         try {
 
-            if (dao.rechercheCompte(username, password).size() != 10) {
-                resultat.put("error", "Account not found");
-            } else {
-                session.setAttribute("account", dao.rechercheCompte(username, password));
-                session.setAttribute("password", password);
-            }
+            dao.modifierProfil(args);
 
-            //if (dao.rechercheCompte(username, password) != null) {
-            //    resultat.put("test", dao.rechercheCompte(username, password));
-            //}else{
-            //  resultat.put("test", "oupsi");
-            //}
+            session.setAttribute("account", dao.rechercheCompte(nom, password));
+
+            result.put("test", dao.rechercheCompte(nom, password));
+
         } catch (Exception ex) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resultat.put("records", Collections.EMPTY_LIST);
-            resultat.put("message", ex.getMessage());
+            result.put("records", Collections.EMPTY_LIST);
+            result.put("message", ex.getMessage());
         }
 
         try (PrintWriter out = response.getWriter()) {
@@ -83,9 +94,10 @@ public class Connexion extends HttpServlet {
             // Gson gson = new Gson();
             // setPrettyPrinting pour que le JSON généré soit plus lisible
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String gsonData = gson.toJson(resultat);
+            String gsonData = gson.toJson(result);
             out.println(gsonData);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
