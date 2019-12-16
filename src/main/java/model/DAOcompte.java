@@ -74,6 +74,7 @@ public class DAOcompte {
     public HashMap<String,String> rechercheCompte(String nomDUtilisateur, String mdp){
         String sql = "SELECT * FROM CLIENT WHERE CLIENT.CONTACT = ? AND CLIENT.CODE = ?";
         HashMap<String,String> map = new HashMap<>() ;
+        
         try(Connection co = ds.getConnection();
             PreparedStatement pst = co.prepareStatement(sql)){
             pst.setString(1, nomDUtilisateur);

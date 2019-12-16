@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Properties;
 import javax.servlet.ServletException;
@@ -17,16 +18,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.ClientEntity;
 import model.DAOProduit;
 import model.DAOcompte;
 import model.DataSourceFactory;
+import model.ProduitEntity;
 
 /**
  *
  * @author Corentin
  */
-@WebServlet(name = "Session", urlPatterns = {"/Session"})
-public class Session extends HttpServlet {
+@WebServlet(name = "getPanier", urlPatterns = {"/getPanier"})
+public class getPanier extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,35 +42,31 @@ public class Session extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
 
-                DAOcompte dao = new DAOcompte(DataSourceFactory.getDataSource());
-		Properties resultat = new Properties();
+        // Properties est une Map<clé, valeur> pratique pour générer du JSON
+        Properties resultat = new Properties();
+        HttpSession session = request.getSession();
 
-                HttpSession session = request.getSession();
-                
-                try {
-                    resultat.put("account", session.getAttribute("account"));
-                    resultat.put("mdp", session.getAttribute("password"));
+        try {
 
-                    
-                    
-                }catch (Exception ex) {
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			resultat.put("records", Collections.EMPTY_LIST);
-			resultat.put("message", ex.getMessage());
-		}
+            resultat.put("panier",session.getAttribute("panier"));
 
-		try (PrintWriter out = response.getWriter()) {
-			// On spécifie que la servlet va générer du JSON
-			response.setContentType("application/json;charset=UTF-8");
-			// Générer du JSON
-			// Gson gson = new Gson();
-			// setPrettyPrinting pour que le JSON généré soit plus lisible
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			String gsonData = gson.toJson(resultat);
-			out.println(gsonData);
-                } 
+        } catch (Exception ex) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resultat.put("records", Collections.EMPTY_LIST);
+            resultat.put("message", ex.getMessage());
+        }
+
+        try (PrintWriter out = response.getWriter()) {
+            // On spécifie que la servlet va générer du JSON
+            response.setContentType("application/json;charset=UTF-8");
+            // Générer du JSON
+            // Gson gson = new Gson();
+            // setPrettyPrinting pour que le JSON généré soit plus lisible
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String gsonData = gson.toJson(resultat);
+            out.println(gsonData);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

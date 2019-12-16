@@ -52,7 +52,7 @@ public class changeInfos extends HttpServlet {
         String pays = request.getParameter("pays");
         String tel = request.getParameter("tel");
         String fax = request.getParameter("fax");
-        
+
         ArrayList<String> args = new ArrayList<>();
         args.add(societe);
         args.add(nom);
@@ -65,21 +65,20 @@ public class changeInfos extends HttpServlet {
         args.add(tel);
         args.add(fax);
         args.add(fax);
+
+
+        HttpSession session = request.getSession();
+
         args.add(password);
         
-        
-        
-        
         Properties result = new Properties();
-        
 
         try {
-            
+
             dao.modifierProfil(args);
-            
-            HttpSession session = request.getSession();
+
             session.setAttribute("account", dao.rechercheCompte(nom, password));
-            
+
             result.put("test", dao.rechercheCompte(nom, password));
 
         } catch (Exception ex) {

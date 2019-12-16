@@ -25,7 +25,7 @@ import model.ProduitEntity;
 
 
 public class TestProduit {
-    
+    /*
     DAOProduit dao;
     
     public TestProduit() {
@@ -103,6 +103,6 @@ public class TestProduit {
      }
      
      
-     
+     */
 }
 

@@ -98,12 +98,12 @@ public class DAOCommande {
     }
         
     }}
-    public List<CommandeEntity> rechercheCommmandeParClient(ClientEntity client) {
+    public List<CommandeEntity> rechercheCommmandeParClient(String code) {
         ArrayList<CommandeEntity> commandeByClient = new ArrayList<>();
         String sql="SELECT * FROM commande WHERE client = ?";
         try(Connection co = ds.getConnection();
               PreparedStatement stm = co.prepareStatement(sql);){
-              stm.setString(1, client.getCode());
+              stm.setString(1, code);
               try(ResultSet rs = stm.executeQuery()){
                   while(rs.next()){
                       int num=rs.getInt(1);
@@ -117,17 +117,16 @@ public class DAOCommande {
                       String cpl=rs.getString(10);
                       String pl=rs.getString(11);
                       float remise=rs.getFloat(12);
-                      CommandeEntity com=new CommandeEntity(num,client.getCode(),sl,el, (int) port,desti,al,vl,rl,cpl,pl,remise);
+                      CommandeEntity com=new CommandeEntity(num,code,sl,el, (int) port,desti,al,vl,rl,cpl,pl,remise);
                       commandeByClient.add(com);
                   }
-                  return commandeByClient;
               } 
               
                  
               }catch (SQLException ex) {
             Logger.getLogger(DAOCommande.class.getName()).log(Level.SEVERE, null, ex);            
     }
-        return null;
+        return commandeByClient;
         
         
     }

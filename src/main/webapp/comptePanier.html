@@ -15,6 +15,7 @@ and open the template in the editor.
         <!-- Material Design Bootstrap -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/css/mdb.min.css" rel="stylesheet">
         <link rel="stylesheet" href="css/compte.css">
+        <link rel="stylesheet" href="css/style.css">
 
         <!-- JQuery -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -35,27 +36,43 @@ and open the template in the editor.
             $(document).ready(// Exécuté à la fin du chargement de la page
                     function () {
 
-                        $.ajax({
-                            url: "commandesClient",
-                            dataType: "json",
-                            error: function (jqxhr) {
-                                console.log(jqxhr.reponseText);
-                            },
-                            success: // La fonction qui traite les résultats
-                                    function (result) {
-                                        console.log(result.commande);
-                                        
-                                        var s = "";
-                                        
-                                        for(var i in result.commande){
-                                            s= " <tbody><tr><th>"+result.commande[i].numero+"</th><td>"+result.commande[i].port+"</td><td>"+result.commande[i].adresse_livraison+"</td><td>"+result.commande[i].ville_livraison+"</td><td>"+result.commande[i].pays_livraison+"</td><td>"+result.commande[i].saisie_le+"</td><td>"+result.commande[i].envoye_le+"</td><td>"+result.commande[i].remise+"</td></tr></tbody>";
-                                            $('.commandes').append(s);
+                        function getPanier() {
+                            $.ajax({
+                                url: "getPanier",
+                                dataType: "json",
+                                error: function (){
+                                    initPanier();
+                                },
+                                success: // La fonction qui traite les résultats
+                                        function (result) {
+                                            console.log(result.panier.length);
+                                            
+                                        var s = ""
+                                        result.panier.forEach(item =>
+                                            s+= "<div class='container-fluid item'><div class='row'><div class='col-4 imgPanier'><img class='imgP' src='imgs/phones/" + item.nom + ".png'></div><div class='col-8 textPanier'><p class='pPanier'>"+ item.nom +" "+ item.prix_unitaire+"€</p></div></div></div>"
+                                            );
+                                        $('.panierItems').html(s);
+
+
                                         }
-                                        
+                            });
+                        }
+
+                        getPanier();
+
+                        function initPanier() {
+                            $.ajax({
+                                url: "initPanier",
+                                dataType: "json",
+                                success: // La fonction qui traite les résultats
+                                        function (result) {
 
 
-                                    }
-                        });
+
+
+                                        }
+                            });
+                        }
 
 
 
@@ -110,11 +127,11 @@ and open the template in the editor.
                     <li>
                         <a href="compteInfos.html">Vos informations</a>
                     </li>
-                    <li class="active">
-                        <a href="#">Vos commandes</a>
+                    <li class="">
+                        <a href="compteCommandes.html">Vos commandes</a>
                     </li>
-                    <li>
-                        <a href="comptePanier.html">Votre panier</a>
+                    <li class="active">
+                        <a href="#">Votre panier</a>
                     </li>
                     <li>
                         <a href="#" onclick="deconnexion();">Déconnexion</a>
@@ -127,61 +144,13 @@ and open the template in the editor.
                 <div class="container-fluid">
                     <div class="row">
 
-                        <div class="col-lg-6" id="formulaire" >
+                                <div class="panierDiv">
+                                    <div class="panierContent panierItems">
 
-                            <!--Section: Contact v.2-->
-                            <section class="mb-4">
 
-                                <!--Section heading-->
-                                <h2 class="h1-responsive font-weight-bold text-center my-4">Vos commandes</h2>
-                                <!--Section description-->
-
-                                <div class="row">
-
-                                    <!--Grid column-->
-                                    <div class="col-md-12 mb-md-5 mb-5">
-                                        <form id="contact-form" name="contact-form" action="mail.php" method="POST">
-
-                                            <!--Grid row-->
-                                            <div class="row">
-
-                                                <div id="tab-commande">
-                                                    <div class="table-responsive">
-                                                        <!--Table-->
-                                                        <table class="commandes table table-striped">
-
-                                                            <!--Table head-->
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>#</th>
-                                                                    <th>Prix</th>
-                                                                    <th>Adresse</th>
-                                                                    <th>Ville</th>
-                                                                    <th>Pays</th>
-                                                                    <th>Saisie le</th>
-                                                                    <th>Envoyé le</th>
-                                                                    <th>Remise</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <!--Table head-->
-
-                                                            <!--Table body-->
-
-                                                            <!--Table body-->
-                                                        </table>
-                                                        <!--Table-->
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
                                     </div>
-                                </div>
 
-                            </section>
-                            <!--Section: Contact v.2-->
-
-                        </div>
+                               </div>
                         <div class="col-lg-5 img">
                             <img src="imgs/deliver.svg">
                         </div>

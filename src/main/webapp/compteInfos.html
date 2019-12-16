@@ -43,7 +43,7 @@ and open the template in the editor.
                             },
                             success: // La fonction qui traite les résultats
                                     function (result) {
-                                        console.log(result.account);
+                                        console.log(result);
                                         var account = result.account;
                                         $('.name').html(account.name);
                                         $('#nom').val(account.name);
@@ -55,7 +55,9 @@ and open the template in the editor.
                                         $('#pays').val(account.pays);
                                         $('#tel').val(account.telephone);
                                         $('#fax').val(account.fax);
-                                        
+                                        $('#password').val(result.mdp);
+                                        $('#password2').val(result.mdp);
+
 
                                     }
                         });
@@ -117,7 +119,10 @@ and open the template in the editor.
                         <a href="compteCommandes.html">Vos commandes</a>
                     </li>
                     <li>
-                        <a href="#">Déconnexion</a>
+                        <a href="comptePanier.html">Votre panier</a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="deconnexion()">Déconnexion</a>
                     </li>
                 </ul>
             </nav>
@@ -168,7 +173,7 @@ and open the template in the editor.
                                                 <div class="col-md-6">
                                                     <div class="md-form mb-0">
                                                         <input type="password" id="password" name="password" class="form-control">
-                                                        <label for="password" class="">Votre mot de passe</label>
+                                                        <label for="password" class="active">Votre mot de passe</label>
                                                     </div>
                                                 </div>
                                                 <!--Grid column-->
@@ -177,7 +182,7 @@ and open the template in the editor.
                                                 <div class="col-md-6">
                                                     <div class="md-form mb-0">
                                                         <input type="password" id="password2" name="password2" class="form-control">
-                                                        <label for="password2" class="" >Retapez votre mot de passe</label>
+                                                        <label for="password2" class="active" >Retapez votre mot de passe</label>
                                                         <p id="verif-mdp" style="display: none;color: red;font-size: 1em;">Les mots de passes de correspondent pas </p>
                                                     </div>
                                                 </div>
@@ -296,14 +301,24 @@ and open the template in the editor.
                 $.ajax({
                     url: "changeInfos",
                     data: $('#contact-form').serialize(),
-                    success: function (result){
+                    success: function (result) {
                         console.log(result);
                     },
-                    error: function (jqxhr){
+                    error: function (jqxhr) {
                         console.log(jqxhr);
                     }
                 });
             }
+        }
+
+        function deconnexion() {
+            console.log('je suis la');
+            window.location.href = "index.html";
+            $.ajax({
+                url: "Deconnexion",
+                dataType: "json"
+            });
+
         }
     </script>
 

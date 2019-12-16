@@ -34,6 +34,24 @@ $(".account").hover(function(){
 });
 
 
+$(".panier").hover(function(){
+    $(".panierItems").css("transition-delay",".5s");
+    $(".panierItems").css("transition-duration","0.5s");
+    $(".panierItems").css("display","block");
+    $(".panierItems").css("opacity","1");
+
+    
+    
+}, function (){
+    $(".panierItems").css("transition-delay","0s");
+    $(".panierItems").css("transition-duration","0.1s");
+    $(".panierItems").css("opacity","0");
+
+
+});
+
+
+
 $(".compte").click(function (){
     window.location.href = "compteInfos.html";
 });

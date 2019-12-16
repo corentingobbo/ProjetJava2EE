@@ -363,33 +363,35 @@ public class DAOProduit {
         }
         return produit;
     }
-    
-    public ProduitEntity rechercheProduitParticulier(String nom){
-        String sql = "SELECT REFERENCE,PRIX_UNITAIRE,ACCESSOIRES,UNITES_EN_STOCK,ACCESSOIRES FROM PRODUIT WHERE PRODUIT.NOM = ?";
-        String contenu;
+
+    public ProduitEntity rechercheProduitParticulier(String nom) {
+        String sql = "SELECT REFERENCE,libelle,PRIX_UNITAIRE,ACCESSOIRES,UNITES_EN_STOCK,ACCESSOIRES FROM PRODUIT INNER JOIN CATEGORIE ON categorie.code = PRODUIT.categorie where nom = ?";
+        String contenu, marque;
         float prix;
-        int stock,ref;
+        int stock, ref;
         ProduitEntity pe;
-        try(Connection co = ds.getConnection();
-            PreparedStatement stm = co.prepareStatement(sql);){
-            stm.setString(1,nom);
-            try(ResultSet rs =stm.executeQuery()){
-                if(rs.next()){
+        try (Connection co = ds.getConnection();
+                PreparedStatement stm = co.prepareStatement(sql);) {
+            stm.setString(1, nom);
+            try (ResultSet rs = stm.executeQuery()) {
+                if (rs.next()) {
                     ref = rs.getInt("REFERENCE");
-                    System.out.println("ref : "+ref);
+                    System.out.println("ref : " + ref);
                     prix = rs.getFloat("PRIX_UNITAIRE");
-                    System.out.println("prix : "+prix);
+                    System.out.println("prix : " + prix);
                     stock = rs.getInt("UNITES_EN_STOCK");
-                    System.out.println("stock : "+stock);
+                    System.out.println("stock : " + stock);
                     contenu = rs.getString("ACCESSOIRES");
-                    System.out.println("contenu : "+contenu);
-                    pe = new ProduitEntity(ref, nom, -1, -1, contenu, prix, stock, -1, -1, -1, " ");
+                    System.out.println("contenu : " + contenu);
+                    marque = rs.getString("libelle");
+                    System.out.println("marque : " + marque);
+                    pe = new ProduitEntity(ref, nom, -1, -1, contenu, prix, stock, -1, -1, -1, marque);
                     return pe;
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOProduit.class.getName()).log(Level.SEVERE, null, ex);
-            
+
         }
         return null;
     }

@@ -62,6 +62,7 @@ public class Connexion extends HttpServlet {
                 resultat.put("error", "Account not found");
             } else {
                 session.setAttribute("account", dao.rechercheCompte(username, password));
+                session.setAttribute("password", password);
             }
 
             //if (dao.rechercheCompte(username, password) != null) {

@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Properties;
 import javax.servlet.ServletException;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.DAOProduit;
+import model.DAOCommande;
 import model.DAOcompte;
 import model.DataSourceFactory;
 
@@ -25,8 +26,8 @@ import model.DataSourceFactory;
  *
  * @author Corentin
  */
-@WebServlet(name = "Session", urlPatterns = {"/Session"})
-public class Session extends HttpServlet {
+@WebServlet(name = "commandesClient", urlPatterns = {"/commandesClient"})
+public class commandesClient extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,35 +40,41 @@ public class Session extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
 
-                DAOcompte dao = new DAOcompte(DataSourceFactory.getDataSource());
-		Properties resultat = new Properties();
+        DAOCommande dao = new DAOCommande(DataSourceFactory.getDataSource());
 
-                HttpSession session = request.getSession();
-                
-                try {
-                    resultat.put("account", session.getAttribute("account"));
-                    resultat.put("mdp", session.getAttribute("password"));
 
-                    
-                    
-                }catch (Exception ex) {
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			resultat.put("records", Collections.EMPTY_LIST);
-			resultat.put("message", ex.getMessage());
-		}
 
-		try (PrintWriter out = response.getWriter()) {
-			// On spécifie que la servlet va générer du JSON
-			response.setContentType("application/json;charset=UTF-8");
-			// Générer du JSON
-			// Gson gson = new Gson();
-			// setPrettyPrinting pour que le JSON généré soit plus lisible
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			String gsonData = gson.toJson(resultat);
-			out.println(gsonData);
-                } 
+        HttpSession session = request.getSession();
+
+        String mdp = (String) session.getAttribute("password");
+        
+        Properties result = new Properties();
+
+        try {
+
+            result.put("test",session.getAttribute("account"));
+            result.put("commande", dao.rechercheCommmandeParClient(mdp));
+            result.put("mdp",mdp);
+
+
+        } catch (Exception ex) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            result.put("records", Collections.EMPTY_LIST);
+            result.put("message", ex.getMessage());
+        }
+
+        try (PrintWriter out = response.getWriter()) {
+            // On spécifie que la servlet va générer du JSON
+            response.setContentType("application/json;charset=UTF-8");
+            // Générer du JSON
+            // Gson gson = new Gson();
+            // setPrettyPrinting pour que le JSON généré soit plus lisible
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String gsonData = gson.toJson(result);
+            out.println(gsonData);
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
