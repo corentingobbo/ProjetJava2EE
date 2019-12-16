@@ -27,26 +27,10 @@ public class DataSourceFactory {
 	 */
 	public static DataSource getDataSource() {
 		DataSource result;
-
-		switch (TYPE) {
-			case server: // Derby mode serveur, doit être démarré indépendamment
-				org.apache.derby.jdbc.ClientDataSource ds = new org.apache.derby.jdbc.ClientDataSource();
-				ds.setDatabaseName("mohammedaliexpress");
-				ds.setUser("app");
-				ds.setPassword("app");
-				// The host on which Network Server is running
-				ds.setServerName("localhost");
-				// port on which Network Server is listening
-				ds.setPortNumber(1527);
-				result = ds;
-				break;
-			default: // Derby mode embedded, démarré automatiquement avec l'application
-				org.apache.derby.jdbc.EmbeddedDataSource es = new org.apache.derby.jdbc.EmbeddedDataSource();
-				es.setCreateDatabase("create");
-				es.setDatabaseName("mohammedaliexpress");
-				result = es;
-		}
-
+		org.apache.derby.jdbc.EmbeddedDataSource es = new org.apache.derby.jdbc.EmbeddedDataSource();
+		es.setCreateDatabase("create");
+		es.setDatabaseName("mohammedaliexpress");
+		result = es;
 		return result;
 	}
 }
