@@ -100,5 +100,6 @@ public class TestClient {
         ClientEntity c2 = dao.rechercheCompte2("Bryan Franco", "CHAMP");
         assertEquals(c.toString(),c2.toString());
     }
+
 */
 }
