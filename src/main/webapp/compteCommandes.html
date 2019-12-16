@@ -34,6 +34,22 @@ and open the template in the editor.
         <script type="text/javascript">
             $(document).ready(// Exécuté à la fin du chargement de la page
                     function () {
+                        
+                         $.ajax({
+                            url: "Session",
+                            dataType: "json",
+                            error: function () {
+                                console.log("error");
+                            },
+                            success: // La fonction qui traite les résultats
+                                    function (result) {
+                                        console.log(result);
+                                        var account = result.account;
+                                        $('.name').html(account.name);
+
+                                    }
+                        });
+
 
                         $.ajax({
                             url: "commandesClient",
@@ -71,7 +87,7 @@ and open the template in the editor.
                 <div class="navbar-collapse  collapse w-100 order-2 dual-collapse2">
                     <ul class="navbar-nav test">
                         <li class="nav-item ">
-                            <a class="nav-link" href="#"><img src="imgs/momo_1.png"  height="50px" alt=""></span></a>
+                            <a class="nav-link" href="index.html"><img src="imgs/momo_1.png"  height="50px" alt=""></span></a>
                         </li>
                     </ul>
                 </div>
@@ -86,7 +102,7 @@ and open the template in the editor.
                     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
-                                <h5 id="nomCli" style="margin-right: 20px;margin-top: 15px;font-family: 'Poppins', sans-serif;">Hervé Lavigne</h5>
+                                <h5 class="name" id="nomCli" style="margin-right: 20px;margin-top: 15px;font-family: 'Poppins', sans-serif;">Hervé Lavigne</h5>
                             </li>
                             <li class="nav-item">
                                 <img class="avatar" style="height: 50px;" src="imgs/avatar.svg">
