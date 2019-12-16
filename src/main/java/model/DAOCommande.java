@@ -58,7 +58,7 @@ public class DAOCommande {
                   stm.setString(2,client.getCode());
                   stm.setString(3,"2019-12-17");
                   stm.setString(4,"2019-12-18");
-                  stm.setString(5,client.getCode());
+                  stm.setString(5,client.getContact());
                   stm.setString(6,client.getAdresse());
                   stm.setString(7,client.getVille());
                   stm.setString(8,client.getRegion());
@@ -122,6 +122,8 @@ public class DAOCommande {
                       CommandeEntity com=new CommandeEntity(num,code,sl,el, (int) port,desti,al,vl,rl,cpl,pl,remise);
                       commandeByClient.add(com);
                   }
+                  System.out.println(commandeByClient);
+                  return commandeByClient;
               } 
               
                  
@@ -208,6 +210,10 @@ public class DAOCommande {
         }}
           return 10;
     }
+
+    //public void newCommande(HashMap<String, String> client1) {
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    //}
         
 
 }

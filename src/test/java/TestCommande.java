@@ -5,6 +5,7 @@
  */
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import model.ClientEntity;
 import model.CommandeEntity;
 import model.DAOCommande;
@@ -23,7 +24,7 @@ public class TestCommande {
 /*
     private DAOCommande dao;
     private DAOcompte daoclient;
-    private ClientEntity client1;
+    private HashMap<String,String> client1;
     private DAOProduit daoprod;
 
     
@@ -59,14 +60,14 @@ public class TestCommande {
     public void testnewCommande() throws SQLException{
         int num = dao.numLigne();
         
-        dao.newCommande(client1);
+        dao.newCommande(client1,"ALFKI");
         assertEquals(num+1, dao.numLigne());
     }
     
     @Test
     public void testAjouterLigne() throws SQLException{
         ProduitEntity produit=daoprod.rechercheProduitParticulier("iPhone 5");
-        dao.newCommande(client1);
+        dao.newCommande(client1,"ALFKI");
         CommandeEntity com= dao.recupereCommandeParNum(dao.numLigne());
         dao.ajouterLigne(com, produit, 1);
         assertTrue(com.getPort()== produit.getPrix_unitaire());
@@ -77,7 +78,7 @@ public class TestCommande {
     @Test
     public void testRechercheCommandeParClient(){
         
-        assertEquals(dao.rechercheCommmandeParClient(client1).size(), 4);
+        assertEquals(dao.rechercheCommmandeParClient("ALFKI").size(), 4);
         
     }
     
