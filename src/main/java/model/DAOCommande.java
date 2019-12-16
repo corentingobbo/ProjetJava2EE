@@ -55,8 +55,8 @@ public class DAOCommande {
               { 
                   stm.setInt(1,num+1);
                   stm.setString(2,client.getCode());
-                  stm.setString(3,"17-12-2019");
-                  stm.setString(4,"17-12-2019");
+                  stm.setString(3,"2019-12-17");
+                  stm.setString(4,"2019-12-18");
                   stm.setString(5,client.getCode());
                   stm.setString(6,client.getAdresse());
                   stm.setString(7,client.getVille());
@@ -72,10 +72,11 @@ public class DAOCommande {
     
     public void ajouterLigne(CommandeEntity commande,ProduitEntity produit, int quantite) throws SQLException{
         commande.setPort((int) (commande.getPort()+ produit.getPrix_unitaire() * quantite));
-        String sqlp="UPDATE commande SET port = ?";
+        String sqlp="UPDATE commande SET port = ? where = ? ";
         try(Connection co = ds.getConnection();
               PreparedStatement stm = co.prepareStatement(sqlp);)
               {
+                  stm.setInt(2,commande.getNumero());
                   stm.setInt(1, commande.getPort());
                   stm.executeUpdate();
               }
@@ -136,7 +137,8 @@ public class DAOCommande {
               PreparedStatement stm = co.prepareStatement(sql);){
             stm.setInt(1,num);
             try(ResultSet rs = stm.executeQuery()){
-                      String cli=rs.getString(2);
+                if(rs.next()){
+                    String cli=rs.getString(2);
                       String sl=rs.getString(3);
                       String el=rs.getString(4);
                       float port=rs.getFloat(5);
@@ -149,10 +151,13 @@ public class DAOCommande {
                       float remise=rs.getFloat(12);
                       CommandeEntity com=new CommandeEntity(num,cli,sl,el, (int) port,desti,al,vl,rl,cpl,pl,remise);
                       return com;
+                }
+                      
+                      
                       
             }
         }
-           
+          return null; 
     }
     
     public int  numLigneParCommande(CommandeEntity com) throws SQLException{
