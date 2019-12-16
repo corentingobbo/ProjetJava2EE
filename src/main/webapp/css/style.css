@@ -58,7 +58,7 @@ a.disabled {
 }
 
 .account:hover .connect{
-    height: 170px;
+    height: 200px;
     border-radius: 5px;
     cursor: default;
     align-content: center;
@@ -315,4 +315,38 @@ a span{
     text-align: center;
     font-size: 11px;
     color: white;
+}
+
+.username{
+    font-family: 'Poppins', sans-serif;
+}
+
+.alert{
+    border-radius: 15px;
+    color: white;
+    text-align: center;
+    
+    position: fixed;
+    z-index: 10000;
+    background: rgba(230, 126, 34,0.5);
+    right: 20px;
+    top: 40px;
+    height: 80px;
+    width: 180px;
+    display: none;
+}
+
+.ajout{
+    border-radius: 15px;
+    color: white;
+    text-align: center;
+    
+    position: fixed;
+    z-index: 10000;
+    background: rgba(41, 128, 185,0.4);
+    right: 20px;
+    top: 40px;
+    height: 80px;
+    width: 180px;
+    display: none;
 }

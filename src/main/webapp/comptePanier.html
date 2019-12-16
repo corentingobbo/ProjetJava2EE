@@ -15,7 +15,6 @@ and open the template in the editor.
         <!-- Material Design Bootstrap -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/css/mdb.min.css" rel="stylesheet">
         <link rel="stylesheet" href="css/compte.css">
-        <link rel="stylesheet" href="css/style.css">
 
         <!-- JQuery -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -35,23 +34,41 @@ and open the template in the editor.
         <script type="text/javascript">
             $(document).ready(// Exécuté à la fin du chargement de la page
                     function () {
+                        
+                                                 $.ajax({
+                            url: "Session",
+                            dataType: "json",
+                            error: function () {
+                                console.log("error");
+                            },
+                            success: // La fonction qui traite les résultats
+                                    function (result) {
+                                        console.log(result);
+                                        var account = result.account;
+                                        $('.name').html(account.name);
+
+                                    }
+                        });
 
                         function getPanier() {
                             $.ajax({
                                 url: "getPanier",
                                 dataType: "json",
-                                error: function (){
+                                error: function () {
                                     initPanier();
                                 },
                                 success: // La fonction qui traite les résultats
                                         function (result) {
-                                            console.log(result.panier.length);
+                                            console.log(result.panier);
+                                            var total = 0;
+                                            var s = "";
+                                            result.panier.forEach(item => s+= "<div class='col-12 container panierLine'><div class='row'><div class='panierImg col-3'><img class='imgP' src='imgs/phones/" + item.nom + ".png'></div><div class=' col-5'><div class='panierText'><p> nom : " +item.nom + " </p><p> marque : "+ item.marque +" </p></div></div><div class='panierText col-4'><p class='panierPrix'> "+item.prix_unitaire+" € </p></div></div></div>" );
+                                            result.panier.forEach(item => total+=item.prix_unitaire);
+                                            $('.panierList').html(s);
+                                            $('.total').html(total);
+                                            console.log(total);
                                             
-                                        var s = ""
-                                        result.panier.forEach(item =>
-                                            s+= "<div class='container-fluid item'><div class='row'><div class='col-4 imgPanier'><img class='imgP' src='imgs/phones/" + item.nom + ".png'></div><div class='col-8 textPanier'><p class='pPanier'>"+ item.nom +" "+ item.prix_unitaire+"€</p></div></div></div>"
-                                            );
-                                        $('.panierItems').html(s);
+                                            
 
 
                                         }
@@ -88,7 +105,7 @@ and open the template in the editor.
                 <div class="navbar-collapse  collapse w-100 order-2 dual-collapse2">
                     <ul class="navbar-nav test">
                         <li class="nav-item ">
-                            <a class="nav-link" href="#"><img src="imgs/momo_1.png"  height="50px" alt=""></span></a>
+                            <a class="nav-link" href="index.html"><img src="imgs/momo_1.png"  height="50px" alt=""></span></a>
                         </li>
                     </ul>
                 </div>
@@ -103,7 +120,7 @@ and open the template in the editor.
                     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
-                                <h5 id="nomCli" style="margin-right: 20px;margin-top: 15px;font-family: 'Poppins', sans-serif;">Hervé Lavigne</h5>
+                                <h5 class="name" id="nomCli" style="margin-right: 20px;margin-top: 15px;font-family: 'Poppins', sans-serif;">Hervé Lavigne</h5>
                             </li>
                             <li class="nav-item">
                                 <img class="avatar" style="height: 50px;" src="imgs/avatar.svg">
@@ -143,16 +160,55 @@ and open the template in the editor.
             <div id="content">
                 <div class="container-fluid">
                     <div class="row">
+                        
+                        <h2 style="margin-left: 20px;" class="h1-responsive font-weight-bold text-center my-4">Votre panier</h2>
+                        <p style="margin-top: 40px; margin-left: 40px;">Total : <span class="total">0</span> €</p>
+                        <button type="button" style="margin-left: 50px;" class="btn btn-commander btn-danger" data-toggle="modal" data-target="#exampleModalCenter">Commandez !</button>
+                        <button class="btn btn-suppr btn-secondary" >Supprimez le panier</button>
+                        <!-- Button trigger modal -->
 
-                                <div class="panierDiv">
-                                    <div class="panierContent panierItems">
 
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Merci !</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                Votre commande est en cours de le préparation. Merci de votre confiance, au plaisir de vous revoir.
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                            
+                        <div class="col-lg-7 panierContent" >
+
+
+                                <!--Section heading-->
+
+                                <!--Section description-->
+
+                                <div class="row container panierList">
+                                    
+                                    
+
+                                    
 
                                     </div>
 
-                               </div>
-                        <div class="col-lg-5 img">
-                            <img src="imgs/deliver.svg">
+                                </div>
+
+                        
+                        <div class="col-lg-4 img" >
+                            <img src="imgs/panier.svg" style="margin-left: 20px;"><br>
                         </div>
                     </div>
                 </div>
@@ -160,6 +216,13 @@ and open the template in the editor.
         </div>
 
     </div>  
+    
+    <div style="margin-top: 20px;" class="commandez">
+        <br>
+                                    <p>Total : 3000 euros</p>
+                                    <button class="btn btn-danger" >Commandez !</button>
+                            <button class="btn btn-secondary" onclick="deletePanier();">Supprimez le panier</button>
+    </div>
 
     <script type="text/javascript">
         function deconnexion() {
@@ -167,9 +230,33 @@ and open the template in the editor.
             window.location.href = "index.html";
             $.ajax({
                 url: "Deconnexion",
-                dataType: "json"
+                dataType: "json",
+                
             });
 
+        }
+        
+        $('.btn-suppr').click(function (e){
+            console.log("test");
+            window.location.href = "comptePanier.html";
+                        $.ajax({
+                url: "initPanier",
+                dataType: "json"
+                
+            });
+            
+            
+        });
+        
+
+            
+            
+        });
+        
+        function deletePanier(){
+            console.log("test");
+
+            
         }
     </script>
 

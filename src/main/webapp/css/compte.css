@@ -144,57 +144,37 @@ ul ul a {
     overflow: auto;
 }
 
-.panierDiv{
-    height: 200px;
-    border-radius: 5px;
-    cursor: default;
-    align-content: center;
-    box-shadow: 0px 0px 10px 10px rgba(255,0,0,0.2);
+
+.panierLine{
+    height: 150px;
+    border-radius: 25px;
+    box-shadow: 0px 10px 10px 10px rgba(0,0,0,0.2);
+    margin: 20px 20px;
+
 }
 
 .panierContent{
-    overflow: auto;
-    left: 20px;
-    top: 20px;
-    position: relative;
-    background: transparent;
-    width: 260px;
-    height: 160px;
-    display: none;
-}
-
-.item{
-    height: 80px;
-    background: #f1f3f6;
-    border-radius: 10px;
-    margin: 5px 0;
-}
-
-.imgPanier{
-    height: 80px;
-    text-align: center;
-
-}
-
-
-.textPanier{
-    height: 80px;
-    align-content: center;
-    align-items: center;
-
+    height: 800px;
+    overflow-y: auto;
+    overflow-x: hidden; 
 }
 
 .imgP{
     position: absolute;
-    left: 0;
-    top: -2px;
-    margin: 0;
-    width: 100%;
-    height: 100%;
+
+    margin-left: 80px;
+    margin-top: 75px;
+    transform: translate(-50%,-50%) scale(0.4);
 }
 
-.pPanier{
-    text-align: center;
-    align-content: center;
-    transform: translateY(100%);
+.panierText{
+    margin-top: 35px;
 }
+
+.panierPrix{
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+
