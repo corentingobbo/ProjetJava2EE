@@ -46,7 +46,7 @@ public class TestCommande {
         client1 = daoclient.rechercheCompte("Maria Anders", "ALFKI");
         
         
-        
+    /*    
     }
     @Test
     //Creation d'une commande
@@ -87,5 +87,5 @@ public class TestCommande {
     }
 
    
-
+*/
 }

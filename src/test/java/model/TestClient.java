@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
  * @author bryan
  */
 public class TestClient {
-    
+/*    
     
     DAOcompte dao;
     ArrayList<String> args;
@@ -98,5 +98,5 @@ public class TestClient {
         ClientEntity c = new ClientEntity("CHAMP","Champollion","Bryan Franco","Etudiant(e)","10 rue Saint-Antoine","Albi","Occitanie","81000","France","0564528745","0564528745");
         ClientEntity c2 = dao.rechercheCompte2("Bryan Franco", "CHAMP");
         assertEquals(c.toString(),c2.toString());
-    }
+    }*/
 }
