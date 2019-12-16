@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -131,6 +132,38 @@ public class DAOCommande {
         
         
     }
+    
+        public HashMap<String,String> rechercheToutesCommandesParNom(String nom) {
+        HashMap<String,String> map = new HashMap<>();
+        String sql="select commande,SAISIE_LE, ENVOYEE_LE,PORT,ADRESSE_LIVRAISON,VILLE_LIVRAISON,CODE_POSTAL,NOM,ACCESSOIRES,PRIX_UNITAIRE,LIBELLE,CONTACT from ligne inner join commande on ligne.commande = COMMANDE.NUMERO inner join produit on produit.REFERENCE = ligne.PRODUIT inner join categorie on CATEGORIE.CODE = PRODUIT.CATEGORIE inner join client on client.CODE = COMMANDE.CLIENT where client.CONTACT = ?";
+        try(Connection co = ds.getConnection();
+              PreparedStatement stm = co.prepareStatement(sql);){
+              stm.setString(1, nom);
+              try(ResultSet rs = stm.executeQuery()){
+                  while(rs.next()){
+                      map.put("commande", rs.getString("commande") );
+                      map.put("saisie_le", rs.getString("saisie_le") );
+                      map.put("envoyee_le", rs.getString("envoyee_le") );
+                      map.put("adresse_livraison", rs.getString("adresse_livraison") );
+                      map.put("ville_livraison", rs.getString("ville_livraison") );
+                      map.put("code_postal", rs.getString("code_postal") );
+                      map.put("nom", rs.getString("nom") );
+                      map.put("prix_unitaire", rs.getString("prix_unitaire") );
+                      map.put("libelle", rs.getString("libelle") );
+                      map.put("contact", rs.getString("contact") );
+                  }
+              } 
+              
+                 
+              }catch (SQLException ex) {
+            Logger.getLogger(DAOCommande.class.getName()).log(Level.SEVERE, null, ex);            
+    }
+        return map;
+        
+        
+    }
+        
+        
     public CommandeEntity recupereCommandeParNum(int num) throws SQLException{
         String sql="SELECT * FROM commande WHERE numero = ?";
         try(Connection co = ds.getConnection();
