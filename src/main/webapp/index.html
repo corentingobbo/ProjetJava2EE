@@ -501,7 +501,11 @@
                         
 
                         
-                        if(typeof($('.username').html()) == "undefined"){
+
+                            
+                        if (tab[0] == "addPanier") {
+                            
+                                                    if(typeof($('.username').html()) == "undefined"){
                             $( ".alert" ).slideUp( 300 ).delay( 0 ).fadeIn( 400 );
                             $( ".alert" ).slideDown( 300 ).delay( 1000 ).fadeOut( 400 );
                         }else{
@@ -510,7 +514,6 @@
                             $( ".ajout" ).slideUp( 300 ).delay( 0 ).fadeIn( 400 );
                             $( ".ajout" ).slideDown( 300 ).delay( 1000 ).fadeOut( 400 );
                             
-                        if (tab[0] == "addPanier") {
                             var phone = $(cible).val();
                             var req = "phone=" + phone;
 
