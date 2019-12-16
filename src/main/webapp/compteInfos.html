@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+        <!-- Bootstrap core CSS -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Material Design Bootstrap -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/css/mdb.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/compte.css">
+
+        <!-- JQuery -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!-- Bootstrap tooltips -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <!-- MDB core JavaScript -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/js/mdb.min.js"></script>
+
+
+
+        <title>Compte</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script type="text/javascript">
+            $(document).ready(// Exécuté à la fin du chargement de la page
+                    function () {
+
+                        $.ajax({
+                            url: "Session",
+                            dataType: "json",
+                            error: function () {
+                                console.log("error");
+                            },
+                            success: // La fonction qui traite les résultats
+                                    function (result) {
+                                        console.log(result);
+                                        var account = result.account;
+                                        $('.name').html(account.name);
+                                        $('#nom').val(account.name);
+                                        $('#societe').val(account.societe);
+                                        $('#adresse').val(account.adresse);
+                                        $('#ville').val(account.ville);
+                                        $('#cp').val(account.cp);
+                                        $('#region').val(account.region);
+                                        $('#pays').val(account.pays);
+                                        $('#tel').val(account.telephone);
+                                        $('#fax').val(account.fax);
+                                        $('#password').val(result.mdp);
+                                        $('#password2').val(result.mdp);
+
+
+                                    }
+                        });
+
+
+
+
+                    })
+        </script>
+
+    </head>
+    <body>
+
+        <nav class="navbar  navbar-expand-lg navbar-light bg-light blur">
+            <div class="container ">
+                <div class="navbar-collapse  collapse w-100 order-2 dual-collapse2">
+                    <ul class="navbar-nav test">
+                        <li class="nav-item ">
+                            <a class="nav-link" href="index.html"><img src="imgs/momo_1.png"  height="50px" alt=""></span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <nav class="navbar second-nav  navbar-expand-lg navbar-light bg-light">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <h5 class="name" style="margin-right: 20px;margin-top: 15px;font-family: 'Poppins', sans-serif;">Hervé Lavigne</h5>
+                            </li>
+                            <li class="nav-item">
+                                <img class="avatar" style="height: 50px;" src="imgs/avatar.svg">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </nav>
+
+        <div class="wrapper">
+
+            <!-- Sidebar -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Gérez votre compte</h3>
+                </div>
+
+                <ul class="list-unstyled components">
+
+                    <li class="active">
+                        <a href="#">Vos informations</a>
+                    </li>
+                    <li>
+                        <a href="compteCommandes.html">Vos commandes</a>
+                    </li>
+                    <li>
+                        <a href="comptePanier.html">Votre panier</a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="deconnexion()">Déconnexion</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Page Content -->
+            <div id="content">
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <div class="col-lg-6" id="formulaire" >
+
+                            <!--Section: Contact v.2-->
+                            <section class="mb-4">
+
+                                <!--Section heading-->
+                                <h2 class="h1-responsive font-weight-bold text-center my-4">Modifiez vos informations personnelles</h2>
+                                <!--Section description-->
+
+                                <div class="row">
+
+                                    <!--Grid column-->
+                                    <div class="col-md-12 mb-md-5 mb-5">
+                                        <form id="contact-form" name="contact-form">
+
+                                            <!--Grid row-->
+                                            <div class="row">
+
+                                                <!--Grid column-->
+                                                <div class="col-md-6">
+                                                    <div class="md-form mb-0">
+                                                        <input type="text" id="nom"  name="nom" class="form-control">
+                                                        <label for="nom" class="active">Votre nom</label>
+                                                    </div>
+                                                </div>
+                                                <!--Grid column-->
+
+                                                <!--Grid column-->
+                                                <div class="col-md-6">
+                                                    <div class="md-form mb-0">
+                                                        <input type="text" id="societe"  name="societe" class="form-control">
+                                                        <label for="societe" class="active">Votre societe</label>
+                                                    </div>
+                                                </div>
+                                                <!--Grid column-->
+                                            </div>
+                                            <div class="row">
+                                                <!--Grid column-->
+                                                <div class="col-md-6">
+                                                    <div class="md-form mb-0">
+                                                        <input type="password" id="password" name="password" class="form-control">
+                                                        <label for="password" class="active">Votre mot de passe</label>
+                                                    </div>
+                                                </div>
+                                                <!--Grid column-->
+
+                                                <!--Grid column-->
+                                                <div class="col-md-6">
+                                                    <div class="md-form mb-0">
+                                                        <input type="password" id="password2" name="password2" class="form-control">
+                                                        <label for="password2" class="active" >Retapez votre mot de passe</label>
+                                                        <p id="verif-mdp" style="display: none;color: red;font-size: 1em;">Les mots de passes de correspondent pas </p>
+                                                    </div>
+                                                </div>
+                                                <!--Grid column-->
+
+                                            </div>
+                                            <!--Grid row-->
+
+                                            <!--Grid row-->
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="md-form mb-0">
+                                                        <input type="text" id="adresse" name="adresse" class="form-control">
+                                                        <label for="adresse" class="active" >Votre adresse</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!--Grid row-->
+
+
+                                            <div class="row">
+                                                <!--Grid column-->
+                                                <div class="col-md-6">
+                                                    <div class="md-form mb-0">
+                                                        <input type="text" id="ville" name="ville" class="form-control">
+                                                        <label for="ville" class="active">Ville</label>
+                                                    </div>
+                                                </div>
+                                                <!--Grid column-->
+
+                                                <!--Grid column-->
+                                                <div class="col-md-6">
+                                                    <div class="md-form mb-0">
+                                                        <input type="text" id="cp" name="cp" class="form-control">
+                                                        <label for="cp" class="active">Code Postal</label>
+                                                    </div>
+                                                </div>
+                                                <!--Grid column-->
+
+                                            </div>
+                                            <div class="row">
+                                                <!--Grid column-->
+                                                <div class="col-md-6">
+                                                    <div class="md-form mb-0">
+                                                        <input type="text" id="region" name="region" class="form-control">
+                                                        <label for="region" class="active">Votre region</label>
+                                                    </div>
+                                                </div>
+                                                <!--Grid column-->
+
+                                                <!--Grid column-->
+                                                <div class="col-md-6">
+                                                    <div class="md-form mb-0">
+                                                        <input type="text" id="pays" name="pays" class="form-control">
+                                                        <label for="pays" class="active">Votre pays</label>
+                                                    </div>
+                                                </div>
+                                                <!--Grid column-->
+
+                                            </div>
+                                            <div class="row">
+                                                <!--Grid column-->
+                                                <div class="col-md-6">
+                                                    <div class="md-form mb-0">
+                                                        <input type="tel" id="tel" name="tel" class="form-control">
+                                                        <label for="tel" class="active">Votre numéro de téléphone</label>
+                                                    </div>
+                                                </div>
+                                                <!--Grid column-->
+
+                                                <!--Grid column-->
+                                                <div class="col-md-6">
+                                                    <div class="md-form mb-0">
+                                                        <input type="tel" id="fax" name="fax" class="form-control">
+                                                        <label for="fax" class="active">Votre numéro de fax</label>
+                                                    </div>
+                                                </div>
+                                                <!--Grid column-->
+
+                                            </div>
+                                            <!--Grid row-->
+
+                                        </form>
+
+                                        <div class="text-center text-md-left">
+                                            <btn class="btn btn-danger"  type="submit" onclick="valider()">Modifiez vos informations</btn>
+                                        </div>
+
+                                    </div>
+                                    <!--Grid column-->
+
+                                </div>
+
+                            </section>
+                            <!--Section: Contact v.2-->
+
+                        </div>
+                        <div class="col-lg-5 img">
+                            <img src="imgs/phone.svg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>  
+
+    <script type="text/javascript">
+        function valider() {
+
+            if ($('#password').val() !== $('#password2').val()) {
+                $("#verif-mdp").css("display", "block");
+            } else {
+                console.log($('#contact-form').serialize());
+                $.ajax({
+                    url: "changeInfos",
+                    data: $('#contact-form').serialize(),
+                    success: function (result) {
+                        console.log(result);
+                    },
+                    error: function (jqxhr) {
+                        console.log(jqxhr);
+                    }
+                });
+            }
+        }
+
+        function deconnexion() {
+            console.log('je suis la');
+            window.location.href = "index.html";
+            $.ajax({
+                url: "Deconnexion",
+                dataType: "json"
+            });
+
+        }
+    </script>
+
+</body>
+</html>
+
+

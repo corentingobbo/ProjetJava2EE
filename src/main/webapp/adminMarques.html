@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+        <!-- Bootstrap core CSS -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Material Design Bootstrap -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/css/mdb.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/compte.css">
+
+        <!-- JQuery -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!-- Bootstrap tooltips -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <!-- MDB core JavaScript -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/js/mdb.min.js"></script>
+
+
+
+        <title>Admin</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    </head>
+    <body>
+
+        <nav class="navbar  navbar-expand-lg navbar-light bg-light blur">
+            <div class="container ">
+                <div class="navbar-collapse  collapse w-100 order-2 dual-collapse2">
+                    <ul class="navbar-nav test">
+                        <li class="nav-item ">
+                            <a class="nav-link" href="index.html"><img src="imgs/momo_1.png"  height="50px" alt=""></span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <nav class="navbar second-nav  navbar-expand-lg navbar-light bg-light">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <h5 style="margin-right: 20px;margin-top: 15px;font-family: 'Poppins', sans-serif;">Admin</h5>
+                            </li>
+                            <li class="nav-item">
+                                <img class="avatar" style="height: 50px;" src="imgs/boss.svg">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </nav>
+
+        <div class="wrapper">
+
+            <!-- Sidebar -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Gérez votre site</h3>
+                </div>
+
+                <ul class="list-unstyled components">
+
+                    <li>
+                        <a href="adminDashboard.html">Dashoard</a>
+                    </li>
+                    <li class="">
+                        <a href="adminCommandes.html">Les commandes</a>
+                    </li>
+                    <li class="">
+                        <a href="adminProduits.html">Les produits</a>
+                    </li>
+                    <li class="active">
+                        <a href="#">Les marques</a>
+                    </li>
+                    <li class="">
+                        <a href="#">Messagerie</a>
+                    </li>
+                    <li>
+                        <a href="#">Déconnexion</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Page Content -->
+            <div id="content">
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <div class="col-lg-6" id="formulaire" >
+
+                            <!--Section: Contact v.2-->
+                            <section class="mb-4">
+
+                                <!--Section heading-->
+                                <h2 class="h1-responsive font-weight-bold text-center my-4">Les dernieres commandes</h2>
+                                <!--Section description-->
+
+                                <div class="row">
+
+                                    <!--Grid column-->
+                                    <div class="col-md-12 mb-md-5 mb-5">
+                                        <form id="contact-form" name="contact-form" action="mail.php" method="POST">
+
+                                            <!--Grid row-->
+                                            <div class="row">
+
+                                                <div id="tab-commande">
+                                                    <div class="table-responsive">
+                                                        <!--Table-->
+                                                        <table class="table table-striped">
+
+                                                            <!--Table head-->
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Produit</th>
+                                                                    <th>Saisie</th>
+                                                                    <th>Envoyé</th>
+                                                                    <th>Port</th>
+                                                                    <th>Adresse</th>
+                                                                    <th>Ville</th>
+                                                                    <th>Remise</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <!--Table head-->
+
+                                                            <!--Table body-->
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th>1</th>
+                                                                    <td>Iphone xs</td>
+                                                                    <td>23/1/2019</td>
+                                                                    <td>25/1/2019 </td>
+                                                                    <td>23.00€</td>
+                                                                    <td>210 Rue de la République</td>
+                                                                    <td>Paris</td>
+                                                                    <td>0%</td>
+                                                                </tr>
+
+                                                            </tbody>
+                                                            <!--Table body-->
+                                                        </table>
+                                                        <!--Table-->
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                    </div>
+                                </div>
+
+                            </section>
+                            <!--Section: Contact v.2-->
+
+                        </div>
+                        <div class="col-lg-5 img">
+                            <img src="imgs/deliver.svg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>  
+
+</body>
+</html>
+
+
