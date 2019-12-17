@@ -232,24 +232,91 @@ public class DAOCommande {
         }
         return 10;
     }
+    
+    public ArrayList<String> nbVentesParMarque(String marque){
+        String sql = "SELECT COUNT(*) FROM LIGNE inner join categorie on ligne.PRODUIT = categorie.CODE WHERE CODE = ?";
+        ArrayList<String> nbLigne= new ArrayList<>(); 
+        
+        try(Connection co = ds.getConnection();
+            PreparedStatement stm = co.prepareStatement(sql);){
+            stm.setString(0, marque);
+            try(ResultSet rs = stm.executeQuery()){
+                if(rs.next()){
+                    nbLigne.add(marque);
+                    nbLigne.add(Integer.toString(rs.getInt(1)));
+                }
+            }
+    }   catch (SQLException ex) {
+            Logger.getLogger(DAOCommande.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return nbLigne;
+    }
+    
+    public HashMap<String,String> nBVentes(){
+        HashMap<String,String> hm = new HashMap<>();
+        ArrayList<String> al = nbVentesParMarque("Apple");
+        hm.put(al.get(0), al.get(1));
+        al = nbVentesParMarque("Samsung");
+         hm.put(al.get(0), al.get(1));
+        al = nbVentesParMarque("Huawei");
+         hm.put(al.get(0), al.get(1));
+        al = nbVentesParMarque("OnePlus");
+         hm.put(al.get(0), al.get(1));
+        al = nbVentesParMarque("Xiaomi");
+         hm.put(al.get(0), al.get(1));
+        al = nbVentesParMarque("Asus");
+         hm.put(al.get(0), al.get(1));
+        al = nbVentesParMarque("Sony");
+         hm.put(al.get(0), al.get(1));
+        al = nbVentesParMarque("Nokia");
+         hm.put(al.get(0), al.get(1));
+        al = nbVentesParMarque("Oppo");
+         hm.put(al.get(0), al.get(1));
+       return hm;
+    }
+    
+    public String ventesSurAnnee(String annee){
+        String sql = "SELECT COUNT(*) FROM COMMANDE WHERE SAISIE_LE BETWEEN '"+annee+"-01-01' AND '"+annee+"-12-31'";
+        String str = null;
+        try(Connection co = ds.getConnection();
+            PreparedStatement stm = co.prepareStatement(sql);){
+            try(ResultSet rs = stm.executeQuery()){
+                str = Integer.toString(rs.getInt(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOCommande.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return str;
+    }
+    
+    public HashMap<String,String> ventesParAnnee(){
+        HashMap<String,String> hm = new HashMap<>();
+        String al = null;
+        for(int i = 1994 ; i < 1997 ; i++){
+            al = ventesSurAnnee(Integer.toString(i));
+            hm.put(Integer.toString(i), al);
+        }
+        return hm;
+    }
 
     //public void newCommande(HashMap<String, String> client1) {
     // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     //}
-    public void supprimerCommande(int num) throws SQLException {
-        String sql = "DELETE FROM Ligne VHERE commande = ?";
-        try (Connection co = ds.getConnection();
-                PreparedStatement stm = co.prepareStatement(sql);) {
-            stm.setInt(1, num);
+    
+    public void supprimerCommande(int num) throws SQLException{
+        String sql = "DELETE FROM Ligne WHERE commande = ?";
+        try(Connection co = ds.getConnection();
+                PreparedStatement stm = co.prepareStatement(sql);){
+            stm.setInt(1,num);
             stm.executeUpdate();
         }
-        String sql2 = "DELETE FROM commande VHERE numero = ?";
-        try (Connection co2 = ds.getConnection();
-                PreparedStatement stm2 = co2.prepareStatement(sql);) {
-            stm2.setInt(1, num);
+        String sql2 = "DELETE FROM commande WHERE numero = ?";
+        try(Connection co2 = ds.getConnection();
+                PreparedStatement stm2 = co2.prepareStatement(sql);){
+            stm2.setInt(1,num);
             stm2.executeUpdate();
-
+        
         }
-
     }
+    
 }
