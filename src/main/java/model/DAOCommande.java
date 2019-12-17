@@ -48,25 +48,27 @@ public class DAOCommande {
 
     }
 
-    public void newCommande(ClientEntity client) throws SQLException {
-
-        int num = numLigne();
-
-        String sql3 = "INSERT INTO commande VALUES(?,?,?,?,0,?,?,?,?,?,?,0)";
-        try (Connection co = ds.getConnection();
-                PreparedStatement stm = co.prepareStatement(sql3);) {
-            stm.setInt(1, num + 1);
-            stm.setString(2, client.getCode());
-            stm.setString(3, "2019-12-17");
-            stm.setString(4, "2019-12-18");
-            stm.setString(5, client.getCode());
-            stm.setString(6, client.getAdresse());
-            stm.setString(7, client.getVille());
-            stm.setString(8, client.getRegion());
-            stm.setString(9, client.getCode_postal());
-            stm.setString(10, client.getPays());
-            stm.executeUpdate();
-        } catch (SQLException ex) {
+    public void newCommande (ClientEntity client) throws SQLException{
+        
+          int num= numLigne(); 
+         
+          String sql3 = "INSERT INTO commande VALUES(?,?,?,?,0,?,?,?,?,?,?,0)";
+           try(Connection co = ds.getConnection();
+              PreparedStatement stm = co.prepareStatement(sql3);)
+              { 
+                  stm.setInt(1,num+1);
+                  stm.setString(2,client.getCode());
+                  stm.setString(3,"2019-12-17");
+                  stm.setString(4,"2019-12-18");
+                  stm.setString(5,client.getContact());
+                  stm.setString(6,client.getAdresse());
+                  stm.setString(7,client.getVille());
+                  stm.setString(8,client.getRegion());
+                  stm.setString(9,client.getCode_postal());
+                  stm.setString(10,client.getPays());
+                  stm.executeUpdate();
+              }             
+           catch (SQLException ex) {
             Logger.getLogger(DAOCommande.class.getName()).log(Level.SEVERE, null, ex);
 
         }
@@ -100,31 +102,34 @@ public class DAOCommande {
 
     public List<CommandeEntity> rechercheCommmandeParClient(String code) {
         ArrayList<CommandeEntity> commandeByClient = new ArrayList<>();
-        String sql = "SELECT * FROM commande WHERE client = ?";
-        try (Connection co = ds.getConnection();
-                PreparedStatement stm = co.prepareStatement(sql);) {
-            stm.setString(1, code);
-            try (ResultSet rs = stm.executeQuery()) {
-                while (rs.next()) {
-                    int num = rs.getInt(1);
-                    String sl = rs.getString(3);
-                    String el = rs.getString(4);
-                    float port = rs.getFloat(5);
-                    String desti = rs.getString(6);
-                    String al = rs.getString(7);
-                    String vl = rs.getString(8);
-                    String rl = rs.getString(9);
-                    String cpl = rs.getString(10);
-                    String pl = rs.getString(11);
-                    float remise = rs.getFloat(12);
-                    CommandeEntity com = new CommandeEntity(num, code, sl, el, (int) port, desti, al, vl, rl, cpl, pl, remise);
-                    commandeByClient.add(com);
-                }
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(DAOCommande.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        String sql="SELECT * FROM commande WHERE client = ?";
+        try(Connection co = ds.getConnection();
+              PreparedStatement stm = co.prepareStatement(sql);){
+              stm.setString(1, code);
+              try(ResultSet rs = stm.executeQuery()){
+                  while(rs.next()){
+                      int num=rs.getInt(1);
+                      String sl=rs.getString(3);
+                      String el=rs.getString(4);
+                      float port=rs.getFloat(5);
+                      String desti=rs.getString(6);
+                      String al=rs.getString(7);
+                      String vl=rs.getString(8);
+                      String rl=rs.getString(9);
+                      String cpl=rs.getString(10);
+                      String pl=rs.getString(11);
+                      float remise=rs.getFloat(12);
+                      CommandeEntity com=new CommandeEntity(num,code,sl,el, (int) port,desti,al,vl,rl,cpl,pl,remise);
+                      commandeByClient.add(com);
+                  }
+                  System.out.println(commandeByClient);
+                  return commandeByClient;
+              } 
+              
+                 
+              }catch (SQLException ex) {
+            Logger.getLogger(DAOCommande.class.getName()).log(Level.SEVERE, null, ex);            
+    }
         return commandeByClient;
 
     }
@@ -199,5 +204,42 @@ public class DAOCommande {
         }
         return 10;
     }
+    
+    public int  numLigneParCommande(CommandeEntity com) throws SQLException{
+        String sql="SELECT COUNT(*) FROM ligne WHERE commande = ?";
+         try(Connection co = ds.getConnection();
+              PreparedStatement stm = co.prepareStatement(sql);){
+                stm.setInt(1,com.getNumero());
+                try(ResultSet rs = stm.executeQuery()){
+              if(rs.next()){
+              return rs.getInt(1);
+              }
+              
+          } catch (SQLException ex) {
+            Logger.getLogger(DAOCommande.class.getName()).log(Level.SEVERE, null, ex);
+        }}
+          return 10;
+    }
 
+    //public void newCommande(HashMap<String, String> client1) {
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    //}
+    
+    public void supprimerCommande(int num) throws SQLException{
+        String sql = "DELETE FROM Ligne VHERE commande = ?";
+        try(Connection co = ds.getConnection();
+                PreparedStatement stm = co.prepareStatement(sql);){
+            stm.setInt(1,num);
+            stm.executeUpdate();
+        }
+        String sql2 = "DELETE FROM commande VHERE numero = ?";
+        try(Connection co2 = ds.getConnection();
+                PreparedStatement stm2 = co2.prepareStatement(sql);){
+            stm2.setInt(1,num);
+            stm2.executeUpdate();
+        
+    }
+        
+
+}
 }
