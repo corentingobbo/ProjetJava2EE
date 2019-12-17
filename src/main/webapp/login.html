@@ -27,12 +27,6 @@ and open the template in the editor.
         <script>
             $(document).ready(// Exécuté à la fin du chargement de la page
                     function () {
-                        $.ajax({
-                        url: 'http://domaine.com',
-                        xhrFields: {
-                            withCredentials: true
-                        }
-                        });
 
                         $('#codeForm').submit(function(e){
                             e.preventDefault(); 
@@ -42,6 +36,7 @@ and open the template in the editor.
 
                         function connexion() {
                             console.log("jarrive dans connexion");
+                            
                             $.ajax({
                                 url: "Connexion",
                                 // serialize() renvoie tous les paramètres saisis dans le formulaire
@@ -50,8 +45,17 @@ and open the template in the editor.
                                 success: // La fonction qui traite les résultats
                                         function (result) {
                                             console.log(result);
-                                            window.location.replace("index.html");
-                                        },
+                                            
+                                            if(result.error == "Account not found"){
+                                                $('.error').css("display","block");
+                                                console.log("bon");
+                                            }else if(result.admin){
+                                                window.location.replace("adminDashboard.html");
+                                            }else{
+                                                window.location.replace("index.html");
+                                            }
+                                            
+                                        }
                             });
                         }
 
@@ -91,6 +95,7 @@ and open the template in the editor.
                             <input class="input" id="password" name="password" type="password">
                         </div>
                     </div>
+                    <p class="forget error" style="display: none;color: red;font-size: 15px;" href="#">Nom d'utilisateur ou mot de passe incorrect.</p>
                     <a class="forget" href="#">Mot de passe oublié ?</a>
                     <input type="submit" class="btn" value="Connexion">  
                     <a class="compte" href="#">Créer un <b>compte</b></a>

@@ -182,8 +182,7 @@ and open the template in the editor.
                                 Votre commande est en cours de le préparation. Merci de votre confiance, au plaisir de vous revoir.
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-danger btn-suppr" data-dismiss="modal">OK !</button>
                               </div>
                             </div>
                           </div>
@@ -217,12 +216,6 @@ and open the template in the editor.
 
     </div>  
     
-    <div style="margin-top: 20px;" class="commandez">
-        <br>
-                                    <p>Total : 3000 euros</p>
-                                    <button class="btn btn-danger" >Commandez !</button>
-                            <button class="btn btn-secondary" onclick="deletePanier();">Supprimez le panier</button>
-    </div>
 
     <script type="text/javascript">
         function deconnexion() {
@@ -240,18 +233,15 @@ and open the template in the editor.
             console.log("test");
             window.location.href = "comptePanier.html";
                         $.ajax({
-                url: "initPanier",
-                dataType: "json"
-                
-            });
+                                url: "initPanier",
+                                dataType: "json"
+
+                            });
             
             
         });
         
 
-            
-            
-        });
         
         function deletePanier(){
             console.log("test");

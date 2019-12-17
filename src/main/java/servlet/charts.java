@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Properties;
 import javax.servlet.ServletException;
@@ -19,15 +18,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.DAOCommande;
-import model.DAOcompte;
 import model.DataSourceFactory;
 
 /**
  *
  * @author Corentin
  */
-@WebServlet(name = "commandesClient", urlPatterns = {"/commandesClient"})
-public class produitCommandes extends HttpServlet {
+@WebServlet(name = "charts", urlPatterns = {"/charts"})
+public class charts extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,20 +38,14 @@ public class produitCommandes extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         DAOCommande dao = new DAOCommande(DataSourceFactory.getDataSource());
-
-
-
-        HttpSession session = request.getSession();
-
-        String mdp = (String) session.getAttribute("password");
         
         Properties result = new Properties();
-
         try {
 
-            result.put("mdp","testcompteCommande");
+            result.put("nbvente", dao.nBVentes());
+            result.put("venteParAnnees", dao.ventesParAnnee());
+
 
 
         } catch (Exception ex) {
@@ -72,7 +64,6 @@ public class produitCommandes extends HttpServlet {
             String gsonData = gson.toJson(result);
             out.println(gsonData);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

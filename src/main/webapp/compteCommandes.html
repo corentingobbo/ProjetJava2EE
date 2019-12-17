@@ -38,12 +38,11 @@ and open the template in the editor.
                          $.ajax({
                             url: "Session",
                             dataType: "json",
-                            error: function () {
-                                console.log("error");
+                            error: function (jqxhr) {
+                                window.location.href = "index.html";
                             },
                             success: // La fonction qui traite les résultats
                                     function (result) {
-                                        console.log(result);
                                         var account = result.account;
                                         $('.name').html(account.name);
 
@@ -52,7 +51,7 @@ and open the template in the editor.
 
 
                         $.ajax({
-                            url: "commandesClient",
+                            url: "commandesCli",
                             dataType: "json",
                             error: function (jqxhr) {
                                 console.log(jqxhr.reponseText);
@@ -64,7 +63,7 @@ and open the template in the editor.
                                         var s = "";
                                         
                                         for(var i in result.commande){
-                                            s= " <tbody><tr><th>"+result.commande[i].numero+"</th><td>"+result.commande[i].port+"</td><td>"+result.commande[i].adresse_livraison+"</td><td>"+result.commande[i].ville_livraison+"</td><td>"+result.commande[i].pays_livraison+"</td><td>"+result.commande[i].saisie_le+"</td><td>"+result.commande[i].envoye_le+"</td><td>"+result.commande[i].remise+"</td></tr></tbody>";
+                                            s= " <tbody><tr><th>"+result.commande[i].numero+"</th><td>"+result.commande[i].port+"</td><td>"+result.commande[i].adresse_livraison+"</td><td>"+result.commande[i].ville_livraison+"</td><td>"+result.commande[i].pays_livraison+"</td><td>"+result.commande[i].saisie_le+"</td><td>"+result.commande[i].envoye_le+"</td><td><button value='"+result.commande[i].numero+"' style='width:110px;heigt:50px;font-size:10px;'class='btn btn-danger'>Détails</button></td><</tr></tbody>";
                                             $('.commandes').append(s);
                                         }
                                         
@@ -73,23 +72,21 @@ and open the template in the editor.
                                     }
                         });
                         
-                        /***
                         $.ajax({
-                            url: "produitCommandes",
+                            url: "test",
                             dataType: "json",
                             error: function (jqxhr) {
                                 console.log(jqxhr.reponseText);
                             },
                             success: // La fonction qui traite les résultats
                                     function (result) {
-                                        console.log(result.commande);
-                                        
-                                        
+                                        console.log(result);
+                                  
 
 
                                     }
                         });
-                        */
+                        
 
 
 
@@ -172,8 +169,8 @@ and open the template in the editor.
                                 <div class="row">
 
                                     <!--Grid column-->
-                                    <div class="col-md-12 mb-md-5 mb-5">
-                                        <form id="contact-form" name="contact-form" action="mail.php" method="POST">
+                                    <div class="col-md-12 mb-lg-5 mb-5">
+                                        <form id="contact-form" name="contact-form" >
 
                                             <!--Grid row-->
                                             <div class="row">
@@ -193,7 +190,7 @@ and open the template in the editor.
                                                                     <th>Pays</th>
                                                                     <th>Saisie le</th>
                                                                     <th>Envoyé le</th>
-                                                                    <th>Remise</th>
+
                                                                 </tr>
                                                             </thead>
                                                             <!--Table head-->
@@ -209,14 +206,17 @@ and open the template in the editor.
 
                                             </div>
                                     </div>
-                                </div>
+                                
 
                             </section>
                             <!--Section: Contact v.2-->
 
                         </div>
-                        <div class="col-lg-5 img">
-                            <img src="imgs/deliver.svg">
+                        <div class="col-lg-5 col-md-12 container-fluid img">
+                            <img class="imgB" src="imgs/deliver.svg">
+                            <div class="row container-fluid panierList" style="display: none;">
+                                    
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -224,6 +224,7 @@ and open the template in the editor.
         </div>
 
     </div>  
+    
 
     <script type="text/javascript">
         function deconnexion() {
@@ -235,6 +236,37 @@ and open the template in the editor.
             });
 
         }
+        
+        
+        $(window).click(function (e) {
+                        var cible = e.target;
+                        var tab = $(cible).attr('class').split(" ");
+                        
+                        e.preventDefault();
+                        
+
+                            
+                        if (tab[0] == "btn") {                        
+                            var numCommande = $(cible).val();
+                            var req = "numCommande=" + numCommande;
+                            
+                            
+                            console.log(req);
+                            
+                            $.post("test", req)
+                                    .done(function (data, text, jqxhr) {
+                                        console.log(data);
+                                        
+                                        var s = "";
+                                       data.test.forEach(item => s+= "<div class='col-12 container panierLine'><div class='row'><div class='panierImg col-3'><img class='imgPa' src='imgs/phones/" + item.nom + ".png'></div><div class=' col-5'><div class='panierText'><p> nom : " +item.nom + " </p><p> marque : "+ item.marque +" </p></div></div><div class='panierText col-4'><p class='panierPrix'> "+item.prix_unitaire+" € </p></div></div></div>" );
+                                       
+                                       $('.imgB').css("display","none");
+                                       $('.panierList').css("display","block");
+                                       $('.panierList').html(s);
+                                        
+                                    });
+                        }
+                    });
     </script>
 
 </body>

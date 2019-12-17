@@ -55,14 +55,18 @@ public class Connexion extends HttpServlet {
                 Maria Anders
                 ALFKI
          */
-
         try {
-
-            if (dao.rechercheCompte(username, password).size() != 10) {
-                resultat.put("error", "Account not found");
+            if (username.equals("admin") && password.equals("admin")) {
+                resultat.put("admin", true);
             } else {
-                session.setAttribute("account", dao.rechercheCompte(username, password));
-                session.setAttribute("password", password);
+                        if (dao.rechercheCompte(username, password).size() != 10) {
+                        resultat.put("error", "Account not found");
+                        resultat.put("username",username);
+                        resultat.put("password",password);
+                    } else {
+                        session.setAttribute("account", dao.rechercheCompte(username, password));
+                        session.setAttribute("password", password);
+                    }
             }
 
             //if (dao.rechercheCompte(username, password) != null) {

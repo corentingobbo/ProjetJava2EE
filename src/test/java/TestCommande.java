@@ -5,6 +5,7 @@
  */
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import model.ClientEntity;
 import model.CommandeEntity;
 import model.DAOCommande;
@@ -20,11 +21,13 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class TestCommande {
-/*
+
+    /*
     private DAOCommande dao;
     private DAOcompte daoclient;
-    private ClientEntity client1;
+    private HashMap<String,String> client1;
     private DAOProduit daoprod;
+    private ClientEntity client2;
 
     
     public TestCommande() {
@@ -44,9 +47,10 @@ public class TestCommande {
         daoclient = new DAOcompte(DataSourceFactory.getDataSource());
         daoprod = new DAOProduit(DataSourceFactory.getDataSource());
         client1 = daoclient.rechercheCompte("Maria Anders", "ALFKI");
+        client2 = daoclient.rechercheCompte2("Maria Anders", "ALFKI");
         
         
-    /*    
+   
     }
     @Test
     //Creation d'une commande
@@ -59,25 +63,54 @@ public class TestCommande {
     public void testnewCommande() throws SQLException{
         int num = dao.numLigne();
         
-        dao.newCommande(client1);
+        dao.newCommande(client2);
         assertEquals(num+1, dao.numLigne());
+        dao.supprimerCommande(dao.numLigne());
     }
     
     @Test
     public void testAjouterLigne() throws SQLException{
         ProduitEntity produit=daoprod.rechercheProduitParticulier("iPhone 5");
-        dao.newCommande(client1);
+        dao.newCommande(client2);
         CommandeEntity com= dao.recupereCommandeParNum(dao.numLigne());
         dao.ajouterLigne(com, produit, 1);
         assertTrue(com.getPort()== produit.getPrix_unitaire());
         assertEquals(dao.numLigneParCommande(com), 1);
+        dao.supprimerCommande(dao.numLigne());
         
     }
     
     @Test
-    public void testRechercheCommandeParClient(){
+    public void testRechercheCommandeParClient() throws SQLException{
         
-        assertEquals(dao.rechercheCommmandeParClient(client1).size(), 4);
+        assertEquals(dao.rechercheCommmandeParClient("ALFKI").size(), 4);
+
+        
+        
+    }
+    @Test
+    public void testNumLigneParCommande() throws SQLException{
+        dao.newCommande(client2);
+        CommandeEntity com= dao.recupereCommandeParNum(dao.numLigne());
+        ProduitEntity produit=daoprod.rechercheProduitParticulier("iPhone 5");
+        dao.ajouterLigne(com, produit, 1);
+        assertEquals(dao.numLigneParCommande(com), 1);
+        dao.supprimerCommande(dao.numLigne());
+        
+        
+    } 
+    @Test
+    public void testSupprimerCommande() throws SQLException{
+        
+        dao.newCommande(client2);
+        CommandeEntity com= dao.recupereCommandeParNum(dao.numLigne());
+        ProduitEntity produit=daoprod.rechercheProduitParticulier("iPhone 5");
+        dao.ajouterLigne(com, produit, 1);
+        int num=dao.numLigne();
+        dao.supprimerCommande(dao.numLigne());
+        assertEquals(dao.numLigne(), num-1);
+        assertEquals(dao.numLigneParCommande(com), 0);
+        
         
     }
     
@@ -87,7 +120,7 @@ public class TestCommande {
     }
 
    
-
 */
+
 
 }
