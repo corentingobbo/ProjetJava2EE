@@ -234,12 +234,11 @@ public class DAOCommande {
     }
     
     public ArrayList<String> nbVentesParMarque(String marque){
-        String sql = "SELECT COUNT(*) FROM LIGNE inner join categorie on ligne.PRODUIT = categorie.CODE WHERE CODE = ?";
+        String sql = "SELECT COUNT(*) FROM LIGNE inner join categorie on ligne.PRODUIT = categorie.CODE WHERE LIBELLE = ?";
         ArrayList<String> nbLigne= new ArrayList<>(); 
-        
         try(Connection co = ds.getConnection();
             PreparedStatement stm = co.prepareStatement(sql);){
-            stm.setString(0, marque);
+            stm.setString(1, marque);
             try(ResultSet rs = stm.executeQuery()){
                 if(rs.next()){
                     nbLigne.add(marque);
@@ -276,12 +275,17 @@ public class DAOCommande {
     }
     
     public String ventesSurAnnee(String annee){
-        String sql = "SELECT COUNT(*) FROM COMMANDE WHERE SAISIE_LE BETWEEN '"+annee+"-01-01' AND '"+annee+"-12-31'";
-        String str = null;
+        String sql = "SELECT COUNT(*)  FROM COMMANDE WHERE SAISIE_LE BETWEEN '"+annee+"-01-01' AND '"+annee+"-12-31'";
+        String str = "";
         try(Connection co = ds.getConnection();
             PreparedStatement stm = co.prepareStatement(sql);){
+            
+            System.out.println(sql);
             try(ResultSet rs = stm.executeQuery()){
-                str = Integer.toString(rs.getInt(1));
+                if (rs.next()) {
+                    str = Integer.toString(rs.getInt(1));
+                }
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOCommande.class.getName()).log(Level.SEVERE, null, ex);

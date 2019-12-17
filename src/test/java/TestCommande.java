@@ -22,6 +22,7 @@ import static org.junit.Assert.*;
 
 public class TestCommande {
 
+    /*
     private DAOCommande dao;
     private DAOcompte daoclient;
     private HashMap<String,String> client1;
@@ -119,7 +120,7 @@ public class TestCommande {
     }
 
    
-
+*/
 
 
 }

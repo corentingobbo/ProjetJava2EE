@@ -91,7 +91,7 @@ and open the template in the editor.
                         <a href="#">Messagerie</a>
                     </li>
                     <li>
-                        <a href="#">Déconnexion</a>
+                        <a href="index.html">Déconnexion</a>
                     </li>
                 </ul>
             </nav>
@@ -105,9 +105,13 @@ and open the template in the editor.
 
                             <!--Section: Contact v.2-->
                             <section class="mb-4">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-danger" id="venteMarque">Ventes par marques</button>
+                                    <button type="button" class="btn btn-danger" id="venteAnnees">Ventes par années</button>
+                                </div>
 
                                 <!--Section heading-->
-                                <h2 class="h1-responsive font-weight-bold text-center my-4">Vos marques qui vendent le mieux</h2>
+                                <h2 class="h1-responsive font-weight-bold text-center my-4 venteParMarque">Vos marques qui vendent le mieux</h2>
                                 <!--Section description-->
 
                                 <div class="row">
@@ -119,7 +123,12 @@ and open the template in the editor.
                                             <!--Grid row-->
                                             <div class="row">
 
-                                                <canvas id="pieChart"></canvas>
+                                                <canvas class="venteParMarque" id="pieChart"></canvas>
+
+                                                <h2 style="display: none;padding-top: 50px;top: 50px;margin-top: 150px;margin-left: 150px;" class="venteParAnnees h1-responsive font-weight-bold text-center my-4">Vos plus belles années</h2>
+
+                                                <canvas class="venteParAnnees" id="myChart" style="display: none;margin-top: 50px;margin-left: 150px;max-width: 500px;"></canvas>
+
 
 
                                             </div>
@@ -142,11 +151,76 @@ and open the template in the editor.
 
     <script type="text/javascript">
 
+        var nbVente = [];
+        var annees = [];
+
+
+
         $.ajax({
-            url: "initPanier",
+            url: "charts",
             dataType: "json",
             success: // La fonction qui traite les résultats
                     function (result) {
+
+                        console.log(result);
+                        nbVente = result.nbvente;
+                        annees = result.venteParAnnees;
+
+                        var ctxP = document.getElementById("pieChart").getContext('2d');
+                        var myPieChart = new Chart(ctxP, {
+                            type: 'pie',
+                            data: {
+                                labels: ["Sony", "Apple", "Xiaomi", "Oppo", "Oneplus", "Samsung", "Huawei", "Nokia", "Asus"],
+                                datasets: [{
+                                        data: [nbVente.Sony, nbVente.Apple, nbVente.Xiaomi, nbVente.Oppo, nbVente.OnePlus, nbVente.Samsung, nbVente.Huawei, nbVente.Nokia, nbVente.Asus],
+                                        backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#405360", "#F0464A", "#40BFBD", "#F0B45C", "#909FB1", "#405360", ],
+                                        hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616074", "#F05A5E", "#50D3D1", "#F0C870", "#A0B3C5", "#6F6774"]
+                                    }]
+                            },
+                            options: {
+                                responsive: true
+                            }
+                        });
+
+
+
+                        var ctx = document.getElementById("myChart").getContext('2d');
+                        var myChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: ["1994", "1995", "1996"],
+                                datasets: [{
+                                        label: 'nb de ventes',
+                                        data: [annees["1994"], annees["1995"], annees["1996"]],
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            'rgba(255, 206, 86, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(255,99,132,1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 159, 64, 1)'
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                            },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                            ticks: {
+                                                beginAtZero: true
+                                            }
+                                        }]
+                                }
+                            }
+                        });
 
 
 
@@ -154,22 +228,29 @@ and open the template in the editor.
                     }
         });
 
-        //pie
-        var ctxP = document.getElementById("pieChart").getContext('2d');
-        var myPieChart = new Chart(ctxP, {
-            type: 'pie',
-            data: {
-                labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
-                datasets: [{
-                        data: [300, 50, 100, 40, 120],
-                        backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
-                        hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
-                    }]
-            },
-            options: {
-                responsive: true
-            }
+
+        $('#venteMarque').click(function (e) {
+            e.preventDefault();
+            $('.venteParAnnees').css("display", "none");
+            $('.venteParMarque').css("display", "block");
+            console.log($('.venteParMarque'));
+            console.log($('.venteParAnnees'));
         });
+
+        $('#venteAnnees').click(function (e) {
+            e.preventDefault();
+            $('.venteParMarque').css("display", "none");
+            $('.venteParAnnees').css("display", "block");
+        });
+
+
+
+
+        console.log(nbVente);
+
+        //pie
+
+
     </script>
 
 </body>

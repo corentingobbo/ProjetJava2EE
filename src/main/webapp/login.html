@@ -47,14 +47,15 @@ and open the template in the editor.
                                             console.log(result);
                                             
                                             if(result.error == "Account not found"){
-                                                alert(result.error);
+                                                $('.error').css("display","block");
+                                                console.log("bon");
                                             }else if(result.admin){
                                                 window.location.replace("adminDashboard.html");
                                             }else{
                                                 window.location.replace("index.html");
                                             }
                                             
-                                        },
+                                        }
                             });
                         }
 
@@ -94,6 +95,7 @@ and open the template in the editor.
                             <input class="input" id="password" name="password" type="password">
                         </div>
                     </div>
+                    <p class="forget error" style="display: none;color: red;font-size: 15px;" href="#">Nom d'utilisateur ou mot de passe incorrect.</p>
                     <a class="forget" href="#">Mot de passe oublié ?</a>
                     <input type="submit" class="btn" value="Connexion">  
                     <a class="compte" href="#">Créer un <b>compte</b></a>

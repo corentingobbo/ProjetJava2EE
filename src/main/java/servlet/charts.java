@@ -5,13 +5,20 @@
  */
 package servlet;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collections;
+import java.util.Properties;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.DAOCommande;
+import model.DataSourceFactory;
 
 /**
  *
@@ -31,18 +38,31 @@ public class charts extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        DAOCommande dao = new DAOCommande(DataSourceFactory.getDataSource());
+        
+        Properties result = new Properties();
+        try {
+
+            result.put("nbvente", dao.nBVentes());
+            result.put("venteParAnnees", dao.ventesParAnnee());
+
+
+
+        } catch (Exception ex) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            result.put("records", Collections.EMPTY_LIST);
+            result.put("message", ex.getMessage());
+        }
+
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet charts</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet charts at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            // On spécifie que la servlet va générer du JSON
+            response.setContentType("application/json;charset=UTF-8");
+            // Générer du JSON
+            // Gson gson = new Gson();
+            // setPrettyPrinting pour que le JSON généré soit plus lisible
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String gsonData = gson.toJson(result);
+            out.println(gsonData);
         }
     }
 
