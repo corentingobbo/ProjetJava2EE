@@ -214,6 +214,22 @@ public class DAOCommande {
     //public void newCommande(HashMap<String, String> client1) {
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     //}
+    
+    public void supprimerCommande(int num) throws SQLException{
+        String sql = "DELETE FROM Ligne VHERE commande = ?";
+        try(Connection co = ds.getConnection();
+                PreparedStatement stm = co.prepareStatement(sql);){
+            stm.setInt(1,num);
+            stm.executeUpdate();
+        }
+        String sql2 = "DELETE FROM commande VHERE numero = ?";
+        try(Connection co2 = ds.getConnection();
+                PreparedStatement stm2 = co2.prepareStatement(sql);){
+            stm2.setInt(1,num);
+            stm2.executeUpdate();
+        
+    }
         
 
+}
 }
