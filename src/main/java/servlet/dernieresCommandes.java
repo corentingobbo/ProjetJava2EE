@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Properties;
 import javax.servlet.ServletException;
@@ -18,17 +17,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.ClientEntity;
-import model.DAOProduit;
-import model.DAOcompte;
+import model.DAOCommande;
 import model.DataSourceFactory;
 
 /**
  *
  * @author Corentin
  */
-@WebServlet(name = "Connexion", urlPatterns = {"/Connexion"})
-public class Connexion extends HttpServlet {
+@WebServlet(name = "dernieresCommandes", urlPatterns = {"/dernieresCommandes"})
+public class dernieresCommandes extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,43 +38,25 @@ public class Connexion extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        DAOCommande dao = new DAOCommande(DataSourceFactory.getDataSource());
 
-        DAOcompte dao = new DAOcompte(DataSourceFactory.getDataSource());
-        // Properties est une Map<clé, valeur> pratique pour générer du JSON
-        Properties resultat = new Properties();
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+
 
         HttpSession session = request.getSession();
-        session.setAttribute("username", username);
 
-        /*
-                Maria Anders
-                ALFKI
-         */
+        String mdp = (String) session.getAttribute("password");
+        
+        Properties result = new Properties();
         try {
-            if (username.equals("admin") && password.equals("admin")) {
-                resultat.put("admin", true);
-            } else {
-                        if (dao.rechercheCompte(username, password).size() != 10) {
-                        resultat.put("error", "Account not found");
-                        resultat.put("username",username);
-                        resultat.put("password",password);
-                    } else {
-                        session.setAttribute("account", dao.rechercheCompte(username, password));
-                        session.setAttribute("password", password);
-                    }
-            }
 
-            //if (dao.rechercheCompte(username, password) != null) {
-            //    resultat.put("test", dao.rechercheCompte(username, password));
-            //}else{
-            //  resultat.put("test", "oupsi");
-            //}
+            result.put("commande", dao.dernieresCommandes());
+
+
+
         } catch (Exception ex) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resultat.put("records", Collections.EMPTY_LIST);
-            resultat.put("message", ex.getMessage());
+            result.put("records", Collections.EMPTY_LIST);
+            result.put("message", ex.getMessage());
         }
 
         try (PrintWriter out = response.getWriter()) {
@@ -87,7 +66,7 @@ public class Connexion extends HttpServlet {
             // Gson gson = new Gson();
             // setPrettyPrinting pour que le JSON généré soit plus lisible
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String gsonData = gson.toJson(resultat);
+            String gsonData = gson.toJson(result);
             out.println(gsonData);
         }
     }

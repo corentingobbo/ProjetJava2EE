@@ -107,7 +107,7 @@ and open the template in the editor.
                             <section class="mb-4">
 
                                 <!--Section heading-->
-                                <h2 class="h1-responsive font-weight-bold text-center my-4">Les dernieres commandes</h2>
+                                <h2 class="h1-responsive font-weight-bold text-center my-4">Vos marques qui vendent le mieux</h2>
                                 <!--Section description-->
 
                                 <div class="row">
@@ -120,6 +120,7 @@ and open the template in the editor.
                                             <div class="row">
 
                                                 <canvas id="pieChart"></canvas>
+
 
                                             </div>
                                     </div>
@@ -140,6 +141,19 @@ and open the template in the editor.
     </div>  
 
     <script type="text/javascript">
+
+        $.ajax({
+            url: "initPanier",
+            dataType: "json",
+            success: // La fonction qui traite les résultats
+                    function (result) {
+
+
+
+
+                    }
+        });
+
         //pie
         var ctxP = document.getElementById("pieChart").getContext('2d');
         var myPieChart = new Chart(ctxP, {

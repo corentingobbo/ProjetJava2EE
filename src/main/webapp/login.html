@@ -45,7 +45,15 @@ and open the template in the editor.
                                 success: // La fonction qui traite les résultats
                                         function (result) {
                                             console.log(result);
-                                            window.location.replace("index.html");
+                                            
+                                            if(result.error == "Account not found"){
+                                                alert(result.error);
+                                            }else if(result.admin){
+                                                window.location.replace("adminDashboard.html");
+                                            }else{
+                                                window.location.replace("index.html");
+                                            }
+                                            
                                         },
                             });
                         }
