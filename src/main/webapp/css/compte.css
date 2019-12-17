@@ -1,6 +1,6 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
-html, body {margin: 0; height: 100%; overflow: hidden}
+html, body {margin: 0; height: 100%; overflow: auto}
 
 .wrapper {
     display: flex;
@@ -167,6 +167,14 @@ ul ul a {
     transform: translate(-50%,-50%) scale(0.4);
 }
 
+.imgPa{
+    position: absolute;
+
+    margin-left: 80px;
+    margin-top: 75px;
+    transform: translate(-50%,-50%) scale(0.3);
+}
+
 .panierText{
     margin-top: 35px;
 }
@@ -176,5 +184,14 @@ ul ul a {
     font-size: 20px;
     text-align: center;
     margin-top: 20px;
+}
+
+.popup{
+    position: fixed;
+    margin: 0 auto;
+    height: 500px;
+    width: 800px;
+    background: red;
+    border-radius: 30px;
 }
 

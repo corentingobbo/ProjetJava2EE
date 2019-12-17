@@ -119,46 +119,7 @@ and open the template in the editor.
                                             <!--Grid row-->
                                             <div class="row">
 
-                                                <div id="tab-commande">
-                                                    <div class="table-responsive">
-                                                        <!--Table-->
-                                                        <table class="table table-striped">
-
-                                                            <!--Table head-->
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>#</th>
-                                                                    <th>Produit</th>
-                                                                    <th>Saisie</th>
-                                                                    <th>Envoyé</th>
-                                                                    <th>Port</th>
-                                                                    <th>Adresse</th>
-                                                                    <th>Ville</th>
-                                                                    <th>Remise</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <!--Table head-->
-
-                                                            <!--Table body-->
-                                                            <tbody>
-                                                                <tr>
-                                                                    <th>1</th>
-                                                                    <td>Iphone xs</td>
-                                                                    <td>23/1/2019</td>
-                                                                    <td>25/1/2019 </td>
-                                                                    <td>23.00€</td>
-                                                                    <td>210 Rue de la République</td>
-                                                                    <td>Paris</td>
-                                                                    <td>0%</td>
-                                                                </tr>
-
-                                                            </tbody>
-                                                            <!--Table body-->
-                                                        </table>
-                                                        <!--Table-->
-                                                    </div>
-
-                                                </div>
+                                                <canvas id="pieChart"></canvas>
 
                                             </div>
                                     </div>
@@ -177,6 +138,25 @@ and open the template in the editor.
         </div>
 
     </div>  
+
+    <script type="text/javascript">
+        //pie
+        var ctxP = document.getElementById("pieChart").getContext('2d');
+        var myPieChart = new Chart(ctxP, {
+            type: 'pie',
+            data: {
+                labels: ["Red", "Green", "Yellow", "Grey", "Dark Grey"],
+                datasets: [{
+                        data: [300, 50, 100, 40, 120],
+                        backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+                        hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+                    }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    </script>
 
 </body>
 </html>

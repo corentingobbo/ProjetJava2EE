@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,13 +22,14 @@ import javax.servlet.http.HttpSession;
 import model.DAOCommande;
 import model.DAOcompte;
 import model.DataSourceFactory;
+import model.ProduitEntity;
 
 /**
  *
  * @author Corentin
  */
-@WebServlet(name = "commandesClient", urlPatterns = {"/commandesClient"})
-public class produitCommandes extends HttpServlet {
+@WebServlet(name = "test", urlPatterns = {"/test"})
+public class test extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,11 +51,17 @@ public class produitCommandes extends HttpServlet {
 
         String mdp = (String) session.getAttribute("password");
         
+        String numero = request.getParameter("numCommande");
+        int numCommande = Integer.parseInt(numero);
         Properties result = new Properties();
-
+        List<ProduitEntity> l =  dao.rechercheToutesCommandesParNumCommande(numCommande);
         try {
 
-            result.put("mdp","testcompteCommande");
+            result.put("test",l);
+
+
+
+
 
 
         } catch (Exception ex) {
